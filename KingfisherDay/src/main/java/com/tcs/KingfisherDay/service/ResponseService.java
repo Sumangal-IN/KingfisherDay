@@ -6,6 +6,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tcs.KingfisherDay.model.Question;
 import com.tcs.KingfisherDay.model.Response;
 import com.tcs.KingfisherDay.repository.ResponseRepository;
 
@@ -17,5 +18,9 @@ public class ResponseService {
 
 	public void saveResponse(String questionID, String employeeEmail, String option) {
 		responseRepository.save(new Response(questionID, employeeEmail, option, new Timestamp(new Date().getTime())));
+	}
+
+	public Response getWinner(String questionID, Question question) {
+		return responseRepository.findTopByQuestionIDAndOptionOrderByTimeStamp(questionID, question.getOptionCorrect());
 	}
 }

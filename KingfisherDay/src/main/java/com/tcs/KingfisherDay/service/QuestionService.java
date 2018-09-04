@@ -28,7 +28,13 @@ public class QuestionService {
 		List<Question> activeQuestions = questionRepository.findByCurrent(true);
 		if (activeQuestions.isEmpty())
 			return null;
-		else
-			return activeQuestions.get(0);
+		return activeQuestions.get(0);
+	}
+
+	public Question getQuestion(String questionID) {
+		List<Question> questions = questionRepository.findByQuestionID(questionID);
+		if (questions.isEmpty())
+			return null;
+		return questions.get(0);
 	}
 }

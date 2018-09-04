@@ -22,6 +22,8 @@ public class Question {
 	private String optionC;
 	@Column(name = "OPTION_D", nullable = false)
 	private String optionD;
+	@Column(name = "OPTION_CORRECT", nullable = false)
+	private String optionCorrect;
 	@Column(name = "CURRENT", nullable = false)
 	private boolean current;
 
@@ -30,7 +32,7 @@ public class Question {
 	}
 
 	public Question(String questionID, String questionText, String optionA, String optionB, String optionC,
-			String optionD, boolean current) {
+			String optionD, String optionCorrect, boolean current) {
 		super();
 		this.questionID = questionID;
 		this.questionText = questionText;
@@ -38,6 +40,7 @@ public class Question {
 		this.optionB = optionB;
 		this.optionC = optionC;
 		this.optionD = optionD;
+		this.optionCorrect = optionCorrect;
 		this.current = current;
 	}
 
@@ -97,11 +100,19 @@ public class Question {
 		this.current = current;
 	}
 
+	public String getOptionCorrect() {
+		return optionCorrect;
+	}
+
+	public void setOptionCorrect(String optionCorrect) {
+		this.optionCorrect = optionCorrect;
+	}
+
 	@Override
 	public String toString() {
 		return "Question [questionID=" + questionID + ", questionText=" + questionText + ", optionA=" + optionA
-				+ ", optionB=" + optionB + ", optionC=" + optionC + ", optionD=" + optionD + ", current=" + current
-				+ "]";
+				+ ", optionB=" + optionB + ", optionC=" + optionC + ", optionD=" + optionD + ", optionCorrect="
+				+ optionCorrect + ", current=" + current + "]";
 	}
 
 }

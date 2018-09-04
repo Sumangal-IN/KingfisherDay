@@ -1,5 +1,5 @@
-insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,current) values('1','question 1','option A','option B','option C','option D',false);
-insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,current) values('2','question 2','option A','option B','option C','option D',false);
-insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,current) values('3','question 3','option A','option B','option C','option D',false);
-insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,current) values('4','question 4','option A','option B','option C','option D',false);
-insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,current) values('5','question 5','option A','option B','option C','option D',false);
+insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('1','question 1','option A','option B','option C','option D','A',false);
+insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('2','question 2','option A','option B','option C','option D','B',false);
+insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('3','question 3','option A','option B','option C','option D','B',false);
+insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('4','question 4','option A','option B','option C','option D','A',false);
+insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('5','question 5','option A','option B','option C','option D','B',false);

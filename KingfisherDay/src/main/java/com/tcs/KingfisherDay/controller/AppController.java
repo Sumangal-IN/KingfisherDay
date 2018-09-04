@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.tcs.KingfisherDay.model.Question;
+import com.tcs.KingfisherDay.model.Response;
 import com.tcs.KingfisherDay.service.QuestionService;
 import com.tcs.KingfisherDay.service.ResponseService;
 
@@ -38,10 +39,11 @@ public class AppController {
 		responseService.saveResponse(questionID, employeeEmail, option);
 	}
 
-	@RequestMapping(value = "/getStat/{questionID}/", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/getResult/{questionID}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public void getStat(@PathVariable("questionID") String questionID) {
-		
+	public Response getResult(@PathVariable("questionID") String questionID) {
+		Response winnerResponse = responseService.getWinner(questionID, questionService.getQuestion(questionID));
+		return winnerResponse;
 	}
 
 }
