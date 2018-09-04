@@ -1,9 +1,12 @@
-package com.tcs.KingfisherDay;
+package com.tcs.KingfisherDay.service;
 
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.tcs.KingfisherDay.model.Question;
+import com.tcs.KingfisherDay.repository.QuestionRepository;
 
 @Service
 public class QuestionService {

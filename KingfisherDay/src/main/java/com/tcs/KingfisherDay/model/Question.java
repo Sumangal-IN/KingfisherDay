@@ -1,4 +1,4 @@
-package com.tcs.KingfisherDay;
+package com.tcs.KingfisherDay.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

@@ -1,10 +1,13 @@
-package com.tcs.KingfisherDay;
+package com.tcs.KingfisherDay.service;
 
 import java.sql.Timestamp;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.tcs.KingfisherDay.model.Response;
+import com.tcs.KingfisherDay.repository.ResponseRepository;
 
 @Service
 public class ResponseService {

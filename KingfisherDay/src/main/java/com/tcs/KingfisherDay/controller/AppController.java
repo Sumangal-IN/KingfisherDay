@@ -1,4 +1,4 @@
-package com.tcs.KingfisherDay;
+package com.tcs.KingfisherDay.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -6,6 +6,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.tcs.KingfisherDay.model.Question;
+import com.tcs.KingfisherDay.service.QuestionService;
+import com.tcs.KingfisherDay.service.ResponseService;
 
 @RestController
 public class AppController {
