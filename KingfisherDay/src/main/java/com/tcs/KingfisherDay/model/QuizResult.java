@@ -2,12 +2,12 @@ package com.tcs.KingfisherDay.model;
 
 public class QuizResult {
 	private OptionPercentage optionPercentage;
-	private Associate winner;
+	private Employee winner;
 
 	public QuizResult() {
 	}
 
-	public QuizResult(OptionPercentage optionPercentage, Associate winner) {
+	public QuizResult(OptionPercentage optionPercentage, Employee winner) {
 		super();
 		this.optionPercentage = optionPercentage;
 		this.winner = winner;
@@ -21,11 +21,11 @@ public class QuizResult {
 		this.optionPercentage = optionPercentage;
 	}
 
-	public Associate getWinner() {
+	public Employee getWinner() {
 		return winner;
 	}
 
-	public void setWinner(Associate winner) {
+	public void setWinner(Employee winner) {
 		this.winner = winner;
 	}
 
