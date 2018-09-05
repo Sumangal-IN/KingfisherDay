@@ -20,19 +20,22 @@ public class Employee {
 	private FoodPreference foodPreference;
 	@Column(name = "PHOTO_PATH", nullable = false)
 	private String photoPath;
+	@Column(name = "PASSWORD", nullable = false)
+	private String password;
 
 	public Employee() {
 
 	}
 
 	public Employee(long employeeID, String employeeName, String email, FoodPreference foodPreference,
-			String photoPath) {
+			String photoPath, String password) {
 		super();
 		this.employeeID = employeeID;
 		this.employeeName = employeeName;
 		this.email = email;
 		this.foodPreference = foodPreference;
 		this.photoPath = photoPath;
+		this.password=password;
 	}
 
 	public long getEmployeeID() {
@@ -73,6 +76,14 @@ public class Employee {
 
 	public void setPhotoPath(String photoPath) {
 		this.photoPath = photoPath;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	@Override
