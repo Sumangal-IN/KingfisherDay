@@ -1,5 +1,7 @@
 package com.tcs.KingfisherDay.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +23,13 @@ public class UserService {
 
 	public boolean isValidLogin(String emailID, String password) {
 		return !employeeRepository.findByEmailIDAndPassword(emailID, password).isEmpty();
+	}
+
+	public Employee findByEmailID(String emailID) {
+		List<Employee> employeeList = employeeRepository.findByEmailID(emailID);
+		if (employeeList.isEmpty())
+			return null;
+		else
+			return employeeList.get(0);
 	}
 }

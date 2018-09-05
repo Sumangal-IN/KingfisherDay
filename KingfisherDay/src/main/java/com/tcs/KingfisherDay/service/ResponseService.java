@@ -6,6 +6,7 @@ import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tcs.KingfisherDay.model.OptionPercentage;
 import com.tcs.KingfisherDay.model.Question;
 import com.tcs.KingfisherDay.model.Response;
 import com.tcs.KingfisherDay.repository.ResponseRepository;
@@ -24,4 +25,19 @@ public class ResponseService {
 	public Response getWinner(String questionID, Question question) {
 		return responseRepository.findTopByQuestionIDAndOptionOrderByTimeStamp(questionID, question.getOptionCorrect());
 	}
+
+	public OptionPercentage getPercentages(String questionID) {
+		long total = responseRepository.count();
+		if (total == 0)
+			return new OptionPercentage(0, 0, 0, 0);
+
+		long totalA = responseRepository.countByOptionAndQuestionID("A", questionID);
+		long totalB = responseRepository.countByOptionAndQuestionID("B", questionID);
+		long totalC = responseRepository.countByOptionAndQuestionID("C", questionID);
+		long totalD = responseRepository.countByOptionAndQuestionID("D", questionID);
+		total = totalA + totalB + totalC + totalD;
+		return new OptionPercentage((double) totalA / (double) total, (double) totalB / total, (double) totalC / total,
+				(double) totalD / total);
+	}
+
 }
