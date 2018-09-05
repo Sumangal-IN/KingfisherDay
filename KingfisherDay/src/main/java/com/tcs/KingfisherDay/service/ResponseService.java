@@ -16,8 +16,9 @@ public class ResponseService {
 	@Autowired
 	ResponseRepository responseRepository;
 
-	public void saveResponse(String questionID, String employeeEmail, String option) {
-		responseRepository.save(new Response(questionID, employeeEmail, option, new Timestamp(new Date().getTime())));
+	public Response saveResponse(String questionID, String employeeEmail, String option) {
+		return responseRepository
+				.save(new Response(questionID, employeeEmail, option, new Timestamp(new Date().getTime())));
 	}
 
 	public Response getWinner(String questionID, Question question) {

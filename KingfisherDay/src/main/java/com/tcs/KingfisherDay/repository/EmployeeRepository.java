@@ -9,8 +9,7 @@ import com.tcs.KingfisherDay.model.Employee;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee, String> {
+	List<Employee> findByEmailID(String emailID);
 
-	List<Employee> findByEmployeeID(final long employeeID);
-	
-	List<Employee> findByEmail(final String pEmpEmailId);
+	List<Employee> findByEmailIDAndPassword(String emailID, String password);
 }

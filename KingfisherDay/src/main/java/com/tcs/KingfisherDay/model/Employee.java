@@ -8,18 +8,18 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "EMPLOYEE")
 public class Employee {
-	
+
+	@Column(name = "FIRST_NAME", nullable = false)
+	private String firstName;
+	@Column(name = "LAST_NAME", nullable = false)
+	private String lastName;
 	@Id
-	@Column(name = "EMPLOYEE_ID", nullable = false)
-	private long employeeID;
-	@Column(name = "EMAIL_NAME", nullable = false)
-	private String employeeName;
 	@Column(name = "EMAIL_ID", nullable = false)
-	private String email;
+	private String emailID;
 	@Column(name = "FOOD_PREFERENCE", nullable = false)
 	private FoodPreference foodPreference;
-	@Column(name = "PHOTO_PATH", nullable = false)
-	private String photoPath;
+	@Column(name = "PHOTO_FILE", nullable = false)
+	private String photoFile;
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 
@@ -27,39 +27,39 @@ public class Employee {
 
 	}
 
-	public Employee(long employeeID, String employeeName, String email, FoodPreference foodPreference,
-			String photoPath, String password) {
+	public Employee(String firstName, String lastName, String emailID, FoodPreference foodPreference, String photoFile,
+			String password) {
 		super();
-		this.employeeID = employeeID;
-		this.employeeName = employeeName;
-		this.email = email;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.emailID = emailID;
 		this.foodPreference = foodPreference;
-		this.photoPath = photoPath;
-		this.password=password;
+		this.photoFile = photoFile;
+		this.password = password;
 	}
 
-	public long getEmployeeID() {
-		return employeeID;
+	public String getFirstName() {
+		return firstName;
 	}
 
-	public void setEmployeeID(long employeeID) {
-		this.employeeID = employeeID;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
 
-	public String getEmployeeName() {
-		return employeeName;
+	public String getLastName() {
+		return lastName;
 	}
 
-	public void setEmployeeName(String employeeName) {
-		this.employeeName = employeeName;
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
 	}
 
-	public String getEmail() {
-		return email;
+	public String getEmailID() {
+		return emailID;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmailID(String emailID) {
+		this.emailID = emailID;
 	}
 
 	public FoodPreference getFoodPreference() {
@@ -70,12 +70,12 @@ public class Employee {
 		this.foodPreference = foodPreference;
 	}
 
-	public String getPhotoPath() {
-		return photoPath;
+	public String getPhotoFile() {
+		return photoFile;
 	}
 
-	public void setPhotoPath(String photoPath) {
-		this.photoPath = photoPath;
+	public void setPhotoPath(String photoFile) {
+		this.photoFile = photoFile;
 	}
 
 	public String getPassword() {
@@ -88,9 +88,8 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [employeeID=" + employeeID + ", employeeName=" + employeeName + ", email=" + email
-				+ ", foodPreference=" + foodPreference + ", photoPath=" + photoPath + "]";
+		return "Employee [firstName=" + firstName + ", lastName=" + lastName + ", email=" + emailID
+				+ ", foodPreference=" + foodPreference + ", photoPath=" + photoFile + ", password=" + password + "]";
 	}
-	
 
 }
