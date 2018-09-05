@@ -1,9 +1,6 @@
 package com.tcs.KingfisherDay.controller;
 
-import java.util.Random;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -12,24 +9,24 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.tcs.KingfisherDay.model.Employee;
-import com.tcs.KingfisherDay.model.FoodPreference;
+import com.tcs.KingfisherDay.model.OptionPercentage;
 import com.tcs.KingfisherDay.model.Question;
+import com.tcs.KingfisherDay.model.QuizResult;
 import com.tcs.KingfisherDay.model.Response;
 import com.tcs.KingfisherDay.service.QuestionService;
-import com.tcs.KingfisherDay.service.RegistrationService;
 import com.tcs.KingfisherDay.service.ResponseService;
+import com.tcs.KingfisherDay.service.UserService;
 
 @RestController
 @SessionAttributes("name")
-public class AppController {
+public class QuestionController {
 
 	@Autowired
 	QuestionService questionService;
 	@Autowired
 	ResponseService responseService;
 	@Autowired
-	RegistrationService registrationService;
-
+	UserService userService;
 
 	@RequestMapping(value = "/setCurrentQuestion/{questionID}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -45,35 +42,18 @@ public class AppController {
 
 	@RequestMapping(value = "/saveResponse/{questionID}/{employeeEmail}/{option}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public void saveResponse(@PathVariable("questionID") String questionID,
+	public Response saveResponse(@PathVariable("questionID") String questionID,
 			@PathVariable("employeeEmail") String employeeEmail, @PathVariable("option") String option) {
-		responseService.saveResponse(questionID, employeeEmail, option);
+		return responseService.saveResponse(questionID, employeeEmail, option);
 	}
 
 	@RequestMapping(value = "/getResult/{questionID}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Response getResult(@PathVariable("questionID") String questionID) {
+	public QuizResult getResult(@PathVariable("questionID") String questionID) {
 		Response winnerResponse = responseService.getWinner(questionID, questionService.getQuestion(questionID));
-		return winnerResponse;
+		Employee winner = userService.findByEmailID(winnerResponse.getEmployeeEmail());
+		OptionPercentage optionPercentage = responseService.getPercentages(questionID);
+		return new QuizResult(optionPercentage, winnerResponse, winner);
 	}
 
-	@RequestMapping(value = "/registerEmployee/{employeeName}/{employeeEmail}/{foodPreference}/{photoPath}/{password}", 
-			method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public void registerEmployee(
-			@PathVariable("employeeName") String employeeName,
-			@PathVariable("employeeEmail") String employeeEmail, 
-			@PathVariable("foodPreference") String foodPreference,
-			@PathVariable("photoPath") String photoPath,
-			@PathVariable("password") String password) {
-		if (!(StringUtils.isEmpty(employeeName) && StringUtils.isEmpty(employeeEmail)
-				&& StringUtils.isEmpty(foodPreference))) {
-			Employee employee = new Employee(Math.abs(new Random().nextInt(2222222)), employeeName, employeeEmail,
-					FoodPreference.valueOf(foodPreference), photoPath, password);
-			System.out.println(employee);
-			registrationService.registerEmployee(employee);
-		}
-
-	}
-	
 }
