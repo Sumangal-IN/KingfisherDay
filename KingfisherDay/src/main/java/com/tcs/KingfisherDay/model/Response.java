@@ -8,6 +8,8 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
+import com.tcs.KingfisherDay.model.key.ResponseKey;
+
 @Entity
 @Table(name = "RESPONSE")
 @IdClass(ResponseKey.class)

@@ -5,6 +5,8 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.tcs.KingfisherDay.model.enums.FoodPreference;
+
 @Entity
 @Table(name = "EMPLOYEE")
 public class Employee {
