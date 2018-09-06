@@ -32,4 +32,9 @@ public class UserService {
 		else
 			return employeeList.get(0);
 	}
+
+	public Boolean isValidEmployee(String emailID, String password) {
+		List<Employee> employeeList = employeeRepository.findByEmailIDAndPassword(emailID, password);
+		return !employeeList.isEmpty();
+	}
 }

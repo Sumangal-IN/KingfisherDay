@@ -22,7 +22,6 @@ public class UserController {
 	@Autowired
 	UserService userService;
 
-	// Save the uploaded file to this folder
 	private static String UPLOAD_FOLDER = "C://img//";
 
 	@RequestMapping(value = "/registerEmployee/{firstName}/{lastName}/{emailID}/{foodPreference}/{password}", method = RequestMethod.POST, produces = "application/json")
@@ -46,4 +45,11 @@ public class UserController {
 		}
 		return userService.register(firstName, lastName, emailID, foodPreference, filename, password);
 	}
+
+	@RequestMapping(value = "/isValidEmployee/{emailID}/{password}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Boolean isValidEmployee(@PathVariable("emailID") String emailID, @PathVariable("password") String password) {
+		return userService.isValidEmployee(emailID, password);
+	}
+	
 }

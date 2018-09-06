@@ -13,3 +13,12 @@ create table FLAG(
 	KEY VARCHAR2(100),
 	VALUE BOOLEAN
 );
+
+create table EMPLOYEE(
+	first_name VARCHAR2(100),
+	last_name VARCHAR2(100),
+	email_id VARCHAR2(100),
+	food_preference INTEGER,
+	photo_file VARCHAR2(100),
+	password VARCHAR2(100)
+);
