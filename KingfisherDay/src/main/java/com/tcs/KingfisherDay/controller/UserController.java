@@ -24,10 +24,9 @@ public class UserController {
 
 	private static String UPLOAD_FOLDER = "C://img//";
 
-	@RequestMapping(value = "/registerEmployee/{firstName}/{lastName}/{emailID}/{foodPreference}/{password}", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/registerEmployee/{name}/{emailID}/{foodPreference}/{password}", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public Employee registerEmployee(@PathVariable("firstName") String firstName,
-			@PathVariable("lastName") String lastName, @PathVariable("emailID") String emailID,
+	public Employee registerEmployee(@PathVariable("name") String name, @PathVariable("emailID") String emailID,
 			@PathVariable("foodPreference") String foodPreference, @PathVariable("password") String password,
 			@RequestParam("photoFile") MultipartFile photoFile) {
 		System.out.println("Controller");
@@ -43,7 +42,7 @@ public class UserController {
 			e.printStackTrace();
 			return null;
 		}
-		return userService.register(firstName, lastName, emailID, foodPreference, filename, password);
+		return userService.register(name, emailID, foodPreference, filename, password);
 	}
 
 	@RequestMapping(value = "/isValidEmployee/{emailID}/{password}", method = RequestMethod.GET, produces = "application/json")

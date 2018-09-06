@@ -11,10 +11,8 @@ import com.tcs.KingfisherDay.model.enums.FoodPreference;
 @Table(name = "EMPLOYEE")
 public class Employee {
 
-	@Column(name = "FIRST_NAME", nullable = false)
-	private String firstName;
-	@Column(name = "LAST_NAME", nullable = false)
-	private String lastName;
+	@Column(name = "NAME", nullable = false)
+	private String name;
 	@Id
 	@Column(name = "EMAIL_ID", nullable = false)
 	private String emailID;
@@ -29,31 +27,21 @@ public class Employee {
 
 	}
 
-	public Employee(String firstName, String lastName, String emailID, FoodPreference foodPreference, String photoFile,
-			String password) {
+	public Employee(String name, String emailID, FoodPreference foodPreference, String photoFile, String password) {
 		super();
-		this.firstName = firstName;
-		this.lastName = lastName;
+		this.name = name;
 		this.emailID = emailID;
 		this.foodPreference = foodPreference;
 		this.photoFile = photoFile;
 		this.password = password;
 	}
 
-	public String getFirstName() {
-		return firstName;
+	public String getName() {
+		return name;
 	}
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLastName(String name) {
+		this.name = name;
 	}
 
 	public String getEmailID() {
@@ -90,8 +78,8 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [firstName=" + firstName + ", lastName=" + lastName + ", email=" + emailID
-				+ ", foodPreference=" + foodPreference + ", photoPath=" + photoFile + ", password=" + password + "]";
+		return "Employee [name=" + name + ", email=" + emailID + ", foodPreference=" + foodPreference + ", photoPath="
+				+ photoFile + ", password=" + password + "]";
 	}
 
 }

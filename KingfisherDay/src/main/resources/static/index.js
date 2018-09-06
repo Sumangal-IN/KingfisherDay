@@ -25,6 +25,7 @@ angular
 					var authKey = '130190AmlXD2ELBEmi581b5034';
 
 					$scope.showLoginPage = true;
+					$scope.foodPref = 'VEG';
 
 					$scope.gotoRegister = function() {
 						console.log('gotoRegister');
@@ -55,6 +56,13 @@ angular
 						}
 						$scope.showErrorEmptyPassword = false;
 
+						if ($scope.registerName == undefined
+								|| ($scope.registerName != undefined && !$scope.registerName == null)) {
+							$scope.showErrorEmptyName = true;
+							return;
+						}
+						$scope.showErrorEmptyName = false;
+
 						if ($scope.photoFile == undefined) {
 							$scope.showErrorNoPhotoSelected = true;
 							return;
@@ -77,25 +85,25 @@ angular
 						$scope.showErrorIncorrectMobile = false;
 
 						var otp = '1234';
-						// $http
-						// .get(
-						// 'http://api.msg91.com/api/sendhttp.php?authkey='+authKey+'&mobiles=91'+$scope.registerMobile+'&message='+otp+'&sender=KFDAY&route=4';)
-						// .then(
-						// function mySuccess(response) {
-						// var data = response.data;
-						// console.log(data);
-						// if (data) {
-						// $scope.showErrorIncorrectCredential = false;
-						// $scope.showLoginPage = false;
-						// } else {
-						// $scope.showErrorIncorrectCredential = true;
-						// }
-						// },
-						// function myError(response) {
-						// window
-						// .alert('Oops! Some error has occured!');
-						// console.log(response);
-						// });
+
+						var fd = new FormData();
+						fd.append('photoFile', $scope.photoFile);
+						$http.post(
+								URL + '/registerEmployee/'
+										+ $scope.registerName + '/'
+										+ $scope.registerEmail + '/'
+										+ $scope.foodPref + '/'
+										+ $scope.registerPassword, fd, {
+									transformRequest : angular.identity,
+									headers : {
+										'Content-Type' : undefined
+									}
+								}).then(function mySuccess(response) {
+							console.log(response);
+						}, function myError(response) {
+							window.alert('Oops! Some error has occured!');
+							console.log(response);
+						});
 					}
 
 					$scope.loginSubmit = function() {

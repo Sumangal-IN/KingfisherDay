@@ -15,9 +15,9 @@ public class UserService {
 	@Autowired
 	EmployeeRepository employeeRepository;
 
-	public Employee register(String firstName, String lastName, String emailID, String foodPreference, String photoFile,
+	public Employee register(String name, String emailID, String foodPreference, String photoFile,
 			String password) {
-		return employeeRepository.save(new Employee(firstName, lastName, emailID,
+		return employeeRepository.save(new Employee(name, emailID,
 				FoodPreference.valueOf(foodPreference), photoFile, password));
 	}
 

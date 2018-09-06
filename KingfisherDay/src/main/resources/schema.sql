@@ -15,8 +15,7 @@ create table FLAG(
 );
 
 create table EMPLOYEE(
-	first_name VARCHAR2(100),
-	last_name VARCHAR2(100),
+	name VARCHAR2(100),
 	email_id VARCHAR2(100),
 	food_preference INTEGER,
 	photo_file VARCHAR2(100),
