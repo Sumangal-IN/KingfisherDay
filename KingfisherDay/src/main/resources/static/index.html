@@ -30,7 +30,8 @@
 <body ng-app="kfApp">
 	<div class="container" ng-controller="kfController">
 
-		<nav class="navbar navbar-light bg-light justify-content-center">
+		<nav
+			class="navbar navbar-light bg-light justify-content-center header shadow-lg">
 			<a class="navbar-brand" href="#!"><strong>TCS Kingfisher
 					Day 2018</strong></a>
 		</nav>
@@ -130,13 +131,11 @@
 					<i class="fas fa-camera-retro mr-2 fa-2x"></i>
 				</div>
 				<div class="form-group input-group-sm mb-3 mr-1">
-
 					<div class="fileUpload btn btn-primary btn-sm">
 						<span ng-bind="uploadText"></span> <input type="file"
 							class="upload" file-upload
 							onchange="angular.element(this).scope().fileNameChanged()" />
 					</div>
-
 				</div>
 				<div class="form-group input-group-sm mb-3" ng-show="fileSelected">
 					<i class="far fa-check-circle fa-2x"></i>
@@ -206,15 +205,34 @@
 
 		<form class="form justify-content-center mt-5" ng-show="showMenuPage">
 			<div class="row justify-content-center">
-				<div class="form-group input-group-sm mb-3 mr-1">
-					<i class="fas fa-door-open fa-2x"></i>
-					<h5><strong>Comming soon..	</strong></h5>
+				<div class="menu_holder p-2">
+					<div class="row menu mt-2 p-2">
+						<div class="col-3">
+							<i class="fab fa-elementor fa-2x"></i>
+						</div>
+						<div class="col-9 menu_text">
+							<strong>Events</strong>
+						</div>
+					</div>
+					<div class="row menu mt-2 p-2">
+						<div class="col-9 menu_text">
+							<strong>Photograpy contest</strong>
+						</div>
+						<div class="col-3">
+							<i class="far fa-images fa-2x"></i>
+						</div>
+					</div>
+					<div class="row menu mt-2 p-2">
+						<div class="col-3">
+							<i class="far fa-question-circle fa-2x"></i>
+						</div>
+						<div class="col-9 menu_text">
+							<strong>Quiz</strong>
+						</div>
+					</div>
 				</div>
 			</div>
 		</form>
-
 	</div>
-
-
 </body>
 </html>

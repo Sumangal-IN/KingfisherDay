@@ -221,7 +221,7 @@ angular
 											if (data) {
 												$scope.showErrorIncorrectCredential = false;
 												$scope.showLoginPage = false;
-												$scope.showMenuPage=false;
+												$scope.showMenuPage=true;
 											} else {
 												$scope.showErrorIncorrectCredential = true;
 												return;
