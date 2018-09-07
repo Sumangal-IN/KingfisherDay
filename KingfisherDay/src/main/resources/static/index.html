@@ -1,6 +1,6 @@
 <html>
 <head>
-<title>Kingfisher Day 2018</title>
+<title>TCS Kingfisher Day 2018</title>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
 	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
 	crossorigin="anonymous"></script>
@@ -31,7 +31,7 @@
 	<div class="container" ng-controller="kfController">
 
 		<nav class="navbar navbar-light bg-light justify-content-center">
-			<a class="navbar-brand" href="#!"><strong>Kingfisher Day
+			<a class="navbar-brand" href="#!"><strong>TCS Kingfisher Day
 					2018</strong></a>
 		</nav>
 		<form class="form justify-content-center mt-5" ng-show="showLoginPage">
@@ -132,8 +132,8 @@
 				<div class="form-group input-group-sm mb-3 mr-1">
 
 					<div class="fileUpload btn btn-primary btn-sm">
-						<span ng-bind="uploadText"></span> <input
-							type="file" class="upload" file-upload
+						<span ng-bind="uploadText"></span> <input type="file"
+							class="upload" file-upload
 							onchange="angular.element(this).scope().fileNameChanged()" />
 					</div>
 
@@ -158,13 +158,13 @@
 				</div>
 			</div>
 			<div class="row justify-content-center" ng-show="showVerifyOTP">
-			<div class="form-group input-group-sm mb-3 mr-2">
+				<div class="form-group input-group-sm mb-3 mr-2">
 					<input class="form-control" type="text" placeholder="OTP * * * * *"
 						ng-model="registerOTP">
 				</div>
 				<div class="form-group input-group-sm mb-3 mr-2">
-					<button ng-click="validateOTP()"
-						class="btn btn-primary btn-sm">Verify OTP</button>
+					<button ng-click="validateOTP()" class="btn btn-primary btn-sm">Verify
+						OTP</button>
 				</div>
 			</div>
 			<div class="row justify-content-center">
