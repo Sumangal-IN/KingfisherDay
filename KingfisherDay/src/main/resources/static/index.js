@@ -175,6 +175,9 @@ angular
 										}
 									}).then(function mySuccess(response) {
 								console.log(response);
+								$scope.showRegisterPage=false;
+								$scope.showLoginPage=true;
+								$scope.showRegisterSuccess=true;
 							}, function myError(response) {
 								window.alert('Oops! Some error has occured!');
 								console.log(response);
