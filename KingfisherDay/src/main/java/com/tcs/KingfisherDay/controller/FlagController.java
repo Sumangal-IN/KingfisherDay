@@ -22,6 +22,13 @@ public class FlagController {
 	public List<Flag> getAllFlags() {
 		return flagService.getAllFlags();
 	}
+	
+	@RequestMapping(value = "/delay", method = RequestMethod.GET, produces = "application/data")
+	@ResponseBody
+	public String delay() throws InterruptedException {
+		Thread.sleep(5000);
+		return "abcd";
+	}
 
 	@RequestMapping(value = "/updateFlag/{key}/{value}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody

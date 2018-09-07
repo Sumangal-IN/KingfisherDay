@@ -1,5 +1,5 @@
 angular
-		.module('kfApp', [])
+		.module('kfApp', [ 'cgBusy' ])
 		.directive('fileUpload', function() {
 			return {
 				scope : true, // create a new scope
@@ -21,9 +21,15 @@ angular
 		.controller(
 				'kfController',
 				function($scope, $http) {
-
-					// var URL = 'http://localhost:8080';
-					var URL = 'http://64405d9f.ngrok.io';
+					// $scope.promise = $http.get('http://localhost:8080/delay')
+					// .then(function mySuccess(response) {
+					// console.log(response);
+					// }, function myError(response) {
+					// console.log(response);
+					// return;
+					// });
+					var URL = '';
+					// var URL = 'http://64405d9f.ngrok.io';
 
 					$scope.showLoginPage = true;
 					$scope.foodPref = 'VEG';
@@ -107,7 +113,7 @@ angular
 							$scope.showErrorIncorrectMobile = true;
 							return;
 						}
-						$http
+						$scope.promise = $http
 								.get(
 										URL + '/isExistsEmployee/'
 												+ $scope.registerEmail + '/'
@@ -121,7 +127,7 @@ angular
 												return;
 											} else {
 												$scope.showErrorUserAlreadyExists = false;
-												$http
+												$scope.promise = $http
 														.get(
 																URL
 																		+ '/sendOTP/'
@@ -162,7 +168,7 @@ angular
 							$scope.showErrorOTP = false;
 							var fd = new FormData();
 							fd.append('photoFile', $scope.photoFile);
-							$http.post(
+							$scope.promise = $http.post(
 									URL + '/registerEmployee/'
 											+ $scope.registerName + '/'
 											+ $scope.registerEmail + '/'
@@ -208,8 +214,8 @@ angular
 							return;
 						}
 						$scope.showErrorEmptyPassword = false;
-						
-						$http
+
+						$scope.promise = $http
 								.get(
 										URL + '/isValidEmployee/'
 												+ $scope.loginEmail + '/'
@@ -221,7 +227,7 @@ angular
 											if (data) {
 												$scope.showErrorIncorrectCredential = false;
 												$scope.showLoginPage = false;
-												$scope.showMenuPage=true;
+												$scope.showMenuPage = true;
 											} else {
 												$scope.showErrorIncorrectCredential = true;
 												return;

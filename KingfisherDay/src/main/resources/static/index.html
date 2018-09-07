@@ -21,15 +21,18 @@
 	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
 	crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="index.css">
+<link rel="stylesheet" type="text/css" href="cg-busy.css">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
+<script data-require="angular-animate@*" data-semver="1.3.18"
+	src="http://code.angularjs.org/1.6.0/angular-animate.js"></script>
 <script src="index.js"></script>
+<script src="cg-busy.js"></script>
 </head>
 <body ng-app="kfApp">
-	<div class="container" ng-controller="kfController">
-
+	<div class="container" ng-controller="kfController" cg-busy="promise">
 		<nav
 			class="navbar navbar-light bg-light justify-content-center header shadow-lg">
 			<a class="navbar-brand" href="#!"><strong>TCS Kingfisher
