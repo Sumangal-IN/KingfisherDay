@@ -22,25 +22,29 @@ public class Employee {
 	private String photoFile;
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
+	@Column(name = "MOBILE", nullable = false)
+	private String mobile;
 
 	public Employee() {
 
 	}
 
-	public Employee(String name, String emailID, FoodPreference foodPreference, String photoFile, String password) {
+	public Employee(String name, String emailID, FoodPreference foodPreference, String photoFile, String password,
+			String mobile) {
 		super();
 		this.name = name;
 		this.emailID = emailID;
 		this.foodPreference = foodPreference;
 		this.photoFile = photoFile;
 		this.password = password;
+		this.mobile = mobile;
 	}
 
 	public String getName() {
 		return name;
 	}
 
-	public void setLastName(String name) {
+	public void setName(String name) {
 		this.name = name;
 	}
 
@@ -64,7 +68,7 @@ public class Employee {
 		return photoFile;
 	}
 
-	public void setPhotoPath(String photoFile) {
+	public void setPhotoFile(String photoFile) {
 		this.photoFile = photoFile;
 	}
 
@@ -76,10 +80,18 @@ public class Employee {
 		this.password = password;
 	}
 
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
 	@Override
 	public String toString() {
-		return "Employee [name=" + name + ", email=" + emailID + ", foodPreference=" + foodPreference + ", photoPath="
-				+ photoFile + ", password=" + password + "]";
+		return "Employee [name=" + name + ", emailID=" + emailID + ", foodPreference=" + foodPreference + ", photoFile="
+				+ photoFile + ", password=" + password + ", mobile=" + mobile + "]";
 	}
 
 }

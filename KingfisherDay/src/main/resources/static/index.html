@@ -36,29 +36,29 @@
 		</nav>
 		<form class="form justify-content-center mt-5" ng-show="showLoginPage">
 			<div class="row justify-content-center">
-				<div class="form-group input-group-sm mb-2 mr-1">
+				<div class="form-group input-group-sm mb-3 mr-1">
 					<i class="fas fa-at fa-2x"></i>
 				</div>
-				<div class="form-group input-group-sm mb-2 mr-2">
+				<div class="form-group input-group-sm mb-3 mr-2">
 					<input class="form-control" type="text" placeholder="email@tcs.com"
 						ng-model="loginEmail">
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<div class="form-group input-group-sm mb-2 mr-1">
+				<div class="form-group input-group-sm mb-3 mr-1">
 					<i class="fas fa-key fa-2x"></i>
 				</div>
-				<div class="form-group input-group-sm mb-2 mr-2">
+				<div class="form-group input-group-sm mb-3 mr-2">
 					<input class="form-control" type="password" placeholder="password"
 						ng-model="loginPassword">
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<div class="form-group input-group-sm mb-2 mr-2">
+				<div class="form-group input-group-sm mb-3 mr-2">
 					<button ng-click="loginSubmit()" class="btn btn-primary btn-sm">Log
 						In</button>
 				</div>
-				<div class="form-group input-group-sm mb-2 mr-2">
+				<div class="form-group input-group-sm mb-3 mr-2">
 					<button ng-click="gotoRegister()" class="btn btn-link btn-sm">Register</button>
 				</div>
 			</div>
@@ -81,65 +81,74 @@
 		<form class="form justify-content-center mt-5 form-control-sm"
 			ng-show="showRegisterPage">
 			<div class="row justify-content-center">
-				<div class="form-group input-group-sm mb-2 mr-1">
+				<div class="form-group input-group-sm mb-3 mr-1">
 					<i class="fas fa-at fa-2x"></i>
 				</div>
-				<div class="form-group input-group-sm mb-2 mr-2">
+				<div class="form-group input-group-sm mb-3 mr-2">
 					<input class="form-control" type="text" placeholder="email@tcs.com"
 						ng-model="registerEmail">
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<div class="form-group input-group-sm mb-2 mr-1">
+				<div class="form-group input-group-sm mb-3 mr-1">
 					<i class="fas fa-key fa-2x"></i>
 				</div>
-				<div class="form-group input-group-sm mb-2 mr-2">
+				<div class="form-group input-group-sm mb-3 mr-2">
 					<input class="form-control" type="password" placeholder="password"
 						ng-model="registerPassword">
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<div class="form-group input-group-sm mb-2 mr-1">
+				<div class="form-group input-group-sm mb-3 mr-1">
 					<i class="fas fa-user-circle fa-2x"></i>
 				</div>
-				<div class="form-group input-group-sm mb-2 mr-2">
+				<div class="form-group input-group-sm mb-3 mr-2">
 					<input class="form-control" type="text" placeholder="Name"
 						ng-model="registerName">
 				</div>
 			</div>
 			<div class="row justify-content-center">
 				<div
-					class="btn-group btn-group-toggle form-group input-group-sm mb-2 mr-2"
+					class="btn-group btn-group-toggle form-group input-group-sm mb-3 mr-2"
 					data-toggle="buttons">
 					<i class="fas fa-utensils mr-2 fa-2x"></i> <label
 						class="btn btn-secondary btn-sm active mr-1"> <input
-						type="radio" name="options" ng-model="foodPref" value="VEG" id="option1" autocomplete="off"
-						checked> Veg
+						type="radio" name="options" ng-model="foodPref" value="VEG"
+						id="option1" autocomplete="off" checked> Veg
 					</label> <label class="btn btn-secondary btn-sm"> <input
-						type="radio" name="options" ng-model="foodPref" value="NON_VEG" id="option2" autocomplete="off">
-						Non-veg
+						type="radio" name="options" ng-model="foodPref" value="NON_VEG"
+						id="option2" autocomplete="off"> Non-veg
 					</label>
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<div class="form-group input-group-sm mb-2">
+				<div class="form-group input-group-sm mb-3">
 					<i class="fas fa-camera-retro mr-2 fa-2x"></i>
 				</div>
-				<div class="form-group input-group-sm mb-2">
-					<input type="file" file-upload />
+				<div class="form-group input-group-sm mb-3 mr-1">
+
+					<div class="fileUpload btn btn-primary btn-sm">
+						<span ng-bind="uploadText"></span> <input
+							type="file" class="upload" file-upload
+							onchange="angular.element(this).scope().fileNameChanged()" />
+					</div>
+
+				</div>
+				<div class="form-group input-group-sm mb-3" ng-show="fileSelected">
+					<i class="far fa-check-circle fa-2x"></i>
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<div class="form-group input-group-sm mb-2 mr-1">
+				<div class="form-group input-group-sm mb-3 mr-1">
 					<i class="fas fa-mobile-alt fa-2x"></i>
 				</div>
-				<div class="form-group input-group-sm mb-2 mr-2">
+				<div class="form-group input-group-sm mb-3 mr-2">
 					<input class="form-control" type="text" placeholder="mobile"
 						ng-model="registerMobile">
 				</div>
 			</div>
 			<div class="row justify-content-center">
-				<div class="form-group input-group-sm mb-2 mr-2">
+				<div class="form-group input-group-sm mb-3 mr-2">
 					<button ng-click="registerSubmitOTP()"
 						class="btn btn-primary btn-sm">Get OTP</button>
 				</div>
@@ -169,6 +178,10 @@
 				<div class="justify-content-center alert alert-danger" role="alert"
 					ng-show="showErrorIncorrectMobile">
 					<strong></strong> Please enter valid 10 digit mobile number !
+				</div>
+				<div class="justify-content-center alert alert-danger" role="alert"
+					ng-show="showErrorUserAlreadyExists">
+					<strong>No way!</strong> this user already exists!
 				</div>
 			</div>
 		</form>

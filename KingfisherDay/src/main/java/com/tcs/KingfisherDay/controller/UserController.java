@@ -24,12 +24,11 @@ public class UserController {
 
 	private static String UPLOAD_FOLDER = "C://img//";
 
-	@RequestMapping(value = "/registerEmployee/{name}/{emailID}/{foodPreference}/{password}", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/registerEmployee/{name}/{emailID}/{foodPreference}/{password}/{mobile}", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public Employee registerEmployee(@PathVariable("name") String name, @PathVariable("emailID") String emailID,
 			@PathVariable("foodPreference") String foodPreference, @PathVariable("password") String password,
-			@RequestParam("photoFile") MultipartFile photoFile) {
-		System.out.println("Controller");
+			@PathVariable("mobile") String mobile, @RequestParam("photoFile") MultipartFile photoFile) {
 		String filename = photoFile.getOriginalFilename() + System.currentTimeMillis() + Math.random() + ".jpg";
 		if (photoFile.isEmpty()) {
 			return null;
@@ -42,7 +41,7 @@ public class UserController {
 			e.printStackTrace();
 			return null;
 		}
-		return userService.register(name, emailID, foodPreference, filename, password);
+		return userService.register(name, emailID, foodPreference, filename, password, mobile);
 	}
 
 	@RequestMapping(value = "/isValidEmployee/{emailID}/{password}", method = RequestMethod.GET, produces = "application/json")
@@ -50,5 +49,11 @@ public class UserController {
 	public Boolean isValidEmployee(@PathVariable("emailID") String emailID, @PathVariable("password") String password) {
 		return userService.isValidEmployee(emailID, password);
 	}
-	
+
+	@RequestMapping(value = "/isExistsEmployee/{emailID}/{mobile}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Boolean isExistsEmployee(@PathVariable("emailID") String emailID, @PathVariable("mobile") String mobile) {
+		return userService.isExistsEmployee(emailID, mobile);
+	}
+
 }

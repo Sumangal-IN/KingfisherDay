@@ -7,4 +7,4 @@ insert into question(question_ID,question_Text,option_A,option_B,option_C,option
 insert into flag(key,value) values('quiz.end','false');
 insert into flag(key,value) values('app.active','true');
 
-insert into EMPLOYEE(name,email_id,food_preference,photo_file,password) values ('sumangal mandal','s.m@tcs.com',0,'photo.jpg','abcd');
+insert into EMPLOYEE(name,email_id,food_preference,photo_file,password,mobile) values ('sumangal mandal','s.m@tcs.com',0,'photo.jpg','abcd','8335801071');

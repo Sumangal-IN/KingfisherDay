@@ -15,10 +15,10 @@ public class UserService {
 	@Autowired
 	EmployeeRepository employeeRepository;
 
-	public Employee register(String name, String emailID, String foodPreference, String photoFile,
-			String password) {
-		return employeeRepository.save(new Employee(name, emailID,
-				FoodPreference.valueOf(foodPreference), photoFile, password));
+	public Employee register(String name, String emailID, String foodPreference, String photoFile, String password,
+			String mobile) {
+		return employeeRepository
+				.save(new Employee(name, emailID, FoodPreference.valueOf(foodPreference), photoFile, password, mobile));
 	}
 
 	public boolean isValidLogin(String emailID, String password) {
@@ -35,6 +35,11 @@ public class UserService {
 
 	public Boolean isValidEmployee(String emailID, String password) {
 		List<Employee> employeeList = employeeRepository.findByEmailIDAndPassword(emailID, password);
+		return !employeeList.isEmpty();
+	}
+
+	public Boolean isExistsEmployee(String emailID, String mobile) {
+		List<Employee> employeeList = employeeRepository.findByEmailIDOrMobile(emailID, mobile);
 		return !employeeList.isEmpty();
 	}
 }
