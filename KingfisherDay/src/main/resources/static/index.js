@@ -175,9 +175,9 @@ angular
 										}
 									}).then(function mySuccess(response) {
 								console.log(response);
-								$scope.showRegisterPage=false;
-								$scope.showLoginPage=true;
-								$scope.showRegisterSuccess=true;
+								$scope.showRegisterPage = false;
+								$scope.showLoginPage = true;
+								$scope.showRegisterSuccess = true;
 							}, function myError(response) {
 								window.alert('Oops! Some error has occured!');
 								console.log(response);
@@ -191,6 +191,7 @@ angular
 
 					$scope.loginSubmit = function() {
 						console.log('loginSubmit');
+						$scope.showRegisterSuccess = false;
 						if ($scope.loginEmail == undefined
 								|| ($scope.loginEmail != undefined && !$scope.loginEmail
 										.endsWith('@tcs.com'))
@@ -207,7 +208,7 @@ angular
 							return;
 						}
 						$scope.showErrorEmptyPassword = false;
-
+						
 						$http
 								.get(
 										URL + '/isValidEmployee/'
@@ -220,6 +221,7 @@ angular
 											if (data) {
 												$scope.showErrorIncorrectCredential = false;
 												$scope.showLoginPage = false;
+												$scope.showMenuPage=false;
 											} else {
 												$scope.showErrorIncorrectCredential = true;
 												return;
