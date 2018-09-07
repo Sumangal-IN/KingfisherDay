@@ -147,10 +147,20 @@
 						ng-model="registerMobile">
 				</div>
 			</div>
-			<div class="row justify-content-center">
+			<div class="row justify-content-center" ng-show="showGetOTP">
 				<div class="form-group input-group-sm mb-3 mr-2">
 					<button ng-click="registerSubmitOTP()"
 						class="btn btn-primary btn-sm">Get OTP</button>
+				</div>
+			</div>
+			<div class="row justify-content-center" ng-show="showVerifyOTP">
+			<div class="form-group input-group-sm mb-3 mr-2">
+					<input class="form-control" type="text" placeholder="OTP * * * * *"
+						ng-model="registerOTP">
+				</div>
+				<div class="form-group input-group-sm mb-3 mr-2">
+					<button ng-click="validateOTP()"
+						class="btn btn-primary btn-sm">Verify OTP</button>
 				</div>
 			</div>
 			<div class="row justify-content-center">
@@ -182,6 +192,10 @@
 				<div class="justify-content-center alert alert-danger" role="alert"
 					ng-show="showErrorUserAlreadyExists">
 					<strong>No way!</strong> this user already exists!
+				</div>
+				<div class="justify-content-center alert alert-danger" role="alert"
+					ng-show="showErrorOTP">
+					<strong>Oh snap!</strong> this is not what I sent you!
 				</div>
 			</div>
 		</form>

@@ -22,12 +22,23 @@ angular
 				'kfController',
 				function($scope, $http) {
 
-					var URL = 'http://localhost:8080';
-					var authKey = '130190AmlXD2ELBEmi581b5034';
+					// var URL = 'http://localhost:8080';
+					var URL = '';
 
 					$scope.showLoginPage = true;
 					$scope.foodPref = 'VEG';
 					$scope.uploadText = 'Select your file';
+					$scope.showGetOTP = true;
+					$scope.showVerifyOTP = false;
+
+					var randomFixedInteger = function(length) {
+						return Math.floor(Math.pow(10, length - 1)
+								+ Math.random()
+								* (Math.pow(10, length)
+										- Math.pow(10, length - 1) - 1));
+					}
+
+					var otp = randomFixedInteger(5);
 
 					$scope.gotoRegister = function() {
 						$scope.showErrorInvalidEmail = false;
@@ -96,15 +107,10 @@ angular
 							$scope.showErrorIncorrectMobile = true;
 							return;
 						}
-						$scope.showErrorIncorrectMobile = false;
-
-						var otp = '1234';
-						// http://api.msg91.com/api/sendhttp.php?authkey=130190AmlXD2ELBEmi581b5034&mobiles=918335801071&message=1424&sender=KFSDAY&route=4&country=91
-
 						$http
 								.get(
 										URL + '/isExistsEmployee/'
-												+ $scope.resgisterEmail + '/'
+												+ $scope.registerEmail + '/'
 												+ $scope.registerMobile)
 								.then(
 										function mySuccess(response) {
@@ -115,6 +121,31 @@ angular
 												return;
 											} else {
 												$scope.showErrorUserAlreadyExists = false;
+												$http
+														.get(
+																URL
+																		+ '/sendOTP/'
+																		+ $scope.registerMobile
+																		+ '/'
+																		+ otp)
+														.then(
+																function mySuccess(
+																		response) {
+																	var data = response.data;
+																	console
+																			.log(data);
+																	$scope.showVerifyOTP = true;
+																	$scope.showGetOTP = false;
+																	return;
+																},
+																function myError(
+																		response) {
+																	window
+																			.alert('Oops! Some error has occured!');
+																	console
+																			.log(response);
+																	return;
+																});
 											}
 										},
 										function myError(response) {
@@ -123,27 +154,36 @@ angular
 											console.log(response);
 											return;
 										});
+					}
 
-						var fd = new FormData();
-						fd.append('photoFile', $scope.photoFile);
-						$http.post(
-								URL + '/registerEmployee/'
-										+ $scope.registerName + '/'
-										+ $scope.registerEmail + '/'
-										+ $scope.foodPref + '/'
-										+ $scope.registerPassword + '/'
-										+ $scope.registerMobile, fd, {
-									transformRequest : angular.identity,
-									headers : {
-										'Content-Type' : undefined
-									}
-								}).then(function mySuccess(response) {
-							console.log(response);
-						}, function myError(response) {
-							window.alert('Oops! Some error has occured!');
-							console.log(response);
+					$scope.validateOTP = function() {
+						if ($scope.registerOTP != undefined
+								&& otp == $scope.registerOTP) {
+							$scope.showErrorOTP = false;
+							var fd = new FormData();
+							fd.append('photoFile', $scope.photoFile);
+							$http.post(
+									URL + '/registerEmployee/'
+											+ $scope.registerName + '/'
+											+ $scope.registerEmail + '/'
+											+ $scope.foodPref + '/'
+											+ $scope.registerPassword + '/'
+											+ $scope.registerMobile, fd, {
+										transformRequest : angular.identity,
+										headers : {
+											'Content-Type' : undefined
+										}
+									}).then(function mySuccess(response) {
+								console.log(response);
+							}, function myError(response) {
+								window.alert('Oops! Some error has occured!');
+								console.log(response);
+								return;
+							});
+						} else {
+							$scope.showErrorOTP = true;
 							return;
-						});
+						}
 					}
 
 					$scope.loginSubmit = function() {
