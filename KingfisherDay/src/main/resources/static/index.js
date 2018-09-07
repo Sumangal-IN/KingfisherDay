@@ -23,7 +23,7 @@ angular
 				function($scope, $http) {
 
 					// var URL = 'http://localhost:8080';
-					var URL = '';
+					var URL = 'http://64405d9f.ngrok.io';
 
 					$scope.showLoginPage = true;
 					$scope.foodPref = 'VEG';
