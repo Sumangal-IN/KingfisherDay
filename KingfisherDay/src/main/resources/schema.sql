@@ -20,5 +20,6 @@ create table EMPLOYEE(
 	food_preference INTEGER,
 	photo_file VARCHAR2(100),
 	password VARCHAR2(100),
-	mobile VARCHAR2(50)
+	mobile VARCHAR2(50),
+	photo VARCHAR2(10000)
 );

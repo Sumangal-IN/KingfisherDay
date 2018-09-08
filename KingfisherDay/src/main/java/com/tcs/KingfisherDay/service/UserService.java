@@ -16,9 +16,9 @@ public class UserService {
 	EmployeeRepository employeeRepository;
 
 	public Employee register(String name, String emailID, String foodPreference, String photoFile, String password,
-			String mobile) {
-		return employeeRepository
-				.save(new Employee(name, emailID, FoodPreference.valueOf(foodPreference), photoFile, password, mobile));
+			String mobile, String photo) {
+		return employeeRepository.save(new Employee(name, emailID, FoodPreference.valueOf(foodPreference), photoFile,
+				password, mobile, photo));
 	}
 
 	public boolean isValidLogin(String emailID, String password) {

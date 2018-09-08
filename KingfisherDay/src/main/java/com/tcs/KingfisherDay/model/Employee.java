@@ -24,13 +24,15 @@ public class Employee {
 	private String password;
 	@Column(name = "MOBILE", nullable = false)
 	private String mobile;
+	@Column(name = "PHOTO", nullable = false)
+	private String photo;
 
 	public Employee() {
 
 	}
 
 	public Employee(String name, String emailID, FoodPreference foodPreference, String photoFile, String password,
-			String mobile) {
+			String mobile, String photo) {
 		super();
 		this.name = name;
 		this.emailID = emailID;
@@ -38,6 +40,7 @@ public class Employee {
 		this.photoFile = photoFile;
 		this.password = password;
 		this.mobile = mobile;
+		this.photo = photo;
 	}
 
 	public String getName() {
@@ -86,6 +89,14 @@ public class Employee {
 
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
+	}
+
+	public String getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(String photo) {
+		this.photo = photo;
 	}
 
 	@Override
