@@ -226,12 +226,12 @@ angular
 											var data = response.data;
 											console.log(data);
 											if (data) {
-												$scope.name=data.name;
-												$scope.photo=data.photo;	
+												$scope.name = data.name;
+												$scope.photo = data.photo;
 												$scope.showErrorIncorrectCredential = false;
 												$scope.showLoginPage = false;
 												$scope.showMenuPage = true;
-												$scope.showHeaderDP=true;
+												$scope.showHeaderDP = true;
 											} else {
 												$scope.showErrorIncorrectCredential = true;
 												return;
@@ -244,6 +244,10 @@ angular
 											return;
 										});
 
+					}
+
+					$scope.clickQuiz = function() {
+						$scope.showQuiz = true;
 					}
 
 				});
