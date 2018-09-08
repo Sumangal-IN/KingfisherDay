@@ -49,6 +49,7 @@ angular
 					$scope.gotoRegister = function() {
 						$scope.showErrorInvalidEmail = false;
 						$scope.showErrorEmptyPassword = false;
+						$scope.showErrorIncorrectCredential = false;
 
 						console.log('gotoRegister');
 
