@@ -231,6 +231,7 @@ angular
 												$scope.showErrorIncorrectCredential = false;
 												$scope.showLoginPage = false;
 												$scope.showMenuPage = true;
+												$scope.showHeaderDP=true;
 											} else {
 												$scope.showErrorIncorrectCredential = true;
 												return;

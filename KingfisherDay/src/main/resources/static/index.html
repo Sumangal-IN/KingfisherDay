@@ -1,35 +1,22 @@
 <html>
 <head>
-<title>TCS Kingfisher Day 2018</title>
-<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
-	integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-	crossorigin="anonymous"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-	integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-	crossorigin="anonymous"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
-	integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-	crossorigin="anonymous">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-	integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-	crossorigin="anonymous"></script>
+<title>TCS Kingfisher Day'18</title>
+<script src="jquery-3.2.1.slim.min.js"></script>
+<script src="popper.min.js"></script>
+<link rel="stylesheet" href="bootstrap.min.css">
+<script src="bootstrap.min.js"></script>
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
 	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
 	crossorigin="anonymous">
 <link rel="stylesheet" type="text/css" href="index.css">
 <link rel="stylesheet" type="text/css" href="cg-busy.css">
-<meta name="viewport"
-	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/angularjs/1.7.2/angular.min.js"></script>
-<script data-require="angular-animate@*" data-semver="1.3.18"
-	src="https://code.angularjs.org/1.6.0/angular-animate.js"></script>
+<script src="angular.min.js"></script>
+<script src="angular-animate.js"></script>
 <script src="index.js"></script>
 <script src="cg-busy.js"></script>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 </head>
 <body ng-app="kfApp">
 	<div class="container-fluid container_custom"
@@ -37,7 +24,8 @@
 		<nav
 			class="header navbar navbar-light bg-light justify-content-center">
 			<a class="navbar-brand header_text" href="#!"><strong>TCS
-					Kingfisher Day'18</strong></a>
+					Kingfisher Day'18</strong></a> <img class="dp_header"
+				src="data:image/jpg;base64,{{photo}}" ng-show="showHeaderDP">
 		</nav>
 		<form class="form justify-content-center mt-5" ng-show="showLoginPage">
 			<div class="row justify-content-center">
@@ -207,8 +195,8 @@
 			</div>
 		</form>
 
-		<div class="row justify-content-center" ng-show="showMenuPage">
-			<div class="col-4 menu left_menu">
+		<div class="row menu_holder" ng-show="showMenuPage">
+			<div class="col-4 menu">
 				<div class="row justify-content-center pt-2">
 					<i class="fab fa-elementor fa-2x"></i>
 				</div>
@@ -221,10 +209,10 @@
 					<i class="far fa-images fa-2x"></i>
 				</div>
 				<div class="row justify-content-center menu_text pb-2">
-					<strong>Photography contest</strong>
+					<strong>Photo contest</strong>
 				</div>
 			</div>
-			<div class="col-4 menu right_menu">
+			<div class="col-4 menu">
 				<div class="row justify-content-center pt-2">
 					<i class="far fa-question-circle fa-2x"></i>
 				</div>
@@ -232,10 +220,12 @@
 					<strong>Quiz</strong>
 				</div>
 			</div>
-			{{name}}
-			<img src="data:image/jpg;base64,{{photo}}">
 		</div>
-
+		<div class="row welcome_user mt-1">
+			<div class="col float-right text-right pr-1" ng-show="showMenuPage">
+				<strong>Welcome, {{name}}</strong>
+			</div>
+		</div>
 	</div>
 </body>
 </html>

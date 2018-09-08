@@ -63,7 +63,8 @@
 
 .menu_holder {
 	/*background-color: pink;*/
-	width: 15rem;
+	/*width: 15rem;*/
+	margin: 0;
 }
 
 .menu {
@@ -73,7 +74,7 @@
 
 .menu:hover {
 	background-color: rgb(244, 102, 16);
-	color:white;
+	color: white;
 }
 
 .menu_text {
@@ -87,9 +88,15 @@
 }
 
 .left_menu {
-	padding-right: 0;
+	/*padding-right: 0;*/
 }
 
 .right_menu {
-	padding-left: 0;
+	/*padding-left: 0;*/
+}
+
+.dp_header {
+	position: absolute;
+	height: 98%;
+	right: 0;
 }
