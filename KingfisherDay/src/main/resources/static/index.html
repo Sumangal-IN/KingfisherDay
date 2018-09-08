@@ -212,7 +212,7 @@
 					<strong>Photo contest</strong>
 				</div>
 			</div>
-			<div class="col-4 menu">
+			<div class="col-4 menu" ng-click="clickQuiz()">
 				<div class="row justify-content-center pt-2">
 					<i class="far fa-question-circle fa-2x"></i>
 				</div>
@@ -225,6 +225,14 @@
 			<div class="col float-right text-right pr-1" ng-show="showMenuPage">
 				<strong>Welcome, {{name}}</strong>
 			</div>
+		</div>
+		<div class="row mt-4 mr-1 ml-1 justify-content-center quiz_window" ng-show="showQuiz">
+			<div class="col-12 question_heading"><strong>Question #1</strong></div>
+			<div class="col-12 question_text mt-3">Question is</div>
+			<div class="col-10 option_text mt-3 p-1 pl-2">Option A</div>
+			<div class="col-10 option_text mt-3 p-1 pl-2">Option B</div>
+			<div class="col-10 option_text mt-3 p-1 pl-2">Option C</div>
+			<div class="col-10 option_text mt-3 p-1 pl-2">Option C</div>
 		</div>
 	</div>
 </body>
