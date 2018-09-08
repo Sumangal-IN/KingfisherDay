@@ -18,7 +18,6 @@ create table EMPLOYEE(
 	name VARCHAR2(100),
 	email_id VARCHAR2(100),
 	food_preference INTEGER,
-	photo_file VARCHAR2(100),
 	password VARCHAR2(100),
 	mobile VARCHAR2(50),
 	photo VARCHAR2(10000)

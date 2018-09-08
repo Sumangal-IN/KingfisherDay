@@ -23,8 +23,8 @@ import com.tcs.KingfisherDay.service.UserService;
 @Controller
 public class UserController {
 
-	private static final int IMG_WIDTH = 100;
-	private static final int IMG_HEIGHT = 150;
+	private static final int IMG_WIDTH = 120;
+	private static final int IMG_HEIGHT = 160;
 
 	@Autowired
 	UserService userService;
@@ -34,7 +34,6 @@ public class UserController {
 	public Employee registerEmployee(@PathVariable("name") String name, @PathVariable("emailID") String emailID,
 			@PathVariable("foodPreference") String foodPreference, @PathVariable("password") String password,
 			@PathVariable("mobile") String mobile, @RequestParam("photoFile") MultipartFile photoFile) {
-		String filename = photoFile.getOriginalFilename() + System.currentTimeMillis() + Math.random() + ".jpg";
 		String photo = null;
 		if (photoFile.isEmpty()) {
 			return null;
@@ -46,7 +45,7 @@ public class UserController {
 			e.printStackTrace();
 			return null;
 		}
-		return userService.register(name, emailID, foodPreference, filename, password, mobile, photo);
+		return userService.register(name, emailID, foodPreference, password, mobile, photo);
 	}
 
 	private static String resizeImage(byte[] image) throws IOException {
@@ -61,10 +60,10 @@ public class UserController {
 		return Base64Utils.encodeToString(bos.toByteArray());
 	}
 
-	@RequestMapping(value = "/isValidEmployee/{emailID}/{password}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/getEmployee/{emailID}/{password}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Boolean isValidEmployee(@PathVariable("emailID") String emailID, @PathVariable("password") String password) {
-		return userService.isValidEmployee(emailID, password);
+	public Employee getEmployee(@PathVariable("emailID") String emailID, @PathVariable("password") String password) {
+		return userService.getEmployee(emailID, password);
 	}
 
 	@RequestMapping(value = "/isExistsEmployee/{emailID}/{mobile}", method = RequestMethod.GET, produces = "application/json")

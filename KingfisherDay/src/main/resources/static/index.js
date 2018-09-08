@@ -218,7 +218,7 @@ angular
 
 						$scope.promise = $http
 								.get(
-										URL + '/isValidEmployee/'
+										URL + '/getEmployee/'
 												+ $scope.loginEmail + '/'
 												+ $scope.loginPassword)
 								.then(
@@ -226,6 +226,8 @@ angular
 											var data = response.data;
 											console.log(data);
 											if (data) {
+												$scope.name=data.name;
+												$scope.photo=data.photo;	
 												$scope.showErrorIncorrectCredential = false;
 												$scope.showLoginPage = false;
 												$scope.showMenuPage = true;

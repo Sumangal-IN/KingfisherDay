@@ -18,8 +18,6 @@ public class Employee {
 	private String emailID;
 	@Column(name = "FOOD_PREFERENCE", nullable = false)
 	private FoodPreference foodPreference;
-	@Column(name = "PHOTO_FILE", nullable = false)
-	private String photoFile;
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
 	@Column(name = "MOBILE", nullable = false)
@@ -31,13 +29,12 @@ public class Employee {
 
 	}
 
-	public Employee(String name, String emailID, FoodPreference foodPreference, String photoFile, String password,
-			String mobile, String photo) {
+	public Employee(String name, String emailID, FoodPreference foodPreference, String password, String mobile,
+			String photo) {
 		super();
 		this.name = name;
 		this.emailID = emailID;
 		this.foodPreference = foodPreference;
-		this.photoFile = photoFile;
 		this.password = password;
 		this.mobile = mobile;
 		this.photo = photo;
@@ -67,14 +64,6 @@ public class Employee {
 		this.foodPreference = foodPreference;
 	}
 
-	public String getPhotoFile() {
-		return photoFile;
-	}
-
-	public void setPhotoFile(String photoFile) {
-		this.photoFile = photoFile;
-	}
-
 	public String getPassword() {
 		return password;
 	}
@@ -101,8 +90,8 @@ public class Employee {
 
 	@Override
 	public String toString() {
-		return "Employee [name=" + name + ", emailID=" + emailID + ", foodPreference=" + foodPreference + ", photoFile="
-				+ photoFile + ", password=" + password + ", mobile=" + mobile + "]";
+		return "Employee [name=" + name + ", emailID=" + emailID + ", foodPreference=" + foodPreference + ", password="
+				+ password + ", mobile=" + mobile + "]";
 	}
 
 }

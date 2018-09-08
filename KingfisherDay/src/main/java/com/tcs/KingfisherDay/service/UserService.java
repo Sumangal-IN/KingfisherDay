@@ -15,14 +15,10 @@ public class UserService {
 	@Autowired
 	EmployeeRepository employeeRepository;
 
-	public Employee register(String name, String emailID, String foodPreference, String photoFile, String password,
-			String mobile, String photo) {
-		return employeeRepository.save(new Employee(name, emailID, FoodPreference.valueOf(foodPreference), photoFile,
-				password, mobile, photo));
-	}
-
-	public boolean isValidLogin(String emailID, String password) {
-		return !employeeRepository.findByEmailIDAndPassword(emailID, password).isEmpty();
+	public Employee register(String name, String emailID, String foodPreference, String password, String mobile,
+			String photo) {
+		return employeeRepository
+				.save(new Employee(name, emailID, FoodPreference.valueOf(foodPreference), password, mobile, photo));
 	}
 
 	public Employee findByEmailID(String emailID) {
@@ -33,13 +29,17 @@ public class UserService {
 			return employeeList.get(0);
 	}
 
-	public Boolean isValidEmployee(String emailID, String password) {
-		List<Employee> employeeList = employeeRepository.findByEmailIDAndPassword(emailID, password);
-		return !employeeList.isEmpty();
-	}
-
 	public Boolean isExistsEmployee(String emailID, String mobile) {
 		List<Employee> employeeList = employeeRepository.findByEmailIDOrMobile(emailID, mobile);
 		return !employeeList.isEmpty();
 	}
+
+	public Employee getEmployee(String emailID, String password) {
+		List<Employee> employeeList = employeeRepository.findByEmailIDAndPassword(emailID, password);
+		if (employeeList.isEmpty())
+			return null;
+		else
+			return employeeList.get(0);
+	}
+
 }
