@@ -250,13 +250,15 @@ angular
 					}
 
 					$scope.clickQuiz = function() {
+						$scope.menuActive = 'quiz';
+						$scope.questionAvailable = false;
 						$scope.questionUnavailable = true;
 						$scope.questionUnavailbleText = "Please wait checking quiz availibility ....";
-						$scope.menuActive = 'quiz';
-						$scope.showQuiz = true;
+						$scope.showQuiz = true;						
 						var socket = new SockJS('/quizWS');
 						stompClient = Stomp.over(socket);
 						stompClient.connect({}, onConnected, onError);
+						$scope.$digest();
 					}
 
 					function onConnected() {
@@ -277,6 +279,7 @@ angular
 						console.log(error);
 						$scope.questionUnavailable = true;
 						$scope.questionUnavailbleText = "Server is unreachable at the moment, please try after sometime.";
+						$scope.$digest();
 					}
 
 					function onMessageReceivedQuiz(payload) {
