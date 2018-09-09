@@ -37,5 +37,12 @@ public class QuestionService {
 			return null;
 		return questions.get(0);
 	}
-	
+
+	public void clearCurrentQuestion() {
+		for (Question question : questionRepository.findAll()) {
+			question.setCurrent(false);
+			questionRepository.save(question);
+		}
+	}
+
 }

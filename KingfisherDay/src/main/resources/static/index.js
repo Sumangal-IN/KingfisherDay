@@ -21,15 +21,8 @@ angular
 		.controller(
 				'kfController',
 				function($scope, $http) {
-					// $scope.promise = $http.get('http://localhost:8080/delay')
-					// .then(function mySuccess(response) {
-					// console.log(response);
-					// }, function myError(response) {
-					// console.log(response);
-					// return;
-					// });
+
 					var URL = '';
-					// var URL = 'http://64405d9f.ngrok.io';
 
 					$scope.showLoginPage = true;
 					$scope.foodPref = 'VEG';
@@ -243,11 +236,61 @@ angular
 											console.log(response);
 											return;
 										});
-
 					}
 
-					$scope.clickQuiz = function() {
+					$scope.stompClient = null;
+
+					$scope.clickEvent = function() {
+						$scope.menuActive = 'event';
+					}
+
+					$scope.clickPhoto = function() {
+						$scope.menuActive = 'photo';
 						$scope.showQuiz = true;
 					}
 
+					$scope.clickQuiz = function() {
+						$scope.questionUnavailable = true;
+						$scope.questionUnavailbleText = "Please wait checking quiz availibility ....";
+						$scope.menuActive = 'quiz';
+						$scope.showQuiz = true;
+						var socket = new SockJS('/quizWS');
+						stompClient = Stomp.over(socket);
+						stompClient.connect({}, onConnected, onError);
+					}
+
+					function onConnected() {
+						console.log('onConnected()');
+						stompClient.subscribe('/user/topic/getCurrentQuestion',
+								onMessageReceivedQuiz);
+						stompClient.subscribe(
+								'/topic/broadcastCurrentQuestion',
+								onMessageReceivedQuiz);
+						var d = new Date();
+						var n = d.getTime();
+						stompClient.send("/app/getCurrentQuestion", {},
+								'{"currentMili":' + n + '}');
+					}
+
+					function onError(error) {
+						console.log('onError()');
+						console.log(error);
+						$scope.questionUnavailable = true;
+						$scope.questionUnavailbleText = "Server is unreachable at the moment, please try after sometime.";
+					}
+
+					function onMessageReceivedQuiz(payload) {
+						console.log('oneMessageReceived()')
+						$scope.currentQuestionData = JSON.parse(payload.body);
+						console.log($scope.currentQuestionData);
+						if ($scope.currentQuestionData.questionUnavailbleText) {
+							$scope.questionUnavailbleText = 'This section will be availble during Quiz event on Kingfisher Day (5th October 2018)';
+							$scope.questionAvailable = false;
+							$scope.questionUnavailable = true;
+						} else {
+							$scope.questionAvailable = true;
+							$scope.questionUnavailable = false;
+						}
+						$scope.$digest();
+					}
 				});

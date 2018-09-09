@@ -1,6 +1,11 @@
 package com.tcs.KingfisherDay.controller;
 
+import java.security.Principal;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -10,7 +15,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.tcs.KingfisherDay.model.Employee;
 import com.tcs.KingfisherDay.model.OptionPercentage;
-import com.tcs.KingfisherDay.model.Question;
 import com.tcs.KingfisherDay.model.QuizResult;
 import com.tcs.KingfisherDay.model.Response;
 import com.tcs.KingfisherDay.service.QuestionService;
@@ -23,21 +27,28 @@ public class QuestionController {
 
 	@Autowired
 	QuestionService questionService;
+
 	@Autowired
 	ResponseService responseService;
+
 	@Autowired
 	UserService userService;
+
+	@Autowired
+	private SimpMessageSendingOperations messagingTemplate;
 
 	@RequestMapping(value = "/setCurrentQuestion/{questionID}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public void setCurrentQuestion(@PathVariable("questionID") String questionID) {
 		questionService.updateCurrentQuestion(questionID);
+		messagingTemplate.convertAndSend("/topic/broadcastCurrentQuestion", questionService.getCurrentQuestion());
 	}
 
-	@RequestMapping(value = "/getCurrentQuestion", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/clearCurrentQuestion", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Question getCurrentQuestion() {
-		return questionService.getCurrentQuestion();
+	public void clearCurrentQuestion() {
+		questionService.clearCurrentQuestion();
+		messagingTemplate.convertAndSend("/topic/broadcastCurrentQuestion", "{\"questionUnavailbleText\":true}");
 	}
 
 	@RequestMapping(value = "/saveResponse/{questionID}/{employeeEmail}/{option}", method = RequestMethod.GET, produces = "application/json")
@@ -54,6 +65,17 @@ public class QuestionController {
 		Employee winner = userService.findByEmailID(winnerResponse.getEmployeeEmail());
 		OptionPercentage optionPercentage = responseService.getPercentages(questionID);
 		return new QuizResult(optionPercentage, winnerResponse, winner);
+	}
+
+	@MessageMapping("/getCurrentQuestion")
+	public void sendMessage(Principal principal, @SuppressWarnings("rawtypes") Map message) {
+		System.out.println("principal:" + principal.getName());
+		if (questionService.getCurrentQuestion() != null)
+			messagingTemplate.convertAndSendToUser(principal.getName(), "/topic/getCurrentQuestion",
+					questionService.getCurrentQuestion());
+		else
+			messagingTemplate.convertAndSendToUser(principal.getName(), "/topic/getCurrentQuestion",
+					"{\"questionUnavailbleText\":true}");
 	}
 
 }
