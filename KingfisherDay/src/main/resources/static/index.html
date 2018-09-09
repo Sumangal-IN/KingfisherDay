@@ -242,17 +242,24 @@
 			</div>
 			<div class="col-12 question_text mt-3" ng-show="questionAvailable">{{currentQuestionData.questionText}}</div>
 			<div class="col-10 option_text mt-3 p-1 pl-2"
-				ng-show="questionAvailable">{{currentQuestionData.optionA}}</div>
+				ng-class="optionActive=='A'?'option_active':''"
+				ng-show="questionAvailable" ng-click="selectOption('A')">{{currentQuestionData.optionA}}</div>
 			<div class="col-10 option_text mt-3 p-1 pl-2"
-				ng-show="questionAvailable">{{currentQuestionData.optionB}}</div>
+				ng-class="optionActive=='B'?'option_active':''"
+				ng-show="questionAvailable" ng-click="selectOption('B')">{{currentQuestionData.optionB}}</div>
 			<div class="col-10 option_text mt-3 p-1 pl-2"
-				ng-show="questionAvailable">{{currentQuestionData.optionC}}</div>
+				ng-class="optionActive=='C'?'option_active':''"
+				ng-show="questionAvailable" ng-click="selectOption('C')">{{currentQuestionData.optionC}}</div>
 			<div class="col-10 option_text mt-3 p-1 pl-2"
-				ng-show="questionAvailable">{{currentQuestionData.optionD}}</div>
-			<div ng-show="questionUnavailable">
-				<div class="col-12">
-					<strong>{{questionUnavailbleText}}</strong>
-				</div>
+				ng-class="optionActive=='D'?'option_active':''"
+				ng-show="questionAvailable" ng-click="selectOption('D')">{{currentQuestionData.optionD}}</div>
+			<div class="col-12" ng-show="questionUnavailable">
+				<strong>{{questionUnavailbleText}}</strong>
+			</div>
+			<div class="col-12" ng-show="connectingServer">
+				<p class="saving">
+					<span>.</span><span>.</span><span>.</span>
+				</p>
 			</div>
 		</div>
 	</div>

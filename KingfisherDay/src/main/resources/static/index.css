@@ -122,7 +122,40 @@
 	border-radius: 10px;
 }
 
-.option_text:hover {
+.option_active {
 	background-color: rgb(87, 195, 234);
 	color: white;
+}
+
+@keyframes blink {
+    0% {
+      opacity: .2;
+    }
+    20% {
+      opacity: 1;
+    }
+    100% {
+      opacity: .2;
+    }
+}
+
+.saving{
+    margin-bottom: 1rem;
+    font-size: 500%;	
+    margin-top: -20%;
+}
+
+.saving span {
+    animation-name: blink;
+    animation-duration: 1.4s;
+    animation-iteration-count: infinite;
+    animation-fill-mode: both;
+}
+
+.saving span:nth-child(2) {
+    animation-delay: .2s;
+}
+
+.saving span:nth-child(3) {
+    animation-delay: .4s;
 }

@@ -221,6 +221,7 @@ angular
 											if (data) {
 												$scope.name = data.name;
 												$scope.photo = data.photo;
+												$scope.emailID = data.emailID;
 												$scope.showErrorIncorrectCredential = false;
 												$scope.showLoginPage = false;
 												$scope.showMenuPage = true;
@@ -242,23 +243,52 @@ angular
 
 					$scope.clickEvent = function() {
 						$scope.menuActive = 'event';
+						$scope.showQuiz = false;
 					}
 
 					$scope.clickPhoto = function() {
 						$scope.menuActive = 'photo';
-						$scope.showQuiz = true;
+						$scope.showQuiz = false;
 					}
 
 					$scope.clickQuiz = function() {
 						$scope.menuActive = 'quiz';
 						$scope.questionAvailable = false;
 						$scope.questionUnavailable = true;
-						$scope.questionUnavailbleText = "Please wait checking quiz availibility ....";
-						$scope.showQuiz = true;						
+						$scope.questionUnavailbleText = "Please wait connecting to server";
+						$scope.connectingServer = true;
+						$scope.showQuiz = true;
 						var socket = new SockJS('/quizWS');
 						stompClient = Stomp.over(socket);
 						stompClient.connect({}, onConnected, onError);
 						$scope.$digest();
+					}
+
+					$scope.selectOption = function(option) {
+						console.log(option);
+						$scope.optionActive == option;
+						$scope.promise = $http
+								.get(
+										URL
+												+ '/saveResponse/'
+												+ $scope.currentQuestionData.questionID
+												+ '/' + $scope.emailID + '/'
+												+ option)
+								.then(
+										function mySuccess(response) {
+											console.log('answer submitted');
+											$scope.optionActive == '';
+											$scope.questionAvailable = false;
+											$scope.questionUnavailable = true;
+											$scope.questionUnavailbleText='Response captured, waiting for next question';
+											$scope.connectingServer = true;
+										},
+										function myError(response) {
+											window
+													.alert('Oops! Some error has occured!');
+											console.log(response);
+											return;
+										});
 					}
 
 					function onConnected() {
@@ -277,9 +307,9 @@ angular
 					function onError(error) {
 						console.log('onError()');
 						console.log(error);
+						$scope.questionAvailable = false;
 						$scope.questionUnavailable = true;
-						$scope.questionUnavailbleText = "Server is unreachable at the moment, please try after sometime.";
-						$scope.$digest();
+						$scope.clickQuiz();
 					}
 
 					function onMessageReceivedQuiz(payload) {
@@ -287,13 +317,14 @@ angular
 						$scope.currentQuestionData = JSON.parse(payload.body);
 						console.log($scope.currentQuestionData);
 						if ($scope.currentQuestionData.questionUnavailbleText) {
-							$scope.questionUnavailbleText = 'This section will be availble during Quiz event on Kingfisher Day (5th October 2018)';
+							$scope.questionUnavailbleText = 'This section is closed now. It will be availble during Quiz event of TCS Kingfisher Day (5th October 2018)';
 							$scope.questionAvailable = false;
 							$scope.questionUnavailable = true;
 						} else {
 							$scope.questionAvailable = true;
 							$scope.questionUnavailable = false;
 						}
+						$scope.connectingServer = false;
 						$scope.$digest();
 					}
 				});

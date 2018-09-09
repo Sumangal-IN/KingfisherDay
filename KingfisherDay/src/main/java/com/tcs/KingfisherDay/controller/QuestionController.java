@@ -62,9 +62,12 @@ public class QuestionController {
 	@ResponseBody
 	public QuizResult getResult(@PathVariable("questionID") String questionID) {
 		Response winnerResponse = responseService.getWinner(questionID, questionService.getQuestion(questionID));
-		Employee winner = userService.findByEmailID(winnerResponse.getEmployeeEmail());
-		OptionPercentage optionPercentage = responseService.getPercentages(questionID);
-		return new QuizResult(optionPercentage, winnerResponse, winner);
+		if (winnerResponse != null) {
+			Employee winner = userService.findByEmailID(winnerResponse.getEmployeeEmail());
+			OptionPercentage optionPercentage = responseService.getPercentages(questionID);
+			return new QuizResult(optionPercentage, winnerResponse, winner);
+		}
+		return null;
 	}
 
 	@MessageMapping("/getCurrentQuestion")
