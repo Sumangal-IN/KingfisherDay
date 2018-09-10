@@ -94,8 +94,10 @@ angular
 						}
 						$scope.showErrorNoPhotoSelected = false;
 
-						if (!($scope.photoFile.name.endsWith('.jpg') || $scope.photoFile.name
-								.endsWith('.jpeg'))
+						if (!($scope.photoFile.name.endsWith('.jpg')
+								|| $scope.photoFile.name.endsWith('.jpeg')
+								|| $scope.photoFile.name.endsWith('.JPEG') || $scope.photoFile.name
+								.endsWith('.JPG'))
 								|| $scope.photoFile.size > 5500000) {
 							$scope.showErrorPhotoFileIncorrect = true;
 							return;
@@ -280,7 +282,7 @@ angular
 											$scope.optionActive == '';
 											$scope.questionAvailable = false;
 											$scope.questionUnavailable = true;
-											$scope.questionUnavailbleText='Response captured, waiting for next question';
+											$scope.questionUnavailbleText = 'Response captured, waiting for next question';
 											$scope.connectingServer = true;
 										},
 										function myError(response) {

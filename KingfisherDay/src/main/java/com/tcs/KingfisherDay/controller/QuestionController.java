@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.tcs.KingfisherDay.model.Employee;
 import com.tcs.KingfisherDay.model.OptionPercentage;
+import com.tcs.KingfisherDay.model.Question;
 import com.tcs.KingfisherDay.model.QuizResult;
 import com.tcs.KingfisherDay.model.Response;
 import com.tcs.KingfisherDay.service.QuestionService;
@@ -62,12 +63,19 @@ public class QuestionController {
 	@ResponseBody
 	public QuizResult getResult(@PathVariable("questionID") String questionID) {
 		Response winnerResponse = responseService.getWinner(questionID, questionService.getQuestion(questionID));
+		Question question = questionService.getQuestion(questionID);
+		OptionPercentage optionPercentage = responseService.getPercentages(questionID);
 		if (winnerResponse != null) {
 			Employee winner = userService.findByEmailID(winnerResponse.getEmployeeEmail());
-			OptionPercentage optionPercentage = responseService.getPercentages(questionID);
-			return new QuizResult(optionPercentage, winnerResponse, winner);
+			return new QuizResult(optionPercentage, winner, question);
 		}
-		return null;
+		return new QuizResult(optionPercentage, question);
+	}
+
+	@RequestMapping(value = "/getCurrentQuestionAdmin", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public Question getResult() {
+		return questionService.getCurrentQuestion();
 	}
 
 	@MessageMapping("/getCurrentQuestion")

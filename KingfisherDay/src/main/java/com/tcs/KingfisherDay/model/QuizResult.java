@@ -2,17 +2,24 @@ package com.tcs.KingfisherDay.model;
 
 public class QuizResult {
 	private OptionPercentage optionPercentage;
-	private Response winnerResponse;
 	private Employee winner;
+	private Question question;
 
 	public QuizResult() {
 	}
 
-	public QuizResult(OptionPercentage optionPercentage, Response winnerResponse, Employee winner) {
+	public QuizResult(OptionPercentage optionPercentage, Employee winner, Question question) {
 		super();
 		this.optionPercentage = optionPercentage;
-		this.winnerResponse = winnerResponse;
 		this.winner = winner;
+		this.question = question;
+	}
+
+	public QuizResult(OptionPercentage optionPercentage, Question question) {
+		super();
+		this.optionPercentage = optionPercentage;
+		this.winner = winner;
+		this.question = question;
 	}
 
 	public OptionPercentage getOptionPercentage() {
@@ -23,14 +30,6 @@ public class QuizResult {
 		this.optionPercentage = optionPercentage;
 	}
 
-	public Response getWinnerResponse() {
-		return winnerResponse;
-	}
-
-	public void setWinnerResponse(Response winnerResponse) {
-		this.winnerResponse = winnerResponse;
-	}
-
 	public Employee getWinner() {
 		return winner;
 	}
@@ -39,10 +38,12 @@ public class QuizResult {
 		this.winner = winner;
 	}
 
-	@Override
-	public String toString() {
-		return "QuizResult [optionPercentage=" + optionPercentage + ", winnerResponse=" + winnerResponse + ", winner="
-				+ winner + "]";
+	public Question getQuestion() {
+		return question;
+	}
+
+	public void setQuestion(Question question) {
+		this.question = question;
 	}
 
 }
