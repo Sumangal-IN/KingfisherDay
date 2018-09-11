@@ -62,9 +62,9 @@ public class QuestionController {
 	@RequestMapping(value = "/getResult/{questionID}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public QuizResult getResult(@PathVariable("questionID") String questionID) {
-		Response winnerResponse = responseService.getWinner(questionID, questionService.getQuestion(questionID));
 		Question question = questionService.getQuestion(questionID);
-		OptionPercentage optionPercentage = responseService.getPercentages(questionID);
+		Response winnerResponse = responseService.getWinner(questionID, question);
+		OptionPercentage optionPercentage = responseService.getPercentages(question);
 		if (winnerResponse != null) {
 			Employee winner = userService.findByEmailID(winnerResponse.getEmployeeEmail());
 			return new QuizResult(optionPercentage, winner, question);

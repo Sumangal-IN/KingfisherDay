@@ -10,4 +10,6 @@ public interface ResponseRepository extends JpaRepository<Response, String> {
 	Response findTopByQuestionIDAndOptionOrderByTimeStamp(String questionID, String optionCorrect);
 
 	long countByOptionAndQuestionID(String string, String questionID);
+
+	long countByQuestionID(String questionID);
 }

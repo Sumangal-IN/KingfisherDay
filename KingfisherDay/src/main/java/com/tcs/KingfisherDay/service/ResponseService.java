@@ -26,15 +26,14 @@ public class ResponseService {
 		return responseRepository.findTopByQuestionIDAndOptionOrderByTimeStamp(questionID, question.getOptionCorrect());
 	}
 
-	public OptionPercentage getPercentages(String questionID) {
-		long total = responseRepository.count();
+	public OptionPercentage getPercentages(Question question) {
+		long total = responseRepository.countByQuestionID(question.getQuestionID());
 		if (total == 0)
 			return new OptionPercentage(0, 0, 0, 0);
-
-		long totalA = responseRepository.countByOptionAndQuestionID("A", questionID);
-		long totalB = responseRepository.countByOptionAndQuestionID("B", questionID);
-		long totalC = responseRepository.countByOptionAndQuestionID("C", questionID);
-		long totalD = responseRepository.countByOptionAndQuestionID("D", questionID);
+		long totalA = responseRepository.countByOptionAndQuestionID(question.getOptionA(), question.getQuestionID());
+		long totalB = responseRepository.countByOptionAndQuestionID(question.getOptionB(), question.getQuestionID());
+		long totalC = responseRepository.countByOptionAndQuestionID(question.getOptionC(), question.getQuestionID());
+		long totalD = responseRepository.countByOptionAndQuestionID(question.getOptionD(), question.getQuestionID());
 		total = totalA + totalB + totalC + totalD;
 		return new OptionPercentage((double) totalA / (double) total, (double) totalB / total, (double) totalC / total,
 				(double) totalD / total);

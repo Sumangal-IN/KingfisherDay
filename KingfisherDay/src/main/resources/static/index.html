@@ -17,6 +17,7 @@
 <script src="cg-busy.js"></script>
 <script src="sockjs.min.js"></script>
 <script src="stomp.min.js"></script>
+<script src="angular-sanitize.min.js"></script>
 
 <meta name="viewport"
 	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -240,7 +241,7 @@
 			<div class="col-12 question_heading" ng-show="questionAvailable">
 				<strong>Question #{{currentQuestionData.questionID}}</strong>
 			</div>
-			<div class="col-12 question_text mt-3" ng-show="questionAvailable">{{currentQuestionData.questionText}}</div>
+			<div class="col-12 question_text mt-3" ng-show="questionAvailable" ng-bind-html="currentQuestionData.questionText"></div>
 			<div class="col-10 option_text mt-3 p-1 pl-2"
 				ng-class="optionActive=='A'?'option_active':''"
 				ng-show="questionAvailable" ng-click="selectOption('A')">{{currentQuestionData.optionA}}</div>
@@ -249,8 +250,8 @@
 				ng-show="questionAvailable" ng-click="selectOption('B')">{{currentQuestionData.optionB}}</div>
 			<div class="col-10 option_text mt-3 p-1 pl-2"
 				ng-class="optionActive=='C'?'option_active':''"
-				ng-show="questionAvailable" ng-click="selectOption('C')">{{currentQuestionData.optionC}}</div>
-			<div class="col-10 option_text mt-3 p-1 pl-2"
+				ng-show="questionAvailable" ng-click="selectOption('C')" >{{currentQuestionData.optionC}}</div>
+			<div class="col-10 option_text mt-3 p-1 pl-2 mb-3"
 				ng-class="optionActive=='D'?'option_active':''"
 				ng-show="questionAvailable" ng-click="selectOption('D')">{{currentQuestionData.optionD}}</div>
 			<div class="col-12" ng-show="questionUnavailable">

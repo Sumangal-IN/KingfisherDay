@@ -1,5 +1,5 @@
 angular
-		.module('kfApp', [ 'cgBusy' ])
+		.module('kfApp', [ 'cgBusy', 'ngSanitize' ])
 		.directive('fileUpload', function() {
 			return {
 				scope : true, // create a new scope
@@ -267,8 +267,22 @@ angular
 					}
 
 					$scope.selectOption = function(option) {
-						console.log(option);
 						$scope.optionActive == option;
+						switch (option) {
+						case 'A':
+							option = $scope.currentQuestionData.optionA;
+							break;
+						case 'B':
+							option = $scope.currentQuestionData.optionB;
+							break;
+						case 'C':
+							option = $scope.currentQuestionData.optionC;
+							break;
+						case 'D':
+							option = $scope.currentQuestionData.optionD;
+							break;
+						}
+						console.log(option);
 						$scope.promise = $http
 								.get(
 										URL

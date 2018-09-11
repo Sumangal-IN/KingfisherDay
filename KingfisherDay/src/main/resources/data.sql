@@ -1,8 +1,8 @@
-insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('1','question 1','option A','option B','option C','option D','A',false);
-insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('2','question 2','option A','option B','option C','option D','B',false);
-insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('3','question 3','option A','option B','option C','option D','B',false);
-insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('4','question 4','option A','option B','option C','option D','A',false);
-insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('5','question 5','option A','option B','option C','option D','B',false);
+insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('1','Which UK based retailer (happens to be a TCS customer) was sponsor of English Cricket Team?','A. ASDA','B. Waitrose','C. M&S','D. Sainsbury','B. Waitrose',false);
+insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('2','Kingfisher has an office in which Asian city?','A. Kolkata','B. Singapore','C. Hongkong','D. Tokyo','B. Singapore',false);
+insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('3','Identify the person in the picture<br/><img src="Capture.JPG">','A. Russi Modi','B. Faquir Chand Kholi','C. Jamshedji Tata','D. Naval Tata','B. Faquir Chand Kholi (First CEO of TCS)',false);
+insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('4','Name the player who representaed his country&quote;s national team in more than one sports.','A. Chuni Goswami','B. Jonty Rhodes','C. Diego Maradona','D. Nevil DSuza','B. Jonty Rhodes (Cricket & Hockey)',false);
+insert into question(question_ID,question_Text,option_A,option_B,option_C,option_D,option_Correct,current) values('5','Calcutta Cup is the prize of which sports?','A. Footbal','B. Rugby','C. Hockey','D. Cricket','B. Rugby (match between England & Scotland)',false);
 
 insert into flag(key,value) values('quiz.end','false');
 insert into flag(key,value) values('app.active','true');

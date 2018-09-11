@@ -1,5 +1,5 @@
 angular
-		.module('kfApp', [ 'cgBusy' ])
+		.module('kfApp', ['cgBusy','ngSanitize'])
 		.controller(
 				'kfController',
 				function($scope, $http) {
