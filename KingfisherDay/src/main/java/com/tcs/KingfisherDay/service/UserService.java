@@ -14,11 +14,14 @@ public class UserService {
 
 	@Autowired
 	EmployeeRepository employeeRepository;
+	@Autowired
+	PasswordEncryptionService passwordEncryptionService;
 
 	public Employee register(String name, String emailID, String foodPreference, String password, String mobile,
 			String photo) {
-		return employeeRepository
-				.save(new Employee(name, emailID, FoodPreference.valueOf(foodPreference), password, mobile, photo));
+		String encryptedPassword = passwordEncryptionService.getEncryptedPassword(password);
+		return employeeRepository.save(
+				new Employee(name, emailID, FoodPreference.valueOf(foodPreference), encryptedPassword, mobile, photo));
 	}
 
 	public Employee findByEmailID(String emailID) {
@@ -35,11 +38,13 @@ public class UserService {
 	}
 
 	public Employee getEmployee(String emailID, String password) {
-		List<Employee> employeeList = employeeRepository.findByEmailIDAndPassword(emailID, password);
-		if (employeeList.isEmpty())
+		Employee emp = findByEmailID(emailID);
+		String encryptedPassword = emp.getPassword();
+		if (!passwordEncryptionService.isPasswordValid(password, encryptedPassword)) {
 			return null;
-		else
-			return employeeList.get(0);
+		} else {
+			return emp;
+		}
 	}
 
 }
