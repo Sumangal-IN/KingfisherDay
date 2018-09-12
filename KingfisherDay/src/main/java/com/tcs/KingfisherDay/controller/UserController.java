@@ -24,7 +24,7 @@ public class UserController {
 	@Autowired
 	ImageHandlingService imageHandlingService;
 
-	@RequestMapping(value = "/registerEmployee/{name}/{emailID}/{foodPreference}/{password}/{mobile}/{photoFile}", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/registerEmployee/{name}/{emailID}/{foodPreference}/{password}/{mobile}/", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
 	public Employee registerEmployee(@PathVariable("name") String name, @PathVariable("emailID") String emailID,
 			@PathVariable("foodPreference") String foodPreference, @PathVariable("password") String password,
@@ -33,6 +33,7 @@ public class UserController {
 		try {
 			String photo = imageHandlingService.resizeImage(photoFile);
 			employee=userService.register(name, emailID, foodPreference, password, mobile, photo);
+			System.out.println("Employee Registered:"+employee.toString());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -1,0 +1,267 @@
+<html>
+<head>
+<title>TCS Kingfisher Day'18</title>
+<script src="jquery-3.2.1.slim.min.js"></script>
+<script src="popper.min.js"></script>
+<link rel="stylesheet" href="bootstrap.min.css">
+<script src="bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
+	crossorigin="anonymous">
+<link rel="stylesheet" type="text/css" href="index.css">
+<link rel="stylesheet" type="text/css" href="cg-busy.css">
+<script src="angular.min.js"></script>
+<script src="angular-animate.js"></script>
+<script src="index.js"></script>
+<script src="cg-busy.js"></script>
+<script src="sockjs.min.js"></script>
+<script src="stomp.min.js"></script>
+
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+<body ng-app="kfApp">
+	<div class="container-fluid container_custom"
+		ng-controller="kfController" cg-busy="promise">
+		<nav
+			class="header navbar navbar-light bg-light justify-content-center">
+			<a class="navbar-brand header_text" href="#!"><strong>TCS
+					Kingfisher Day'18</strong></a> <img class="dp_header"
+				src="data:image/jpg;base64,{{photo}}" ng-show="showHeaderDP">
+		</nav>
+		<form class="form justify-content-center mt-5" ng-show="showLoginPage">
+			<div class="row justify-content-center">
+				<div class="form-group input-group-sm mb-3 mr-1">
+					<i class="fas fa-at fa-2x"></i>
+				</div>
+				<div class="form-group input-group-sm mb-3 mr-2">
+					<input class="form-control" type="text" placeholder="email@tcs.com"
+						ng-model="loginEmail">
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="form-group input-group-sm mb-3 mr-1">
+					<i class="fas fa-key fa-2x"></i>
+				</div>
+				<div class="form-group input-group-sm mb-3 mr-2">
+					<input class="form-control" type="password" placeholder="password"
+						ng-model="loginPassword">
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="form-group input-group-sm mb-3 mr-2">
+					<button ng-click="loginSubmit()" class="btn btn-primary btn-sm">Log
+						In</button>
+				</div>
+				<div class="form-group input-group-sm mb-3 mr-2">
+					<button ng-click="gotoRegister()" class="btn btn-link btn-sm">Register</button>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="justify-content-center alert alert-danger" role="alert"
+					ng-show="showErrorInvalidEmail">
+					<strong>Oh snap!</strong> please enter valid TCS mail id
+				</div>
+				<div class="justify-content-center alert alert-danger" role="alert"
+					ng-show="showErrorEmptyPassword">
+					<strong></strong> Password can not be blank !
+				</div>
+				<div class="justify-content-center alert alert-danger" role="alert"
+					ng-show="showErrorIncorrectCredential">
+					<strong>Oops!</strong> Invalid credential
+				</div>
+				<div class="justify-content-center alert alert-success" role="alert"
+					ng-show="showRegisterSuccess">
+					<strong>Registration successful</strong> Please login
+				</div>
+			</div>
+		</form>
+
+		<form class="form justify-content-center mt-5 form-control-sm"
+			ng-show="showRegisterPage">
+			<div class="row justify-content-center">
+				<div class="form-group input-group-sm mb-3 mr-1">
+					<i class="fas fa-at fa-2x"></i>
+				</div>
+				<div class="form-group input-group-sm mb-3 mr-2">
+					<input class="form-control" type="text" placeholder="email@tcs.com"
+						ng-model="registerEmail">
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="form-group input-group-sm mb-3 mr-1">
+					<i class="fas fa-key fa-2x"></i>
+				</div>
+				<div class="form-group input-group-sm mb-3 mr-2">
+					<input class="form-control" type="password" placeholder="password"
+						ng-model="registerPassword">
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="form-group input-group-sm mb-3 mr-1">
+					<i class="fas fa-user-circle fa-2x"></i>
+				</div>
+				<div class="form-group input-group-sm mb-3 mr-2">
+					<input class="form-control" type="text" placeholder="Name"
+						ng-model="registerName">
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div
+					class="btn-group btn-group-toggle form-group input-group-sm mb-3 mr-2"
+					data-toggle="buttons">
+					<i class="fas fa-utensils mr-2 fa-2x"></i> <label
+						class="btn btn-secondary btn-sm active mr-1"> <input
+						type="radio" name="options" ng-model="foodPref" value="VEG"
+						id="option1" autocomplete="off" checked> Veg
+					</label> <label class="btn btn-secondary btn-sm"> <input
+						type="radio" name="options" ng-model="foodPref" value="NON_VEG"
+						id="option2" autocomplete="off"> Non-veg
+					</label>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="form-group input-group-sm mb-3">
+					<i class="fas fa-camera-retro mr-2 fa-2x"></i>
+				</div>
+				<div class="form-group input-group-sm mb-3 mr-1">
+					<div class="fileUpload btn btn-primary btn-sm">
+						<span ng-bind="uploadText"></span> <input type="file"
+							class="upload" file-upload
+							onchange="angular.element(this).scope().fileNameChanged()" />
+					</div>
+				</div>
+				<div class="form-group input-group-sm mb-3" ng-show="fileSelected">
+					<i class="far fa-check-circle fa-2x"></i>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="form-group input-group-sm mb-3 mr-1">
+					<i class="fas fa-mobile-alt fa-2x"></i>
+				</div>
+				<div class="form-group input-group-sm mb-3 mr-2">
+					<input class="form-control" type="text" placeholder="mobile"
+						ng-model="registerMobile">
+				</div>
+			</div>
+			<div class="row justify-content-center" ng-show="showGetOTP">
+				<div class="form-group input-group-sm mb-3 mr-2">
+					<button ng-click="registerSubmitOTP()"
+						class="btn btn-primary btn-sm">Get OTP</button>
+				</div>
+			</div>
+			<div class="row justify-content-center" ng-show="showVerifyOTP">
+				<div class="form-group input-group-sm mb-3 mr-2">
+					<input class="form-control" type="text" placeholder="OTP * * * * *"
+						ng-model="registerOTP">
+				</div>
+				<div class="form-group input-group-sm mb-3 mr-2">
+					<button ng-click="validateOTP()" class="btn btn-primary btn-sm">Verify
+						OTP</button>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="justify-content-center alert alert-danger" role="alert"
+					ng-show="showErrorInvalidEmail">
+					<strong>Oh snap!</strong> please enter valid TCS mail id
+				</div>
+				<div class="justify-content-center alert alert-danger" role="alert"
+					ng-show="showErrorEmptyPassword">
+					<strong></strong> Password can not be blank !
+				</div>
+				<div class="justify-content-center alert alert-danger" role="alert"
+					ng-show="showErrorEmptyName">
+					<strong></strong> Name can not be blank !
+				</div>
+				<div class="justify-content-center alert alert-danger" role="alert"
+					ng-show="showErrorNoPhotoSelected">
+					<strong></strong> Please select your photo !
+				</div>
+				<div class="justify-content-center alert alert-danger" role="alert"
+					ng-show="showErrorPhotoFileIncorrect">
+					<strong></strong> File must be of type .jpg and file size should
+					not be more than 5Mb !
+				</div>
+				<div class="justify-content-center alert alert-danger" role="alert"
+					ng-show="showErrorIncorrectMobile">
+					<strong></strong> Please enter valid 10 digit mobile number !
+				</div>
+				<div class="justify-content-center alert alert-danger" role="alert"
+					ng-show="showErrorUserAlreadyExists">
+					<strong>No way!</strong> this user already exists!
+				</div>
+				<div class="justify-content-center alert alert-danger" role="alert"
+					ng-show="showErrorOTP">
+					<strong>Oh snap!</strong> this is not what I sent you!
+				</div>
+			</div>
+		</form>
+
+		<div class="row menu_holder" ng-show="showMenuPage">
+			<div class="col-4 menu"
+				ng-class="{'menu_active': menuActive == 'event'}"
+				ng-click="clickEvent()">
+				<div class="row justify-content-center pt-2">
+					<i class="fab fa-elementor fa-2x"></i>
+				</div>
+				<div class="row justify-content-center menu_text pb-2">
+					<strong>Events</strong>
+				</div>
+			</div>
+			<div class="col-4 menu"
+				ng-class="{'menu_active': menuActive == 'photo'}"
+				ng-click="clickPhoto()">
+				<div class="row justify-content-center pt-2">
+					<i class="far fa-images fa-2x"></i>
+				</div>
+				<div class="row justify-content-center menu_text pb-2">
+					<strong>Photo contest</strong>
+				</div>
+			</div>
+			<div class="col-4 menu"
+				ng-class="menuActive=='quiz'?'menu_active':''"
+				ng-click="clickQuiz()">
+				<div class="row justify-content-center pt-2">
+					<i class="far fa-question-circle fa-2x"></i>
+				</div>
+				<div class="row justify-content-center menu_text pb-2">
+					<strong>Quiz</strong>
+				</div>
+			</div>
+		</div>
+		<div class="row welcome_user mt-1">
+			<div class="col float-right text-right pr-1" ng-show="showMenuPage">
+				<strong>Welcome, {{name}}</strong>
+			</div>
+		</div>
+		<div class="row mt-4 mr-1 ml-1 justify-content-center quiz_window"
+			ng-show="showQuiz">
+			<div class="col-12 question_heading" ng-show="questionAvailable">
+				<strong>Question #{{currentQuestionData.questionID}}</strong>
+			</div>
+			<div class="col-12 question_text mt-3" ng-show="questionAvailable">{{currentQuestionData.questionText}}</div>
+			<div class="col-10 option_text mt-3 p-1 pl-2"
+				ng-class="optionActive=='A'?'option_active':''"
+				ng-show="questionAvailable" ng-click="selectOption('A')">{{currentQuestionData.optionA}}</div>
+			<div class="col-10 option_text mt-3 p-1 pl-2"
+				ng-class="optionActive=='B'?'option_active':''"
+				ng-show="questionAvailable" ng-click="selectOption('B')">{{currentQuestionData.optionB}}</div>
+			<div class="col-10 option_text mt-3 p-1 pl-2"
+				ng-class="optionActive=='C'?'option_active':''"
+				ng-show="questionAvailable" ng-click="selectOption('C')">{{currentQuestionData.optionC}}</div>
+			<div class="col-10 option_text mt-3 p-1 pl-2"
+				ng-class="optionActive=='D'?'option_active':''"
+				ng-show="questionAvailable" ng-click="selectOption('D')">{{currentQuestionData.optionD}}</div>
+			<div class="col-12" ng-show="questionUnavailable">
+				<strong>{{questionUnavailbleText}}</strong>
+			</div>
+			<div class="col-12" ng-show="connectingServer">
+				<p class="saving">
+					<span>.</span><span>.</span><span>.</span>
+				</p>
+			</div>
+		</div>
+	</div>
+</body>
+</html>
