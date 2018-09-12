@@ -1,5 +1,7 @@
 
 jQuery(document).ready(function($) {
+	
+	var connectionURL='http://localhost:8080';
 
     function getQuestion(url) {
         $.ajax({
@@ -96,7 +98,7 @@ jQuery(document).ready(function($) {
             }
 			
             console.log(data);
-			var url='http://localhost:8080/getEmployee/'+data.name+'/'+data.password;
+			var url=connectionURL+'/getEmployee/'+data.name+'/'+data.password;
 			console.log(url);
 			
             $.ajax({
@@ -134,7 +136,7 @@ jQuery(document).ready(function($) {
 			fd.append('photoFile', data.image);
 
             console.log(data);
-			var url='http://localhost:8080/registerEmployee/'+data.name+'/'+data.email+'/'+data.foodpref+'/'+data.password+'/'+data.mobile+"/";
+			var url=connectionURL+'/registerEmployee/'+data.name+'/'+data.email+'/'+data.foodpref+'/'+data.password+'/'+data.mobile+"/";
 			console.log(url);
 			
             $.ajax({
