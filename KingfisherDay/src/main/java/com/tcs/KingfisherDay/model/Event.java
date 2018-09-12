@@ -24,8 +24,8 @@ public class Event {
 	private Date endDate;
 	@Column(name = "start_time", nullable = false)
 	private String startTime;
-	@Column(name = "duration", nullable = false)
-	private String duration;
+	@Column(name = "end_time", nullable = false)
+	private String endTime;
 	@Column(name = "photo", nullable = false)
 	private String photo;
 
@@ -77,12 +77,12 @@ public class Event {
 		this.startTime = startTime;
 	}
 
-	public String getDuration() {
-		return duration;
+	public String getEndTime() {
+		return endTime;
 	}
 
-	public void setDuration(String duration) {
-		this.duration = duration;
+	public void setEndTime(String endTime) {
+		this.endTime = endTime;
 	}
 
 	public String getPhoto() {
@@ -98,7 +98,7 @@ public class Event {
 	}
 
 	public Event(String eventId, String eventName, String details, Date startDate, Date endDate, String startTime,
-			String duration, String photo) {
+			String endTime, String photo) {
 		super();
 		this.eventId = eventId;
 		this.eventName = eventName;
@@ -106,14 +106,14 @@ public class Event {
 		this.startDate = startDate;
 		this.endDate = endDate;
 		this.startTime = startTime;
-		this.duration = duration;
+		this.endTime = endTime;
 		this.photo = photo;
 	}
 
 	@Override
 	public String toString() {
 		return "Events [eventId=" + eventId + ", eventName=" + eventName + ", details=" + details + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", startTime=" + startTime + ", duration=" + duration
+				+ startDate + ", endDate=" + endDate + ", startTime=" + startTime + ", endTime=" + endTime
 				+ ", photo=" + photo + "]";
 	}
 

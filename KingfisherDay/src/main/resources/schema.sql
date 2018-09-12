@@ -30,6 +30,6 @@ create table EVENT(
 	start_date DATE,
 	end_date DATE,
 	start_time VARCHAR2(100),
-	duration VARCHAR2(100),
+	end_time VARCHAR2(100),
 	photo VARCHAR2(10000)
 );
