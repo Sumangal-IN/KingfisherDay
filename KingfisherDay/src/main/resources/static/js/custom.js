@@ -5,33 +5,13 @@ jQuery(document).ready(function($) {
 	var stompClient = null;
 	var socket = null;
 
-	function getQuestion(url) {
-		$.ajax({
-			url: url,          
-			type: 'get',
-			success: function (data) {
-				var template,
-				contentHtml;
-
-				if(data.responsecode === '0') {
-					template = $('#ui-template-quiz-inactive').html();                    
-				} else if(data.responsecode === '3'){
-					template = $('#ui-template-quiz-disabled').html(); 
-				} else {
-					template = $('#ui-template-quiz').html();                    
-				}
-				contentHtml = Mustache.to_html(template, data);
-				$('#question-container').html(contentHtml);
-			},
-			error: function(error) {
-				console.log(error);
-			}
-		})
-	}
-
 	function onConnected() {
 		stompClient.subscribe('/user/topic/getCurrentQuestion', onMessageReceivedQuiz);
 		stompClient.subscribe('/topic/broadcastCurrentQuestion', onMessageReceivedQuiz);
+		var d = new Date();
+		var n = d.getTime();
+		stompClient.send("/app/getCurrentQuestion", {},
+				'{"currentMili":' + n + '}');
 	}
 
 	function onError(e) {
@@ -40,13 +20,21 @@ jQuery(document).ready(function($) {
 
 
 	function onMessageReceivedQuiz(payload) {
-		console.log(payload)
+		var data=JSON.parse(payload.body);
+		
+		var template,
+		contentHtml;
+
+		if(data.current) {
+			template = $('#ui-template-quiz').html();                    
+		}else{
+			template = $('#ui-template-quiz-inactive').html();
+		}
+		contentHtml = Mustache.to_html(template, data);
+		$('#question-container').html(contentHtml);
 	}
 
 	$('#quiz-modal').on('click', function () {
-		// getQuestion('https://api.myjson.com/bins/om038');//url:
-		// 'https://api.myjson.com/bins/heno4', //Inactive quiz
-
 		socket = new SockJS(connectionURL+'/quizWS');
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, onConnected, onError);
@@ -60,19 +48,35 @@ jQuery(document).ready(function($) {
 
 	$(document).on("click", '.js-submit-answer', function(e) { 
 		e.preventDefault();
-		$('.js-next-question').removeClass('disabled');
 		$(this).addClass('disabled');
+		
+		var radioValueOfAnsweredQuestion = $("input[name='q_answer']:checked").val();
+        if(radioValueOfAnsweredQuestion){
+            alert("Your have selected:" + radioValueOfAnsweredQuestion);
+        }
+        var questionID=$('#questionID').text().trim();
+        var emailId=$('#account_email').text().trim();
+
+		var url=connectionURL+'/saveResponse/'+questionID+'/'+emailId+'/'+radioValueOfAnsweredQuestion;
+		console.log(url);
+
+		$.ajax({
+			url: url,
+			processData: false,
+			contentType: false,
+			type: 'get',
+			success: function (res) {
+				console.log(res);
+			},
+			error: function(error) {
+				console.log(error);
+			}
+		})
+		
 	});
 
-	$(document).on("click", '.js-next-question', function(e) { 
-		getQuestion('https://api.myjson.com/bins/ux73o'); // url:
-		// 'https://api.myjson.com/bins/heno4',
-		// //Inactive quiz
-	}); 
 	$(document).on("click", '.js-prev-question', function(e) { 
-		getQuestion('https://api.myjson.com/bins/sppzo'); // next question not
-		// active - back to
-		// prev question
+		$('.close-modal').click();
 	});
 
 	$.validator.addMethod('imageValidator', function (img, element) {
@@ -112,8 +116,17 @@ jQuery(document).ready(function($) {
 				processData: false,
 				contentType: false,  
 				type: 'get',
-				success: function (res) {
-					console.log(res);
+				success: function (employee) {
+					console.log(employee);
+					$('.close-modal').click();
+
+					var template1,template2;
+					if(employee){
+						template1 = $('#ui-template-account-details').html();
+						template2 = $('#ui-template-account-photo').html();    
+					}
+					$('#user_details').html(Mustache.to_html(template1, employee));
+					$('.home-slider').html(Mustache.to_html(template2, employee));
 				},
 				error: function(error) {
 					console.log(error);
@@ -144,7 +157,7 @@ jQuery(document).ready(function($) {
 			console.log(data);
 			var url=connectionURL+'/registerEmployee/'+data.name+'/'+data.email+'/'+data.foodpref+'/'+data.password+'/'+data.mobile+"/";
 			console.log(url);
-
+			
 			$.ajax({
 				url: url,     
 				data: fd,
@@ -152,8 +165,17 @@ jQuery(document).ready(function($) {
 				contentType: false,   
 				enctype: 'multipart/form-data', 
 				type: 'post',
-				success: function (res) {
-					console.log(res);
+				success: function (employee) {
+					console.log(employee);
+					$('.close-modal').click();
+
+					var template1,template2;
+					if(employee){
+						template1 = $('#ui-template-account-details').html();
+						template2 = $('#ui-template-account-photo').html();    
+					}
+					$('#user_details').html(Mustache.to_html(template1, employee));
+					$('.home-slider').html(Mustache.to_html(template2, employee));
 				},
 				error: function(error) {
 					console.log(error);

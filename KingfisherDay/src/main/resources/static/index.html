@@ -61,6 +61,8 @@
                             <h1>TCS Kingfisher Day</h1>
                             <span>Hola! Welcome!</span>
                         </div>
+                        <div id="user_details">
+                         </div>
                     </div>
                 </div>
             </div>
@@ -1310,52 +1312,50 @@
             </div>
         </div>
         <!-- End Testimonial Section -->
-
         <script id="ui-template-quiz" type="x-tmpl-mustache">
-            <div class="modal-header">
-                <h4><span class="label label-warning" id="qid">{{qid}}</span> {{question}} </h4>
-            </div>
-            <div class="modal-body">
-                <div class="quiz" id="quiz" data-toggle="buttons">
-                    {{#options}}
-                        <label class="element-animation1 btn btn-lg btn-info btn-block"><input type="radio" name="q_answer" value="{{.}}"> {{.}}</label>
-                    {{/options}}
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary js-submit-answer disabled">Submit</button>
-                <button type="button" class="btn btn-success js-next-question disabled">Next</button>
-            </div>
-        </script>
+			<div class="modal-header">
+				<h4><span class="label label-warning" id="questionID">{{questionID}}</span> {{questionText}} </h4>
+			</div>
+			<div class="modal-body">
+				<div class="quiz" id="quiz" data-toggle="buttons">
+					
+					<label class="element-animation1 btn btn-lg btn-info btn-block"><input type="radio" name="q_answer" value="{{optionA}}"> {{optionA}}</label>
+					<label class="element-animation1 btn btn-lg btn-info btn-block"><input type="radio" name="q_answer" value="{{optionB}}"> {{optionB}}</label>
+					<label class="element-animation1 btn btn-lg btn-info btn-block"><input type="radio" name="q_answer" value="{{optionC}}"> {{optionC}}</label>
+					<label class="element-animation1 btn btn-lg btn-info btn-block"><input type="radio" name="q_answer" value="{{optionD}}"> {{optionD}}</label>
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary js-submit-answer">Submit</button>
+			</div>
+		</script>
 
         <script id="ui-template-quiz-inactive" type="x-tmpl-mustache">
             <div class="modal-body">
                 <img alt="quiz not available" src="images/Quiz404.jpg" />
                 <div class="alert alert-danger" role="alert">
-                    <strong>{{message}}</strong>
+                    <strong>{{questionUnavailbleText}}</strong>
                 </div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary js-prev-question">Back</button>
             </div>
         </script>
+        <script id="ui-template-account-details" type="x-tmpl-mustache">
+			<div class="menu-item">
+            	Welcome {{name}}
+            </div>
+			<div id="account_email" style="display: none">
+            	{{emailID}}
+            </div>
+		</script>
+        <script id="ui-template-account-photo" type="x-tmpl-mustache">
+			<div class="menu-item" id="account_photo">
+				<img src="data:image/jpg;base64,{{photo}}" class="img-responsive" alt="">
+			</div>
+		</script>
 
-        <script id="ui-template-quiz-disabled" type="x-tmpl-mustache">
-            <div class="modal-header">
-                <h4><span class="label label-warning" id="qid">{{qid}}</span> {{question}} </h4>
-            </div>
-            <div class="modal-body">
-                <div class="quiz" id="quiz" data-toggle="buttons">
-                    {{#options}}
-                        <label class="element-animation1 btn btn-lg btn-info btn-block disabled {{isselected}}"><input type="radio" name="q_answer" value="{{text}}" disabled> {{val}} {{text}}</label>
-                    {{/options}}
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary js-submit-answer disabled">Submit</button>
-                <button type="button" class="btn btn-success js-next-question">Next</button>
-            </div>
-        </script>
         
     </body>
     

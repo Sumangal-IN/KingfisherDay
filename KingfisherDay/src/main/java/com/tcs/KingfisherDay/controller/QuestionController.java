@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,6 +38,9 @@ public class QuestionController {
 
 	@Autowired
 	private SimpMessageSendingOperations messagingTemplate;
+	
+	@Value("${quiz.not.started.text}")
+	private String questionUnavailbleText;
 
 	@RequestMapping(value = "/setCurrentQuestion/{questionID}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -56,7 +60,11 @@ public class QuestionController {
 	@ResponseBody
 	public Response saveResponse(@PathVariable("questionID") String questionID,
 			@PathVariable("employeeEmail") String employeeEmail, @PathVariable("option") String option) {
-		return responseService.saveResponse(questionID, employeeEmail, option);
+		Response response=null;
+		if(!"undefined".equalsIgnoreCase(option)) {
+			response= responseService.saveResponse(questionID, employeeEmail, option);
+		}
+		return response;
 	}
 
 	@RequestMapping(value = "/getResult/{questionID}", method = RequestMethod.GET, produces = "application/json")
@@ -86,7 +94,7 @@ public class QuestionController {
 					questionService.getCurrentQuestion());
 		else
 			messagingTemplate.convertAndSendToUser(principal.getName(), "/topic/getCurrentQuestion",
-					"{\"questionUnavailbleText\":true}");
+					"{\"questionUnavailbleText\":\""+questionUnavailbleText+"\"}");
 	}
 
 }
