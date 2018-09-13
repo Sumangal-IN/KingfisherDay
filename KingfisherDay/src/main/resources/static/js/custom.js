@@ -30,7 +30,7 @@ jQuery(document).ready(function($) {
 	}
 
 	function onConnected() {
-		stompClient.subscribe('/topic/getCurrentQuestion', onMessageReceivedQuiz);
+		stompClient.subscribe('/user/topic/getCurrentQuestion', onMessageReceivedQuiz);
 		stompClient.subscribe('/topic/broadcastCurrentQuestion', onMessageReceivedQuiz);
 	}
 
