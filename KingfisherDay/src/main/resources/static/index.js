@@ -98,7 +98,7 @@ angular
 								|| $scope.photoFile.name.endsWith('.jpeg')
 								|| $scope.photoFile.name.endsWith('.JPEG') || $scope.photoFile.name
 								.endsWith('.JPG'))
-								|| $scope.photoFile.size > 5500000) {
+								|| $scope.photoFile.size > 3500000) {
 							$scope.showErrorPhotoFileIncorrect = true;
 							return;
 						}
@@ -123,6 +123,7 @@ angular
 												return;
 											} else {
 												$scope.showErrorUserAlreadyExists = false;
+												$scope.showErrorIncorrectMobile = false;
 												$scope.promise = $http
 														.get(
 																URL
