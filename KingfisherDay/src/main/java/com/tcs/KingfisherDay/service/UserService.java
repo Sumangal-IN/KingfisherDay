@@ -39,12 +39,13 @@ public class UserService {
 
 	public Employee getEmployee(String emailID, String password) {
 		Employee emp = findByEmailID(emailID);
-		String encryptedPassword = emp.getPassword();
-		if (!passwordEncryptionService.isPasswordValid(password, encryptedPassword)) {
-			return null;
-		} else {
-			return emp;
+		if (null != emp) {
+			String encryptedPassword = emp.getPassword();
+			if (!passwordEncryptionService.isPasswordValid(password, encryptedPassword)) {
+				emp= null;
+			}
 		}
+		return emp;
 	}
 
 }

@@ -1,7 +1,17 @@
-
 jQuery(document).ready(function($) {
 
 	var connectionURL='';
+	var mobileDetect = new MobileDetect(window.navigator.userAgent);
+	//For Phone Gap mobile app, url is required.
+	if(mobileDetect.mobile()){
+		connectionURL='http://kfday.herokuapp.com';
+	}
+	console.log("connectionURL="+connectionURL);
+	
+	if(localStorage.loginemail && localStorage.loginpwd){
+		loginWithEmailAndPassword(localStorage.loginemail, localStorage.loginpwd);
+	}
+
 	var stompClient = null;
 	var socket = null;
 
@@ -120,39 +130,44 @@ jQuery(document).ready(function($) {
 			}
 
 			console.log(data);
-			var url=connectionURL+'/getEmployee/'+data.name+'/'+data.password;
-			console.log(url);
+			loginWithEmailAndPassword(data.name,data.password);
+		}
+	});
+	
+	function loginWithEmailAndPassword(email, password){
+		var url=connectionURL+'/getEmployee/'+email+'/'+password;
+		console.log("Login URL:"+url);
+		
+		$.ajax({
+			url: url,
+			processData: false,
+			contentType: false,  
+			type: 'get',
+			success: function (employee) {
+				console.log(employee);
 
-			$.ajax({
-				url: url,
-				processData: false,
-				contentType: false,  
-				type: 'get',
-				success: function (employee) {
-					console.log(employee);
+				if(employee){
 					$('.close-modal').click();
-
-					var template1,template2;
-					if(employee){
-						template1 = $('#ui-template-account-details').html();
-						template2 = $('#ui-template-account-photo').html();    
-					}
+					var template1 = $('#ui-template-account-details').html();
+					var template2 = $('#ui-template-account-photo').html();    
 					$('#user_details').html(Mustache.to_html(template1, employee));
 					$('.home-slider').html(Mustache.to_html(template2, employee));
 					
 					if ($('#remember').is(':checked')) {
-			            localStorage.loginemail = $('#login-email').val();
-			            localStorage.loginpwd = $('#login-password').val();
-			            localStorage.rememberme = $('#remember').val();
-			        }
-				},
-				error: function(error) {
-					console.log(error);
+						localStorage.loginemail = $('#login-email').val();
+						localStorage.loginpwd = $('#login-password').val();
+						localStorage.rememberme = $('#remember').val();
+					}
+				}else{
+					$('#error-panel').html("Ooops!! Login credential is invalid");
 				}
-			})
-
-		}
-	});
+			},
+			error: function(error) {
+				console.log(error);
+				$('#error-panel').html("Ooops!! Looks like there is some technical problem!!");
+			}
+		})
+	}
 
 	$('#register-form').on('submit', function(e){
 
@@ -185,18 +200,19 @@ jQuery(document).ready(function($) {
 				type: 'post',
 				success: function (employee) {
 					console.log(employee);
-					$('.close-modal').click();
-
-					var template1,template2;
 					if(employee){
-						template1 = $('#ui-template-account-details').html();
-						template2 = $('#ui-template-account-photo').html();    
+						$('.close-modal').click();
+						var template1 = $('#ui-template-account-details').html();
+						var template2 = $('#ui-template-account-photo').html();    
+						$('#user_details').html(Mustache.to_html(template1, employee));
+						$('.home-slider').html(Mustache.to_html(template2, employee));
+					}else{
+						$('#error-panel').html("Ooops!! Registration failed. Re-check your input data!!");
 					}
-					$('#user_details').html(Mustache.to_html(template1, employee));
-					$('.home-slider').html(Mustache.to_html(template2, employee));
 				},
 				error: function(error) {
 					console.log(error);
+					$('#error-panel').html("Ooops!! Looks like there is some technical problem!!");
 				}
 			})
 
