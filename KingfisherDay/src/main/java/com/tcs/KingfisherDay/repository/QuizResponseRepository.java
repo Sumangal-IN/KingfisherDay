@@ -3,11 +3,12 @@ package com.tcs.KingfisherDay.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.tcs.KingfisherDay.model.Response;
+import com.tcs.KingfisherDay.model.EventResponse;
+import com.tcs.KingfisherDay.model.QuizResponse;
 
 @Repository
-public interface ResponseRepository extends JpaRepository<Response, String> {
-	Response findTopByQuestionIDAndOptionOrderByTimeStamp(String questionID, String optionCorrect);
+public interface QuizResponseRepository extends JpaRepository<QuizResponse, String> {
+	QuizResponse findTopByQuestionIDAndOptionOrderByTimeStamp(String questionID, String optionCorrect);
 
 	long countByOptionAndQuestionID(String string, String questionID);
 

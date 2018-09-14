@@ -1,0 +1,92 @@
+package com.tcs.KingfisherDay.model;
+
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.IdClass;
+import javax.persistence.Table;
+
+import com.tcs.KingfisherDay.model.enums.EventVote;
+import com.tcs.KingfisherDay.model.key.ResponseKey;
+
+@Entity
+@Table(name = "EVENT_RESPONSE")
+@IdClass(ResponseKey.class)
+public class EventResponse {
+
+	@Id
+	@Column(name = "EVENT_ID", nullable = false)
+	private String eventID;
+	@Id
+	@Column(name = "EMPLOYEE_EMAIL", nullable = false)
+	private String employeeEmail;
+	@Column(name = "VOTE", nullable = false)
+	private EventVote vote;
+	@Column(name = "COMMENT", nullable = false)
+	private String comment;
+	@Column(name = "TIME_STAMP", nullable = false)
+	private Timestamp timeStamp;
+
+	public EventResponse() {
+
+	}
+
+	public EventResponse(String eventID, String employeeEmail, EventVote vote, String comment, Timestamp timeStamp) {
+		super();
+		this.eventID = eventID;
+		this.employeeEmail = employeeEmail;
+		this.vote = vote;
+		this.comment = comment;
+		this.timeStamp = timeStamp;
+	}
+
+	public EventResponse(String emailID, String eventID, EventVote vote, Timestamp timeStamp) {
+		this.eventID = eventID;
+		this.employeeEmail = emailID;
+		this.vote = vote;
+		this.timeStamp = timeStamp;
+	}
+
+	public String getEventID() {
+		return eventID;
+	}
+
+	public void setEventID(String eventID) {
+		this.eventID = eventID;
+	}
+
+	public String getEmployeeEmail() {
+		return employeeEmail;
+	}
+
+	public void setEmployeeEmail(String employeeEmail) {
+		this.employeeEmail = employeeEmail;
+	}
+
+	public EventVote getVote() {
+		return vote;
+	}
+
+	public void setVote(EventVote vote) {
+		this.vote = vote;
+	}
+
+	public String getComment() {
+		return comment;
+	}
+
+	public void setComment(String comment) {
+		this.comment = comment;
+	}
+
+	public Timestamp getTimeStamp() {
+		return timeStamp;
+	}
+
+	public void setTimeStamp(Timestamp timeStamp) {
+		this.timeStamp = timeStamp;
+	}
+
+}

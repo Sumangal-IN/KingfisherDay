@@ -11,9 +11,9 @@ import javax.persistence.Table;
 import com.tcs.KingfisherDay.model.key.ResponseKey;
 
 @Entity
-@Table(name = "RESPONSE")
+@Table(name = "QUIZ_RESPONSE")
 @IdClass(ResponseKey.class)
-public class Response {
+public class QuizResponse {
 
 	@Id
 	@Column(name = "QUESTION_ID", nullable = false)
@@ -26,11 +26,11 @@ public class Response {
 	@Column(name = "TIME_STAMP", nullable = false)
 	private Timestamp timeStamp;
 
-	public Response() {
+	public QuizResponse() {
 
 	}
 
-	public Response(String questionID, String employeeEmail, String option, Timestamp timeStamp) {
+	public QuizResponse(String questionID, String employeeEmail, String option, Timestamp timeStamp) {
 		super();
 		this.questionID = questionID;
 		this.employeeEmail = employeeEmail;
@@ -72,7 +72,7 @@ public class Response {
 
 	@Override
 	public String toString() {
-		return "Response [questionID=" + questionID + ", employeeEmail=" + employeeEmail + ", option=" + option
+		return "QuizResponse [questionID=" + questionID + ", employeeEmail=" + employeeEmail + ", option=" + option
 				+ ", timeStamp=" + timeStamp + "]";
 	}
 

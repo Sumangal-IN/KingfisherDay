@@ -8,12 +8,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.tcs.KingfisherDay.model.Event;
+import com.tcs.KingfisherDay.service.EventResponseService;
 import com.tcs.KingfisherDay.service.EventService;
 
 @Controller
 public class EventController {
 	@Autowired
 	EventService eventService;
+
+	@Autowired
+	EventResponseService eventResponseService;
 
 	@RequestMapping(value = "/getAllEvents", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -38,5 +42,17 @@ public class EventController {
 	public void clearCurrentEvent() {
 		eventService.clearCurrentEvent();
 	}
-	
+
+	@RequestMapping(value = "/saveEventResponse/{emailID}/{eventID}/{vote}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public void saveEventResponse(@PathVariable("emailID") String emailID, @PathVariable("eventID") String eventID, @PathVariable("vote") String vote) {
+		eventResponseService.save(emailID, eventID, vote);
+	}
+
+	@RequestMapping(value = "/saveEventResponseWithComment/{emailID}/{eventID}/{vote}/{comment}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public void saveEventResponseWithComment(@PathVariable("emailID") String emailID, @PathVariable("eventID") String eventID, @PathVariable("vote") String vote, @PathVariable("comment") String comment) {
+		eventResponseService.saveWithComment(emailID, eventID, vote, comment);
+	}
+
 }

@@ -17,9 +17,9 @@ import com.tcs.KingfisherDay.model.Employee;
 import com.tcs.KingfisherDay.model.OptionPercentage;
 import com.tcs.KingfisherDay.model.Question;
 import com.tcs.KingfisherDay.model.QuizResult;
-import com.tcs.KingfisherDay.model.Response;
+import com.tcs.KingfisherDay.model.QuizResponse;
 import com.tcs.KingfisherDay.service.QuestionService;
-import com.tcs.KingfisherDay.service.ResponseService;
+import com.tcs.KingfisherDay.service.QuizResponseService;
 import com.tcs.KingfisherDay.service.UserService;
 
 @RestController
@@ -30,7 +30,7 @@ public class QuestionController {
 	QuestionService questionService;
 
 	@Autowired
-	ResponseService responseService;
+	QuizResponseService quizResponseService;
 
 	@Autowired
 	UserService userService;
@@ -54,17 +54,17 @@ public class QuestionController {
 
 	@RequestMapping(value = "/saveResponse/{questionID}/{employeeEmail}/{option}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Response saveResponse(@PathVariable("questionID") String questionID,
+	public QuizResponse saveResponse(@PathVariable("questionID") String questionID,
 			@PathVariable("employeeEmail") String employeeEmail, @PathVariable("option") String option) {
-		return responseService.saveResponse(questionID, employeeEmail, option);
+		return quizResponseService.saveResponse(questionID, employeeEmail, option);
 	}
 
 	@RequestMapping(value = "/getResult/{questionID}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public QuizResult getResult(@PathVariable("questionID") String questionID) {
 		Question question = questionService.getQuestion(questionID);
-		Response winnerResponse = responseService.getWinner(questionID, question);
-		OptionPercentage optionPercentage = responseService.getPercentages(question);
+		QuizResponse winnerResponse = quizResponseService.getWinner(questionID, question);
+		OptionPercentage optionPercentage = quizResponseService.getPercentages(question);
 		if (winnerResponse != null) {
 			Employee winner = userService.findByEmailID(winnerResponse.getEmployeeEmail());
 			return new QuizResult(optionPercentage, winner, question);

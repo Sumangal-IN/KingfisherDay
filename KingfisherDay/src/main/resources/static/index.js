@@ -333,7 +333,6 @@ angular
 					}
 
 					function onMessageReceivedQuiz(payload) {
-						console.log('oneMessageReceived()')
 						$scope.currentQuestionData = JSON.parse(payload.body);
 						console.log($scope.currentQuestionData);
 						if ($scope.currentQuestionData.questionUnavailbleText) {
