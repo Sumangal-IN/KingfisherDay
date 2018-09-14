@@ -22,3 +22,13 @@ create table EMPLOYEE(
 	mobile VARCHAR2(50),
 	photo VARCHAR2(10000)
 );
+
+create table EVENT(
+	event_id VARCHAR2(2),
+	event_name VARCHAR2(50),
+	event_details VARCHAR2(200),
+	start timestamp,
+	end timestamp,
+	photo VARCHAR2(10000),
+	current boolean
+);

@@ -159,3 +159,21 @@
 .saving span:nth-child(3) {
     animation-delay: .4s;
 }
+
+.backgroud_wall {
+  	display: block;
+  	top: 0;
+  	left: 0;
+ 	bottom: 0;
+ 	right: 0;
+ 	position: absolute;
+ 	z-index: -1;   
+}
+
+.backgroud_image
+{
+	position: absolute;
+	opacity: 0.15;
+    bottom: 0;
+    height: 300px;
+}

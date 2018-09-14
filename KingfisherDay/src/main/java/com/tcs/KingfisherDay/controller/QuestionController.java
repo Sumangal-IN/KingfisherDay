@@ -41,7 +41,7 @@ public class QuestionController {
 	@RequestMapping(value = "/setCurrentQuestion/{questionID}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public void setCurrentQuestion(@PathVariable("questionID") String questionID) {
-		questionService.updateCurrentQuestion(questionID);
+		questionService.setCurrentQuestion(questionID);
 		messagingTemplate.convertAndSend("/topic/broadcastCurrentQuestion", questionService.getCurrentQuestion());
 	}
 

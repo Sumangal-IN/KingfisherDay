@@ -14,7 +14,7 @@ public class QuestionService {
 	@Autowired
 	QuestionRepository questionRepository;
 
-	public void updateCurrentQuestion(String questionID) {
+	public void setCurrentQuestion(String questionID) {
 		for (Question question : questionRepository.findAll()) {
 			if (question.getQuestionID().equals(questionID))
 				question.setCurrent(true);

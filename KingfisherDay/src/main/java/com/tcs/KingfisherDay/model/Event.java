@@ -1,6 +1,7 @@
 package com.tcs.KingfisherDay.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -11,36 +12,41 @@ import javax.persistence.Table;
 public class Event {
 	@Id
 	@Column(name = "event_id", nullable = false)
-	private String eventId;
+	private String eventID;
 	@Column(name = "event_name", nullable = false)
 	private String eventName;
 	@Column(name = "event_details", nullable = false)
 	private String details;
-	@Column(name = "start_date", nullable = false)
-	private Date startDate;
-	@Column(name = "end_date", nullable = true)
-	private Date endDate;
-	@Column(name = "start_time", nullable = false)
-	private String startTime;
-	@Column(name = "duration", nullable = false)
-	private String duration;
+	@Column(name = "start", nullable = false)
+	private Timestamp start;
+	@Column(name = "end", nullable = true)
+	private Timestamp end;
 	@Column(name = "photo", nullable = false)
 	private String photo;
+	@Column(name = "current", nullable = false)
+	private boolean current;
 
-	public String getEventId() {
-		return eventId;
+	public Event() {
+
 	}
 
-	public void setEventId(String eventId) {
-		this.eventId = eventId;
-	}
-
-	public String getEventName() {
-		return eventName;
-	}
-
-	public void setEventName(String eventName) {
+	public Event(String eventID, String eventName, String details, Timestamp start, Timestamp end, String photo, boolean current) {
+		super();
+		this.eventID = eventID;
 		this.eventName = eventName;
+		this.details = details;
+		this.start = start;
+		this.end = end;
+		this.photo = photo;
+		this.current = current;
+	}
+
+	public String getEventID() {
+		return eventID;
+	}
+
+	public void setEventID(String eventID) {
+		this.eventID = eventID;
 	}
 
 	public String getDetails() {
@@ -51,36 +57,20 @@ public class Event {
 		this.details = details;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public Timestamp getStart() {
+		return start;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setStart(Timestamp start) {
+		this.start = start;
 	}
 
-	public Date getEndDate() {
-		return endDate;
+	public Timestamp getEnd() {
+		return end;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	public String getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-
-	public String getDuration() {
-		return duration;
-	}
-
-	public void setDuration(String duration) {
-		this.duration = duration;
+	public void setEnd(Timestamp end) {
+		this.end = end;
 	}
 
 	public String getPhoto() {
@@ -91,23 +81,20 @@ public class Event {
 		this.photo = photo;
 	}
 
-	public Event() {
+	public boolean isCurrent() {
+		return current;
 	}
 
-	public Event(String eventId, String eventName, String details, Date startDate, Date endDate, String startTime, String duration, String photo) {
-		super();
-		this.eventId = eventId;
+	public void setCurrent(boolean current) {
+		this.current = current;
+	}
+
+	public String getEventName() {
+		return eventName;
+	}
+
+	public void setEventName(String eventName) {
 		this.eventName = eventName;
-		this.details = details;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.startTime = startTime;
-		this.duration = duration;
-		this.photo = photo;
 	}
 
-	@Override
-	public String toString() {
-		return "Events [eventId=" + eventId + ", eventName=" + eventName + ", details=" + details + ", startDate=" + startDate + ", endDate=" + endDate + ", startTime=" + startTime + ", duration=" + duration + ", photo=" + photo + "]";
-	}
 }

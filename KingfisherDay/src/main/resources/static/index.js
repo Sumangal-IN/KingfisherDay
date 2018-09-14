@@ -2,14 +2,11 @@ angular
 		.module('kfApp', [ 'cgBusy', 'ngSanitize' ])
 		.directive('fileUpload', function() {
 			return {
-				scope : true, // create a new scope
+				scope : true,
 				link : function(scope, el, attrs) {
 					el.bind('change', function(event) {
 						var files = event.target.files;
-						// iterate files since 'multiple' may be specified on
-						// the element
 						for (var i = 0; i < files.length; i++) {
-							// emit event upward
 							scope.$emit("fileSelected", {
 								file : files[i]
 							});
@@ -256,15 +253,20 @@ angular
 
 					$scope.clickQuiz = function() {
 						$scope.menuActive = 'quiz';
-						$scope.questionAvailable = false;
-						$scope.questionUnavailable = true;
-						$scope.questionUnavailbleText = "Please wait connecting to server";
-						$scope.connectingServer = true;
-						$scope.showQuiz = true;
-						var socket = new SockJS('/quizWS');
-						stompClient = Stomp.over(socket);
-						stompClient.connect({}, onConnected, onError);
-						$scope.$digest();
+						if (!$scope.quizSocket) {
+							$scope.questionAvailable = false;
+							$scope.questionUnavailable = true;
+							$scope.questionUnavailbleText = "Please wait connecting to server";
+							$scope.connectingServer = true;
+							$scope.showQuiz = true;
+							var socket = new SockJS('/quizWS');
+							stompClient = Stomp.over(socket);
+							$scope.quizSocket = true;
+							stompClient.connect({}, onConnected, onError);
+							$scope.$digest();
+						} else {
+							$scope.showQuiz = true;
+						}
 					}
 
 					$scope.selectOption = function(option) {
@@ -326,6 +328,7 @@ angular
 						console.log(error);
 						$scope.questionAvailable = false;
 						$scope.questionUnavailable = true;
+						$scope.quizSocket = false;
 						$scope.clickQuiz();
 					}
 
@@ -334,7 +337,7 @@ angular
 						$scope.currentQuestionData = JSON.parse(payload.body);
 						console.log($scope.currentQuestionData);
 						if ($scope.currentQuestionData.questionUnavailbleText) {
-							$scope.questionUnavailbleText = 'This section is closed now. It will be availble during Quiz event of TCS Kingfisher Day (5th October 2018)';
+							$scope.questionUnavailbleText = 'This section is closed now and will be availble only during Quiz event of TCS Kingfisher Day (5th October 2018)';
 							$scope.questionAvailable = false;
 							$scope.questionUnavailable = true;
 						} else {

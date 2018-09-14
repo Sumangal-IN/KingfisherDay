@@ -18,7 +18,6 @@ public class QuizResult {
 	public QuizResult(OptionPercentage optionPercentage, Question question) {
 		super();
 		this.optionPercentage = optionPercentage;
-		this.winner = winner;
 		this.question = question;
 	}
 

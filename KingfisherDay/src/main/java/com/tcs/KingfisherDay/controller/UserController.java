@@ -12,7 +12,6 @@ import org.springframework.web.multipart.MultipartFile;
 import com.tcs.KingfisherDay.model.Employee;
 import com.tcs.KingfisherDay.service.UserService;
 import com.tcs.KingfisherDay.util.ImageProcessor;
-import com.tcs.KingfisherDay.util.PasswordCrypto;
 
 @Controller
 public class UserController {

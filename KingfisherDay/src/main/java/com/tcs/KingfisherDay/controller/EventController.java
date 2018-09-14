@@ -21,9 +21,22 @@ public class EventController {
 		return eventService.getAllEvents();
 	}
 
-	@RequestMapping(value = "/getEventById/{eventId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/getCurrentEvent", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Event getEventById(@PathVariable("eventId") String eventId) {
-		return eventService.getEventById(eventId);
+	public Event getCurrentEvent() {
+		return eventService.getCurrentEvent();
 	}
+
+	@RequestMapping(value = "/setCurrentEvent/{eventID}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public void setCurrentEvent(@PathVariable("eventID") String eventID) {
+		eventService.setCurrentEvent(eventID);
+	}
+
+	@RequestMapping(value = "/clearCurrentEvent", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public void clearCurrentEvent() {
+		eventService.clearCurrentEvent();
+	}
+	
 }

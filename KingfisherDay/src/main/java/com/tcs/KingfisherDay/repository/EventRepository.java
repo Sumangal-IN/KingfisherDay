@@ -8,6 +8,6 @@ import com.tcs.KingfisherDay.model.Event;
 @Repository
 public interface EventRepository extends JpaRepository<Event, String> {
 
-	List<Event> findByEventId(String eventId);
+	List<Event> findByCurrent(boolean current);
 
 }
