@@ -1,7 +1,7 @@
 
 jQuery(document).ready(function($) {
 
-	var connectionURL='http://localhost:8080';
+	var connectionURL='';
 	var stompClient = null;
 	var socket = null;
 
