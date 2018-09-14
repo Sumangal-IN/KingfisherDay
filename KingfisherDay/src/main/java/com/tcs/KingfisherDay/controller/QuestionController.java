@@ -53,7 +53,7 @@ public class QuestionController {
 	@ResponseBody
 	public void clearCurrentQuestion() {
 		questionService.clearCurrentQuestion();
-		messagingTemplate.convertAndSend("/topic/broadcastCurrentQuestion", "{\"questionUnavailbleText\":true}");
+		messagingTemplate.convertAndSend("/topic/broadcastCurrentQuestion", "{\"questionUnavailbleText\":\""+questionUnavailbleText+"\"}");
 	}
 
 	@RequestMapping(value = "/saveResponse/{questionID}/{employeeEmail}/{option}", method = RequestMethod.GET, produces = "application/json")
