@@ -5,21 +5,18 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import com.tcs.KingfisherDay.model.enums.EventVote;
-import com.tcs.KingfisherDay.model.key.ResponseKey;
 
 @Entity
 @Table(name = "EVENT_RESPONSE")
-@IdClass(ResponseKey.class)
 public class EventResponse {
 
 	@Id
 	@Column(name = "EVENT_ID", nullable = false)
 	private String eventID;
-	@Id
+	
 	@Column(name = "EMPLOYEE_EMAIL", nullable = false)
 	private String employeeEmail;
 	@Column(name = "VOTE", nullable = false)
