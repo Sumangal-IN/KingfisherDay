@@ -34,7 +34,7 @@ jQuery(document).ready(function($) {
 		$('#question-container').html(contentHtml);
 	}
 
-	$('#quiz-modal').on('click', function () {
+	$('.js-open-quiz').on('click', function () {
 		socket = new SockJS(connectionURL+'/quizWS');
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, onConnected, onError);
@@ -95,6 +95,18 @@ jQuery(document).ready(function($) {
 			}
 		}
 	});
+	
+	$('.js-signin-start').on('click', function() {
+        if (localStorage.rememberme && localStorage.rememberme != '') {
+            $('#remember').attr('checked', 'checked');
+            $('#login-email').val(localStorage.loginemail);
+            $('#login-password').val(localStorage.loginpwd);
+        } else {
+            $('#remember').removeAttr('checked');
+            $('#login-email').val('');
+            $('#login-password').val('');
+        }
+    });
 
 	$('#login-form').on('submit', function(e){
 
@@ -103,8 +115,8 @@ jQuery(document).ready(function($) {
 		if($('#login-form').valid()) {
 
 			var data = {
-					name: $('#signin-username').val(),
-					password: $('#signin-password').val()
+					name: $('#login-email').val(),
+					password: $('#login-password').val()
 			}
 
 			console.log(data);
@@ -127,6 +139,12 @@ jQuery(document).ready(function($) {
 					}
 					$('#user_details').html(Mustache.to_html(template1, employee));
 					$('.home-slider').html(Mustache.to_html(template2, employee));
+					
+					if ($('#remember').is(':checked')) {
+			            localStorage.loginemail = $('#login-email').val();
+			            localStorage.loginpwd = $('#login-password').val();
+			            localStorage.rememberme = $('#remember').val();
+			        }
 				},
 				error: function(error) {
 					console.log(error);
