@@ -1,5 +1,5 @@
 jQuery(document).ready(function($) {
-
+	
 	var connectionURL='';
 	var mobileDetect = new MobileDetect(window.navigator.userAgent);
 	//For Phone Gap mobile app, url is required.
@@ -134,6 +134,19 @@ jQuery(document).ready(function($) {
 		}
 	});
 	
+	$('#logoff').on('click', function(e){
+
+		e.preventDefault();
+		
+		localStorage.clear();
+		
+		$('#signIn').css('display','block');
+		$('#logoff').css('display','none');
+		
+		location.reload(true);
+		
+	});
+	
 	function loginWithEmailAndPassword(email, password){
 		var url=connectionURL+'/getEmployee/'+email+'/'+password;
 		console.log("Login URL:"+url);
@@ -158,6 +171,8 @@ jQuery(document).ready(function($) {
 						localStorage.loginpwd = $('#login-password').val();
 						localStorage.rememberme = $('#remember').val();
 					}
+					$('#signIn').css('display','none');
+					$('#logoff').css('display','block');
 
 				}else{
 					$('#error-panel').html("Ooops!! Login credential is invalid");
@@ -216,6 +231,9 @@ jQuery(document).ready(function($) {
 						//save into local storage
 						localStorage.loginemail = data.email;
 						localStorage.loginpwd = data.password;
+						
+						$('#signIn').css('display','none');
+						$('#logoff').css('display','block');
 					}else{
 						$('#error-panel').html("Ooops!! Registration failed. Re-check your input data!!");
 					}
