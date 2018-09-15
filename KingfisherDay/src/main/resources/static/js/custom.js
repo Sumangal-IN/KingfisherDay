@@ -117,7 +117,7 @@ jQuery(document).ready(function($) {
             $('#login-password').val('');
         }
     });
-
+	
 	$('#login-form').on('submit', function(e){
 
 		e.preventDefault();
@@ -158,6 +158,7 @@ jQuery(document).ready(function($) {
 						localStorage.loginpwd = $('#login-password').val();
 						localStorage.rememberme = $('#remember').val();
 					}
+
 				}else{
 					$('#error-panel').html("Ooops!! Login credential is invalid");
 				}
@@ -166,9 +167,10 @@ jQuery(document).ready(function($) {
 				console.log(error);
 				$('#error-panel').html("Ooops!! Looks like there is some technical problem!!");
 			}
+			
 		})
 	}
-
+	
 	$('#register-form').on('submit', function(e){
 
 		e.preventDefault();
@@ -183,7 +185,12 @@ jQuery(document).ready(function($) {
 					foodpref: $('input[name="options"]:checked').val(),
 					image: $('input[name="account-file"]').get(0).files[0]
 			}
-
+			var imageSizeinKB=data.image.size/1024;
+			if(imageSizeinKB > 100){
+		       $('#error-panel').html("File is too big!!. Max size: 100 KB");
+		       return;
+		    };
+		    
 			var fd = new FormData();
 			fd.append('photoFile', data.image);
 
@@ -206,6 +213,9 @@ jQuery(document).ready(function($) {
 						var template2 = $('#ui-template-account-photo').html();    
 						$('#user_details').html(Mustache.to_html(template1, employee));
 						$('.home-slider').html(Mustache.to_html(template2, employee));
+						//save into local storage
+						localStorage.loginemail = data.email;
+						localStorage.loginpwd = data.password;
 					}else{
 						$('#error-panel').html("Ooops!! Registration failed. Re-check your input data!!");
 					}
