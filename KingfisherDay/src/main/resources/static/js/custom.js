@@ -140,8 +140,7 @@ jQuery(document).ready(function($) {
 		
 		localStorage.clear();
 		
-		$('#signIn').css('display','block');
-		$('#logoff').css('display','none');
+		hideContentAfterLogOff();
 		
 		location.reload(true);
 		
@@ -171,8 +170,7 @@ jQuery(document).ready(function($) {
 						localStorage.loginpwd = $('#login-password').val();
 						localStorage.rememberme = $('#remember').val();
 					}
-					$('#signIn').css('display','none');
-					$('#logoff').css('display','block');
+					displayItemsAfterLogin();
 
 				}else{
 					$('#error-panel').html("Ooops!! Login credential is invalid");
@@ -184,6 +182,23 @@ jQuery(document).ready(function($) {
 			}
 			
 		})
+	}
+	function displayItemsAfterLogin() {
+		$('#signIn').css('display','none');
+		
+		$('#logoff').css('display','block');
+		$('#events').css('display','block');
+		$('#quiz').css('display','block');
+		$('#contest').css('display','block');
+	}
+	
+	function hideContentAfterLogOff(){
+		$('#signIn').css('display','block');
+		
+		$('#logoff').css('display','none');
+		$('#events').css('display','none');
+		$('#quiz').css('display','none');
+		$('#contest').css('display','none');
 	}
 	
 	$('#register-form').on('submit', function(e){
@@ -232,8 +247,7 @@ jQuery(document).ready(function($) {
 						localStorage.loginemail = data.email;
 						localStorage.loginpwd = data.password;
 						
-						$('#signIn').css('display','none');
-						$('#logoff').css('display','block');
+						displayItemsAfterLogin();
 					}else{
 						$('#error-panel').html("Ooops!! Registration failed. Re-check your input data!!");
 					}
