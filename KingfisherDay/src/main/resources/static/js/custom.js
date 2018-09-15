@@ -221,8 +221,8 @@ jQuery(document).ready(function($) {
 					}
 				},
 				error: function(error) {
-					console.log(error);
-					$('#error-panel').html("Ooops!! Looks like there is some technical problem!!");
+					console.log(error.responseJSON.message);
+					$('#error-panel').html(error.responseJSON.message);
 				}
 			})
 

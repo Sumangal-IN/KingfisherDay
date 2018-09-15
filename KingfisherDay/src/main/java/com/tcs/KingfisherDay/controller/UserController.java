@@ -28,14 +28,20 @@ public class UserController {
 	@ResponseBody
 	public Employee registerEmployee(@PathVariable("name") String name, @PathVariable("emailID") String emailID,
 			@PathVariable("foodPreference") String foodPreference, @PathVariable("password") String password,
-			@PathVariable("mobile") String mobile, @RequestParam("photoFile") MultipartFile photoFile) {
-		Employee employee=null;
-		try {
-			String photo = imageHandlingService.resizeImage(photoFile);
-			employee=userService.register(name, emailID, foodPreference, password, mobile, photo);
-			System.out.println("Employee Registered:"+employee.toString());
-		} catch (IOException e) {
-			e.printStackTrace();
+			@PathVariable("mobile") String mobile, @RequestParam("photoFile") MultipartFile photoFile) throws Exception {
+		
+		Employee employee=userService.findByEmailID(emailID);
+		
+		if (null == employee) {
+			try {
+				String photo = imageHandlingService.resizeImage(photoFile);
+				employee = userService.register(name, emailID, foodPreference, password, mobile, photo);
+				System.out.println("Employee Registered:" + employee.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else {
+			throw new Exception("Oops!! Looks like user with this email id already exists!! Try to sign-in");
 		}
 		return employee;
 	}
@@ -51,5 +57,6 @@ public class UserController {
 	public Boolean isExistsEmployee(@PathVariable("emailID") String emailID, @PathVariable("mobile") String mobile) {
 		return userService.isExistsEmployee(emailID, mobile);
 	}
+	
 
 }
