@@ -15,8 +15,8 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ImageHandlingService {
 
-	private static final int IMG_WIDTH = 360;
-	private static final int IMG_HEIGHT = 480;
+	private static final int IMG_WIDTH = 570;
+	private static final int IMG_HEIGHT = 320;
 
 	public String resizeImage(MultipartFile photoFile) throws IOException {
 		String imageAfterResize = null;

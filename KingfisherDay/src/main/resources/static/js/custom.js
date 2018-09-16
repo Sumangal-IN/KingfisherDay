@@ -1,7 +1,11 @@
 jQuery(document).ready(function($) {
 	
+	/************************** Global Variable Section Start **************************/
 	var connectionURL='';
 	var mobileDetect = new MobileDetect(window.navigator.userAgent);
+	var stompClient = null;
+	var socket = null;
+	/************************** Global Variable Section End **************************/
 	//For Phone Gap mobile app, url is required.
 	if(mobileDetect.mobile()){
 		connectionURL='http://kfday.herokuapp.com';
@@ -10,11 +14,11 @@ jQuery(document).ready(function($) {
 	
 	if(localStorage.loginemail && localStorage.loginpwd){
 		loginWithEmailAndPassword(localStorage.loginemail, localStorage.loginpwd);
+	}else{
+		showSignInHideLogOff();
 	}
-
-	var stompClient = null;
-	var socket = null;
-
+	
+	/************************** Functions Start **************************/
 	function onConnected() {
 		stompClient.subscribe('/user/topic/getCurrentQuestion', onMessageReceivedQuiz);
 		stompClient.subscribe('/topic/broadcastCurrentQuestion', onMessageReceivedQuiz);
@@ -23,18 +27,18 @@ jQuery(document).ready(function($) {
 		stompClient.send("/app/getCurrentQuestion", {},
 				'{"currentMili":' + n + '}');
 	}
-
+	
 	function onError(e) {
 		console.log("error:" + e);
 	}
-
-
+	
+	
 	function onMessageReceivedQuiz(payload) {
 		var data=JSON.parse(payload.body);
 		
 		var template,
 		contentHtml;
-
+		
 		if(data.current) {
 			template = $('#ui-template-quiz').html();                    
 		}else{
@@ -43,11 +47,79 @@ jQuery(document).ready(function($) {
 		contentHtml = Mustache.to_html(template, data);
 		$('#question-container').html(contentHtml);
 	}
+	
+	function validateLoginAndOpenModal(modalToOpen){
+		if(localStorage.loginemail && localStorage.loginpwd){
+			$(modalToOpen).modal();
+			return true;
+		}else{
+			$('.js-signin-start').click();
+			return false;
+		}
+		
+	}
+	function loginWithEmailAndPassword(email, password){
+		var url=connectionURL+'/getEmployee/'+email+'/'+password;
+		console.log("Login URL:"+url);
+		
+		$.ajax({
+			url: url,
+			processData: false,
+			contentType: false,  
+			type: 'get',
+			success: function (employee) {
+				console.log(employee);
+				
+				if(employee){
+					$('.close-modal').click();
+					var template1 = $('#ui-template-account-details').html();
+					var template2 = $('#ui-template-account-photo').html();    
+					$('#user_details').html(Mustache.to_html(template1, employee));
+					$('.home-slider').html(Mustache.to_html(template2, employee));
+					
+					localStorage.clear();
+					
+					localStorage.loginemail = email;
+					localStorage.loginpwd = password;
+					if ($('#remember').is(':checked')) {
+						localStorage.rememberme = $('#remember').val();
+					}
+					hideSignInShowLogOff();
+					
+				}else{
+					$('#error-panel').html("Ooops!! Login credential is invalid");
+				}
+			},
+			error: function(error) {
+				console.log(error);
+				$('#error-panel').html("Ooops!! Looks like there is some technical problem!!");
+			}
+			
+		})
+	}
+	function hideSignInShowLogOff() {
+		$("#signIn").hide();
+		$("#logoff").show();
+	}
+	
+	function showSignInHideLogOff(){
+		$("#signIn").show();
+		$("#logoff").hide();
+	}
+	/************************** Functions End **************************/
+	
+	/************************** Quiz Section Start **************************/
 
-	$('.js-open-quiz').on('click', function () {
-		socket = new SockJS(connectionURL+'/quizWS');
-		stompClient = Stomp.over(socket);
-		stompClient.connect({}, onConnected, onError);
+
+	$('.js-open-quiz').on('click', function (e) {
+		
+		e.preventDefault();
+		if(validateLoginAndOpenModal('#quiz-modal')){
+			socket = new SockJS(connectionURL+'/quizWS');
+			stompClient = Stomp.over(socket);
+			stompClient.connect({}, onConnected, onError);
+		}
+		
 
 	});
 
@@ -88,23 +160,30 @@ jQuery(document).ready(function($) {
 	$(document).on("click", '.js-prev-question', function(e) { 
 		$('.close-modal').click();
 	});
+	
+	/************************** Quiz Section End **************************/
 
-	$.validator.addMethod('imageValidator', function (img, element) {
-		console.log(ing);
-		return false;
-	}, "not supported");
-
-	$('#register-form').validate({
-		rules : {
-			password : {
-				minlength : 6
-			},
-			confirm_password : {
-				minlength : 6,
-				equalTo : "#reg-password"
-			}
-		}
+	/************************** Event Section Start **************************/
+	
+	$('#events').on('click', function(e){
+		e.preventDefault();
+		validateLoginAndOpenModal('#event-modal');
+		
 	});
+	
+	/************************** Event Section End **************************/
+	
+	/************************** Contest Section Start **************************/
+	
+	$('#contest').on('click', function(e){
+		e.preventDefault();
+		validateLoginAndOpenModal('#portfolio-modal');
+		
+	});
+	/************************** Contest Section End **************************/
+	
+	
+	/************************** Login/Registration Section Start **************************/
 	
 	$('.js-signin-start').on('click', function() {
         if (localStorage.rememberme && localStorage.rememberme != '') {
@@ -140,67 +219,25 @@ jQuery(document).ready(function($) {
 		
 		localStorage.clear();
 		
-		hideContentAfterLogOff();
+		showSignInHideLogOff();
 		
 		location.reload(true);
 		
 	});
 	
-	function loginWithEmailAndPassword(email, password){
-		var url=connectionURL+'/getEmployee/'+email+'/'+password;
-		console.log("Login URL:"+url);
-		
-		$.ajax({
-			url: url,
-			processData: false,
-			contentType: false,  
-			type: 'get',
-			success: function (employee) {
-				console.log(employee);
-
-				if(employee){
-					$('.close-modal').click();
-					var template1 = $('#ui-template-account-details').html();
-					var template2 = $('#ui-template-account-photo').html();    
-					$('#user_details').html(Mustache.to_html(template1, employee));
-					$('.home-slider').html(Mustache.to_html(template2, employee));
-					
-					if ($('#remember').is(':checked')) {
-						localStorage.loginemail = $('#login-email').val();
-						localStorage.loginpwd = $('#login-password').val();
-						localStorage.rememberme = $('#remember').val();
-					}
-					displayItemsAfterLogin();
-
-				}else{
-					$('#error-panel').html("Ooops!! Login credential is invalid");
-				}
+	
+	
+	$('#register-form').validate({
+		rules : {
+			password : {
+				minlength : 6
 			},
-			error: function(error) {
-				console.log(error);
-				$('#error-panel').html("Ooops!! Looks like there is some technical problem!!");
+			confirm_password : {
+				minlength : 6,
+				equalTo : "#reg-password"
 			}
-			
-		})
-	}
-	function displayItemsAfterLogin() {
-		$('#signIn').css('display','none');
-		
-		$('#logoff').css('display','block');
-		$('#events').css('display','block');
-		$('#quiz').css('display','block');
-		$('#contest').css('display','block');
-	}
-	
-	function hideContentAfterLogOff(){
-		$('#signIn').css('display','block');
-		
-		$('#logoff').css('display','none');
-		$('#events').css('display','none');
-		$('#quiz').css('display','none');
-		$('#contest').css('display','none');
-	}
-	
+		}
+	});
 	$('#register-form').on('submit', function(e){
 
 		e.preventDefault();
@@ -243,11 +280,14 @@ jQuery(document).ready(function($) {
 						var template2 = $('#ui-template-account-photo').html();    
 						$('#user_details').html(Mustache.to_html(template1, employee));
 						$('.home-slider').html(Mustache.to_html(template2, employee));
+						
+						//clear local storage
+						localStorage.clear();
 						//save into local storage
 						localStorage.loginemail = data.email;
 						localStorage.loginpwd = data.password;
 						
-						displayItemsAfterLogin();
+						hideSignInShowLogOff();
 					}else{
 						$('#error-panel').html("Ooops!! Registration failed. Re-check your input data!!");
 					}
@@ -263,5 +303,6 @@ jQuery(document).ready(function($) {
 
 		}
 	})
+	/************************** Login/Registration Section End **************************/
 });
 //'https://api.myjson.com/bins/ux73o', 'https://api.myjson.com/bins/ncltw'
