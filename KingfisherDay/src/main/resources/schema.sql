@@ -24,11 +24,11 @@ create table EMPLOYEE(
 );
 
 create table EVENT(
-	event_id VARCHAR2(2),
-	event_name VARCHAR2(50),
+	event_id number,
+	event_name VARCHAR2(100),
 	event_details VARCHAR2(200),
 	start timestamp,
 	end timestamp,
 	photo VARCHAR2(10000),
-	current boolean
+	state number
 );

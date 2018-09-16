@@ -7,12 +7,14 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.tcs.KingfisherDay.model.enums.EventState;
+
 @Entity
 @Table(name = "EVENT")
 public class Event {
 	@Id
 	@Column(name = "event_id", nullable = false)
-	private String eventID;
+	private int eventID;
 	@Column(name = "event_name", nullable = false)
 	private String eventName;
 	@Column(name = "event_details", nullable = false)
@@ -23,14 +25,15 @@ public class Event {
 	private Timestamp end;
 	@Column(name = "photo", nullable = false)
 	private String photo;
-	@Column(name = "current", nullable = false)
-	private boolean current;
+	@Column(name = "state", nullable = false)
+	private EventState state;
 
 	public Event() {
 
 	}
 
-	public Event(String eventID, String eventName, String details, Timestamp start, Timestamp end, String photo, boolean current) {
+	public Event(int eventID, String eventName, String details, Timestamp start, Timestamp end, String photo,
+			EventState current) {
 		super();
 		this.eventID = eventID;
 		this.eventName = eventName;
@@ -38,14 +41,14 @@ public class Event {
 		this.start = start;
 		this.end = end;
 		this.photo = photo;
-		this.current = current;
+		this.state = current;
 	}
 
-	public String getEventID() {
+	public int getEventID() {
 		return eventID;
 	}
 
-	public void setEventID(String eventID) {
+	public void setEventID(int eventID) {
 		this.eventID = eventID;
 	}
 
@@ -81,12 +84,12 @@ public class Event {
 		this.photo = photo;
 	}
 
-	public boolean isCurrent() {
-		return current;
+	public EventState getState() {
+		return state;
 	}
 
-	public void setCurrent(boolean current) {
-		this.current = current;
+	public void setState(EventState state) {
+		this.state = state;
 	}
 
 	public String getEventName() {

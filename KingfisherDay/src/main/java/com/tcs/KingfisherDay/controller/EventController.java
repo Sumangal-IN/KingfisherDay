@@ -31,27 +31,24 @@ public class EventController {
 		return eventService.getCurrentEvent();
 	}
 
-	@RequestMapping(value = "/setCurrentEvent/{eventID}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/changeEventState/{eventID}/{state}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public void setCurrentEvent(@PathVariable("eventID") String eventID) {
-		eventService.setCurrentEvent(eventID);
-	}
-
-	@RequestMapping(value = "/clearCurrentEvent", method = RequestMethod.GET, produces = "application/json")
-	@ResponseBody
-	public void clearCurrentEvent() {
-		eventService.clearCurrentEvent();
+	public void changeEventState(@PathVariable("eventID") int eventID, @PathVariable("state") String state) {
+		eventService.changeEventState(eventID, state);
 	}
 
 	@RequestMapping(value = "/saveEventResponse/{emailID}/{eventID}/{vote}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public void saveEventResponse(@PathVariable("emailID") String emailID, @PathVariable("eventID") String eventID, @PathVariable("vote") String vote) {
+	public void saveEventResponse(@PathVariable("emailID") String emailID, @PathVariable("eventID") String eventID,
+			@PathVariable("vote") String vote) {
 		eventResponseService.save(emailID, eventID, vote);
 	}
 
 	@RequestMapping(value = "/saveEventResponseWithComment/{emailID}/{eventID}/{vote}/{comment}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public void saveEventResponseWithComment(@PathVariable("emailID") String emailID, @PathVariable("eventID") String eventID, @PathVariable("vote") String vote, @PathVariable("comment") String comment) {
+	public void saveEventResponseWithComment(@PathVariable("emailID") String emailID,
+			@PathVariable("eventID") String eventID, @PathVariable("vote") String vote,
+			@PathVariable("comment") String comment) {
 		eventResponseService.saveWithComment(emailID, eventID, vote, comment);
 	}
 
