@@ -216,8 +216,8 @@ jQuery(document).ready(function($) {
 					image: $('input[name="account-file"]').get(0).files[0]
 			}
 			var imageSizeinKB=data.image.size/1024;
-			if(imageSizeinKB > 100){
-		       $('#error-panel').html("File is too big!!. Max size: 100 KB");
+			if(imageSizeinKB > 3072){
+		       $('#error-panel').html("File is too big!!. Max size: 3 MB");
 		       return;
 		    };
 		    
@@ -253,8 +253,11 @@ jQuery(document).ready(function($) {
 					}
 				},
 				error: function(error) {
-					console.log(error.responseJSON.message);
-					$('#error-panel').html(error.responseJSON.message);
+					console.log(error);
+					$('#error-panel').html("Ooops!! Registration failed. Re-check your input data!!");
+					if(error.responseJSON && error.responseJSON.message){
+						$('#error-panel').html(error.responseJSON.message);
+					}
 				}
 			})
 

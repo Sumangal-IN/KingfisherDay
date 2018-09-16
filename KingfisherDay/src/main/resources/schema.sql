@@ -20,7 +20,7 @@ create table EMPLOYEE(
 	food_preference INTEGER,
 	password VARCHAR2(1000),
 	mobile VARCHAR2(50),
-	photo VARCHAR2(10000)
+	photo VARCHAR2(1000000)
 );
 
 create table EVENT(
