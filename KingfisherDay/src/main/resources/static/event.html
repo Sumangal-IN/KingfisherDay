@@ -32,13 +32,8 @@
 		</nav>
 		<div class="event_holder">
 			<div class="presentation_box" ng-class="drawerState">
-				<iframe
-					src="https://kfplc-my.sharepoint.com/personal/mandas04_kits_kfplc_com/_layouts/15/Doc.aspx?sourcedoc={a7855922-cdd0-4330-9647-5a386db6638f}&amp;action=embedview&amp;wdAr=1.7777777777777777"
-					class="presentation_frame" frameborder="0">
-					This is an embedded <a target="_blank" href="https://office.com">Microsoft
-						Office</a> presentation, powered by <a target="_blank"
-						href="https://office.com/webapps">Office Online</a>.
-				</iframe>
+				<iframe ng-src="{{trustAsResourceUrl}}" class="presentation_frame"
+					frameborder="0"> </iframe>
 			</div>
 
 			<div class="event_list_holder">
@@ -52,19 +47,32 @@
 							<div class="event_card_title">
 								<span ng-bind-html="event.eventName"></span>
 							</div>
+							<div class="event_card_image" style="height: 60;"'>
+								<img ng-src="{{event.photo}}"></img>
+							</div>
 						</div>
 					</div>
 					<div class="row pt-3 pl-2 pr-2" ng-show="showComment">
-						<div class="row mr-1 ml-1 event_title">
+						<div class="row mr-1 ml-1 event_title justify-content-center p-2">
 							<span ng-bind-html="currentEvent.eventName"></span>
-							<div class="row mr-1 ml-1">
-								<button ng-click="endEvent(currentEvent)"
-									class="btn btn-primary btn-lg mt-5">Close Event</button>
-							</div>
+						</div>
+						<div class="row mr-1 ml-1 comment_box p-2 mt-3">
+							<ul>
+								<li ng-repeat="comment in latestComments">{{comment.employeeEmail}}
+									{{comment.vote}}</li>
+							</ul>
+						</div>
+						<div class="row mr-1 ml-1 justify-content-center"
+							style="width: 100%">
+							<button ng-click="endEvent(currentEvent)"
+								class="btn btn-warning btn-lg mt-5"
+								style="position: absolute; height: fit-content; bottom: 10px; right: 10px;">Close
+								Event</button>
 						</div>
 					</div>
 				</div>
 			</div>
 		</div>
+	</div>
 </body>
 </html>

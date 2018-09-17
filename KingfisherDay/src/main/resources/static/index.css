@@ -296,4 +296,31 @@
 .event_title {
 	font-weight: bold;
 	font-size: x-large;
+	box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.8);
+	border-radius: 15px;
+	width: 100%;
+	height: fit-content;
+}
+
+.comment_box
+{
+	
+}
+
+.comment
+{
+	
+}
+
+.event_card_image {
+	float: left;
+	position: absolute;
+	top: -30px;
+	left: -30px;
+	height: 20px;
+}
+
+.event_card_title
+{
+	float: left;
 }

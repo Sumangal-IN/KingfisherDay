@@ -29,6 +29,7 @@ create table EVENT(
 	event_details VARCHAR2(200),
 	start timestamp,
 	end timestamp,
-	photo VARCHAR2(10000),
-	state number
+	state number,
+	ppt_path VARCHAR2(500),
+	photo VARCHAR2(10000)
 );

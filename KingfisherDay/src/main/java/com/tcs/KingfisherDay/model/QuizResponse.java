@@ -8,11 +8,11 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import com.tcs.KingfisherDay.model.key.ResponseKey;
+import com.tcs.KingfisherDay.model.key.QuizResponseKey;
 
 @Entity
 @Table(name = "QUIZ_RESPONSE")
-@IdClass(ResponseKey.class)
+@IdClass(QuizResponseKey.class)
 public class QuizResponse {
 
 	@Id

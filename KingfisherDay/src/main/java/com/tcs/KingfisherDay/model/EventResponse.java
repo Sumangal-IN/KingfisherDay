@@ -5,23 +5,26 @@ import java.sql.Timestamp;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.IdClass;
 import javax.persistence.Table;
 
 import com.tcs.KingfisherDay.model.enums.EventVote;
+import com.tcs.KingfisherDay.model.key.EventResponseKey;
 
 @Entity
 @Table(name = "EVENT_RESPONSE")
+@IdClass(EventResponseKey.class)
 public class EventResponse {
 
 	@Id
 	@Column(name = "EVENT_ID", nullable = false)
-	private String eventID;
-	
+	private int eventID;
+	@Id
 	@Column(name = "EMPLOYEE_EMAIL", nullable = false)
 	private String employeeEmail;
 	@Column(name = "VOTE", nullable = false)
 	private EventVote vote;
-	@Column(name = "COMMENT", nullable = false)
+	@Column(name = "COMMENT", nullable = true)
 	private String comment;
 	@Column(name = "TIME_STAMP", nullable = false)
 	private Timestamp timeStamp;
@@ -30,7 +33,7 @@ public class EventResponse {
 
 	}
 
-	public EventResponse(String eventID, String employeeEmail, EventVote vote, String comment, Timestamp timeStamp) {
+	public EventResponse(int eventID, String employeeEmail, EventVote vote, String comment, Timestamp timeStamp) {
 		super();
 		this.eventID = eventID;
 		this.employeeEmail = employeeEmail;
@@ -39,18 +42,18 @@ public class EventResponse {
 		this.timeStamp = timeStamp;
 	}
 
-	public EventResponse(String emailID, String eventID, EventVote vote, Timestamp timeStamp) {
+	public EventResponse(int eventID, String emailID, EventVote vote, Timestamp timeStamp) {
 		this.eventID = eventID;
 		this.employeeEmail = emailID;
 		this.vote = vote;
 		this.timeStamp = timeStamp;
 	}
 
-	public String getEventID() {
+	public int getEventID() {
 		return eventID;
 	}
 
-	public void setEventID(String eventID) {
+	public void setEventID(int eventID) {
 		this.eventID = eventID;
 	}
 
