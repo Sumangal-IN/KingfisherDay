@@ -27,6 +27,10 @@ angular
 					$scope.showGetOTP = true;
 					$scope.showVerifyOTP = false;
 
+					$scope.showQuiz = false;
+					$scope.showPhoto = false;
+					$scope.showEvent = false;
+
 					var randomFixedInteger = function(length) {
 						return Math.floor(Math.pow(10, length - 1)
 								+ Math.random()
@@ -226,6 +230,11 @@ angular
 												$scope.showLoginPage = false;
 												$scope.showMenuPage = true;
 												$scope.showHeaderDP = true;
+												$scope.menuActive = 'event';
+												$scope.showEvent = true;
+												$scope.showPhoto = false;
+												$scope.showQuiz = false;
+												$scope.loadEvents();
 											} else {
 												$scope.showErrorIncorrectCredential = true;
 												return;
@@ -244,28 +253,48 @@ angular
 					$scope.clickEvent = function() {
 						$scope.menuActive = 'event';
 						$scope.showQuiz = false;
+						$scope.showPhoto = false;
+						$scope.showEvent = true;
+						$scope.loadEvents();
+					}
+
+					$scope.loadEvents = function() {
+						$scope.promise = $http
+								.get(URL + '/getAllEvents')
+								.then(
+										function mySuccess(response) {
+											console.log(response);
+											$scope.events = response.data;
+										},
+										function myError(response) {
+											window
+													.alert('Oops! Some error has occured!');
+											console.log(response);
+											return;
+										});
 					}
 
 					$scope.clickPhoto = function() {
 						$scope.menuActive = 'photo';
 						$scope.showQuiz = false;
+						$scope.showPhoto = true;
+						$scope.showEvent = false;
 					}
 
 					$scope.clickQuiz = function() {
 						$scope.menuActive = 'quiz';
+						$scope.showQuiz = true;
+						$scope.showPhoto = false;
+						$scope.showEvent = false;
 						if (!$scope.quizSocket) {
 							$scope.questionAvailable = false;
 							$scope.questionUnavailable = true;
 							$scope.questionUnavailbleText = "Please wait connecting to server";
 							$scope.connectingServer = true;
-							$scope.showQuiz = true;
-							var socket = new SockJS('/quizWS');
-							stompClient = Stomp.over(socket);
-							$scope.quizSocket = true;
-							stompClient.connect({}, onConnected, onError);
+							stompClient = Stomp.over(new SockJS('/quizWS'));
+							stompClient.connect({}, onConnectedQuiz,
+									onErrorQuiz);
 							$scope.$digest();
-						} else {
-							$scope.showQuiz = true;
 						}
 					}
 
@@ -310,8 +339,9 @@ angular
 										});
 					}
 
-					function onConnected() {
+					function onConnectedQuiz() {
 						console.log('onConnected()');
+						$scope.quizSocket = true;
 						stompClient.subscribe('/user/topic/getCurrentQuestion',
 								onMessageReceivedQuiz);
 						stompClient.subscribe(
@@ -323,13 +353,17 @@ angular
 								'{"currentMili":' + n + '}');
 					}
 
-					function onError(error) {
+					function onErrorQuiz(error) {
 						console.log('onError()');
 						console.log(error);
 						$scope.questionAvailable = false;
 						$scope.questionUnavailable = true;
+						$scope.connectingServer = true;
+						$scope.$digest();
 						$scope.quizSocket = false;
-						$scope.clickQuiz();
+						// $scope.clickQuiz();
+						stompClient = Stomp.over(new SockJS('/quizWS'));
+						stompClient.connect({}, onConnectedQuiz, onErrorQuiz);
 					}
 
 					function onMessageReceivedQuiz(payload) {
