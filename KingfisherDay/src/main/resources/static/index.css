@@ -327,3 +327,8 @@
 {
 	background-color: transparent !important;
 }
+
+.event_name
+{
+	font-size: medium;
+}
