@@ -1,10 +1,10 @@
 jQuery(document).ready(function($) {
-	
 	/************************** Global Variable Section Start **************************/
 	var connectionURL='';
 	var mobileDetect = new MobileDetect(window.navigator.userAgent);
 	var stompClient = null;
 	var socket = null;
+	var delay=3000;
 	/************************** Global Variable Section End **************************/
 	//For Phone Gap mobile app, url is required.
 	if(mobileDetect.mobile()){
@@ -12,8 +12,8 @@ jQuery(document).ready(function($) {
 	}
 	console.log("connectionURL="+connectionURL);
 	
-	if(localStorage.loginemail && localStorage.loginpwd){
-		loginWithEmailAndPassword(localStorage.loginemail, localStorage.loginpwd);
+	if(localStorage.isloggedin === 'true'){
+		hideSignInShowLogOff();
 	}else{
 		showSignInHideLogOff();
 	}
@@ -49,7 +49,11 @@ jQuery(document).ready(function($) {
 	}
 	
 	function validateLoginAndOpenModal(modalToOpen){
-		if(localStorage.loginemail && localStorage.loginpwd){
+		if(localStorage.isloggedin === 'true'){
+			$.LoadingOverlay("show");
+			setTimeout(function(){
+				$.LoadingOverlay("hide");
+			}, delay);
 			$(modalToOpen).modal();
 			return true;
 		}else{
@@ -62,6 +66,7 @@ jQuery(document).ready(function($) {
 		var url=connectionURL+'/getEmployee/'+email+'/'+password;
 		console.log("Login URL:"+url);
 		
+		$.LoadingOverlay("show");
 		$.ajax({
 			url: url,
 			processData: false,
@@ -75,7 +80,6 @@ jQuery(document).ready(function($) {
 					var template1 = $('#ui-template-account-details').html();
 					var template2 = $('#ui-template-account-photo').html();    
 					$('#user_details').html(Mustache.to_html(template1, employee));
-					$('.home-slider').html(Mustache.to_html(template2, employee));
 					
 					localStorage.clear();
 					
@@ -84,6 +88,8 @@ jQuery(document).ready(function($) {
 					if ($('#remember').is(':checked')) {
 						localStorage.rememberme = $('#remember').val();
 					}
+
+					localStorage.isloggedin = true;
 					hideSignInShowLogOff();
 					
 				}else{
@@ -93,6 +99,11 @@ jQuery(document).ready(function($) {
 			error: function(error) {
 				console.log(error);
 				$('#error-panel').html("Ooops!! Looks like there is some technical problem!!");
+			},
+			complete: function (jqXHR, status) {
+				setTimeout(function(){
+				    $.LoadingOverlay("hide");
+				}, delay);
 			}
 			
 		})
@@ -142,6 +153,7 @@ jQuery(document).ready(function($) {
 		var url=connectionURL+'/saveResponse/'+questionID+'/'+emailId+'/'+radioValueOfAnsweredQuestion;
 		console.log(url);
 
+		$.LoadingOverlay("show");
 		$.ajax({
 			url: url,
 			processData: false,
@@ -152,6 +164,11 @@ jQuery(document).ready(function($) {
 			},
 			error: function(error) {
 				console.log(error);
+			},
+			complete: function (jqXHR, status) {
+				setTimeout(function(){
+				    $.LoadingOverlay("hide");
+				}, delay);
 			}
 		})
 		
@@ -216,8 +233,13 @@ jQuery(document).ready(function($) {
 	$('#logoff').on('click', function(e){
 
 		e.preventDefault();
-		
-		localStorage.clear();
+
+		$.LoadingOverlay("show");
+		setTimeout(function(){
+			$.LoadingOverlay("hide");
+		}, delay);		
+		//localStorage.clear();
+		localStorage.isloggedin = false;
 		
 		showSignInHideLogOff();
 		
@@ -265,6 +287,7 @@ jQuery(document).ready(function($) {
 			var url=connectionURL+'/registerEmployee/'+data.name+'/'+data.email+'/'+data.foodpref+'/'+data.password+'/'+data.mobile+"/";
 			console.log(url);
 			
+			$.LoadingOverlay("show");
 			$.ajax({
 				url: url,     
 				data: fd,
@@ -277,9 +300,7 @@ jQuery(document).ready(function($) {
 					if(employee){
 						$('.close-modal').click();
 						var template1 = $('#ui-template-account-details').html();
-						var template2 = $('#ui-template-account-photo').html();    
 						$('#user_details').html(Mustache.to_html(template1, employee));
-						$('.home-slider').html(Mustache.to_html(template2, employee));
 						
 						//clear local storage
 						localStorage.clear();
@@ -298,6 +319,11 @@ jQuery(document).ready(function($) {
 					if(error.responseJSON && error.responseJSON.message){
 						$('#error-panel').html(error.responseJSON.message);
 					}
+				},
+				complete: function (jqXHR, status) {
+					setTimeout(function(){
+					    $.LoadingOverlay("hide");
+					}, delay);
 				}
 			})
 

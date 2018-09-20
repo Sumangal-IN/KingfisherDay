@@ -45,6 +45,8 @@
 <script src="js/sockjs.min.js"></script>
 <script src="js/stomp.min.js"></script>
 <script src="js/mobile-detect.js"></script>
+<script src="js/loading-overlay.min.js"></script>
+<script src="js/loadingoverlay.min.js"></script>
 
 <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -55,6 +57,7 @@
 
 <body>
 
+	<div id="target"></div>
 	<!-- Start Logo Section -->
 	<section id="logo-section" class="text-center">
 		<div class="container">
@@ -76,22 +79,15 @@
 		<div class="container">
 			<div class="row">
 
-				<div class="col-md-3">
+				<div class="col-md-6">
 
 					<div class="menu-item blue" id="signIn">
 						<a href="#feature-modal" data-toggle="modal" class="js-signin-start"> 
 							<i class="fa fa-sign-in"></i>
-							<p>Sign-In</p>
+							<p>Sign In/Sign Up</p>
 						</a>
 					</div>
 					
-					<div class="menu-item light-orange"  id="logoff">
-						<a href="javascript:void(0)" data-toggle="modal">
-							<i class="fa fa-sign-out"></i>
-							<p>Signout</p>
-						</a>
-					</div>
-
 					<div class="menu-item green">
 						<a href="javascript:void(0)" data-toggle="modal" id="events">
 							<i class="fa fa-calendar"></i>
@@ -100,63 +96,28 @@
 					</div>
 
 					<div class="menu-item light-red" id="quiz">
-						<a href="javascript:void(0)" data-toggle="modal"
-							class="js-open-quiz"> <i class="fa fa-question-circle"></i>
+						<a href="javascript:void(0)" data-toggle="modal" class="js-open-quiz"> 
+							<i class="fa fa-question-circle"></i>
 							<p>Quiz</p>
 						</a>
 					</div>
-
-				</div>
-
-				<div class="col-md-6">
-
-					<!-- Start Carousel Section -->
-					<div class="home-slider">
-						<div id="carousel-example-generic" class="carousel slide"
-							data-ride="carousel" style="padding-bottom: 30px;">
-							<!-- Indicators -->
-							<ol class="carousel-indicators">
-								<li data-target="#carousel-example-generic" data-slide-to="0"
-									class="active"></li>
-								<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-								<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-							</ol>
-
-							<!-- Wrapper for slides -->
-							<div class="carousel-inner">
-								<div class="item active">
-									<img src="images/about-03.jpg" class="img-responsive" alt="">
-								</div>
-								<div class="item">
-									<img src="images/about-02.jpg" class="img-responsive" alt="">
-								</div>
-								<div class="item">
-									<img src="images/about-01.jpg" class="img-responsive" alt="">
-								</div>
-
-							</div>
-
-						</div>
+					<div class="menu-item color" id="contest">
+						<a href="javascript:void(0)" data-toggle="modal">
+							<i class="fa fa-file-photo-o"></i>
+							<p>Photography & Banner Contest</p>
+						</a>
 					</div>
-					<!-- Start Carousel Section -->
-
-					<div class="row">
-						<div class="col-md-6">
-							<div class="menu-item color responsive" id="contest">
-								<a href="javascript:void(0)" data-toggle="modal"> <i
-									class="fa fa-file-photo-o"></i>
-									<p>Photography & Banner Contest</p>
-								</a>
-							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="menu-item light-orange responsive-2">
-								<a href="#contact-modal" data-toggle="modal"> <i
-									class="fa fa-envelope-o"></i>
-									<p>Contact</p>
-								</a>
-							</div>
-						</div>
+					<div class="menu-item yellow">
+						<a href="#contact-modal" data-toggle="modal">
+							<i class="fa fa-envelope-o"></i>
+							<p>Contact</p>
+						</a>
+					</div>
+					<div class="menu-item light-orange" id="logoff">
+						<a href="javascript:void(0)" data-toggle="modal"> 
+							<i class="fa fa-sign-out"></i>
+							<p>Signout</p>
+						</a>
 					</div>
 
 				</div>
@@ -713,23 +674,18 @@
 								<li><strong>Visit Us : </strong><a href="http://kfday.herokuapp.com" target="blank">http://kfday.herokuapp.com</a></li>
 							</ul>
 							<ul>
-								<li><strong>E-mail Us: </strong><a href="mailTo:tuhin.chandra@kingfisher.com">tuhin.chandra@kingfisher.com</a></li>
-								<li><strong>Click to call: </strong><a href="tel:+91 98363 77794">+919836377794</a></li>
+								<li><strong>E-mail Us: </strong><a href="mailTo:sumangal.mandal2@kingfisher.com">sumangal.mandal2@kingfisher.com</a></li>
+								<li><strong>Click to call: </strong><a href="tel:+91 83358 01071">+91 83358 01071</a></li>
 								<li><strong>Visit Us : </strong><a href="http://kfday.herokuapp.com" target="blank">http://kfday.herokuapp.com</a></li>
 							</ul>
 							<ul>
-								<li><strong>E-mail Us: </strong><a href="mailTo:tuhin.chandra@kingfisher.com">tuhin.chandra@kingfisher.com</a></li>
-								<li><strong>Click to call: </strong><a href="tel:+91 98363 77794">+919836377794</a></li>
+								<li><strong>E-mail Us: </strong><a href="mailTo:subhajit.maji@kingfisher.com">subhajit.maji@kingfisher.com</a></li>
+								<li><strong>Click to call: </strong><a href="tel:+91 90517 88832">+91 90517 88832</a></li>
 								<li><strong>Visit Us : </strong><a href="http://kfday.herokuapp.com" target="blank">http://kfday.herokuapp.com</a></li>
 							</ul>
 							<ul>
-								<li><strong>E-mail Us: </strong><a href="mailTo:tuhin.chandra@kingfisher.com">tuhin.chandra@kingfisher.com</a></li>
-								<li><strong>Click to call: </strong><a href="tel:+91 98363 77794">+919836377794</a></li>
-								<li><strong>Visit Us : </strong><a href="http://kfday.herokuapp.com" target="blank">http://kfday.herokuapp.com</a></li>
-							</ul>
-							<ul>
-								<li><strong>E-mail Us: </strong><a href="mailTo:tuhin.chandra@kingfisher.com">tuhin.chandra@kingfisher.com</a></li>
-								<li><strong>Click to call: </strong><a href="tel:+91 98363 77794">+919836377794</a></li>
+								<li><strong>E-mail Us: </strong><a href="mailTo:shasanko.ghosh@kingfisher.com">shasanko.ghosh@kingfisher.com</a></li>
+								<li><strong>Click to call: </strong><a href="tel:+91 96743 33857">+91 96743 33857</a></li>
 								<li><strong>Visit Us : </strong><a href="http://kfday.herokuapp.com" target="blank">http://kfday.herokuapp.com</a></li>
 							</ul>
 						</div>
@@ -777,22 +733,6 @@
             </div>
 			<div id="account_email" style="display: none">
             	{{emailID}}
-            </div>
-		</script>
-	<script id="ui-template-account-photo" type="x-tmpl-mustache">
-			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="padding-bottom: 30px;">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-					<div class="item-active">
-						<img src="data:image/jpg;base64,{{photo}}" class="img-responsive" alt="">
-					</div>
-                </div>
-
             </div>
 		</script>
 

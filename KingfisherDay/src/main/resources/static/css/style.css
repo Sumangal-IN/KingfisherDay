@@ -92,7 +92,7 @@ fieldset[disabled] .btn-primary.active {
 /**** Start Section Title Section ****/
 
 .section-title h3{
-    color: #666 !important;
+    color: #666;
     //font-style: italic;
     font-size: 28px;
     font-family: 'Oswald', sans-serif;
@@ -152,7 +152,9 @@ fieldset[disabled] .btn-primary.active {
     background: #0ECEAB;
 }
 
-
+.yellow {
+	background: #FFD700
+}
 
 /**** Start Main Body Section ****/
 
@@ -302,7 +304,7 @@ and (max-width : 1199px) {
     width: 1px;
     height: 75px;
     margin-left: 35px;
-    background-color: #222;
+    background-color: #fff;
     -webkit-transform: rotate(45deg);
     -ms-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -312,7 +314,7 @@ and (max-width : 1199px) {
     z-index: 1052;
     width: 1px;
     height: 75px;
-    background-color: #222;
+    background-color: #fff;
     -webkit-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
     transform: rotate(90deg);
@@ -964,7 +966,10 @@ and (max-width : 991px) {
 }
 
 .modal-content {
-    background-color: aliceblue;
+    background: url(../images/modal-background.jpg) no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    background-color: black;
 }
 
 .food-pref {
@@ -985,4 +990,27 @@ label.active .food-pref {
     text-align: left;
     font-weight: 500;
     width: 100%;
+}
+
+.reg-btn {
+    margin-top: 20px;
+}
+.modal-content h3 {
+    margin-bottom: 20px;
+}
+
+.modal-content .section-title h3 {
+    color: #fff;
+}
+
+.signin-reg .nav-item {
+    font-weight: 700;
+    font-size: 18px;
+}
+.modal-dialog {
+    margin: 0;
+}
+
+.section-modal .container-fluid {
+    padding: 0;
 }
