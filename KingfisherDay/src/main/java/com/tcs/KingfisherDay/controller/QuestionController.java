@@ -80,7 +80,6 @@ public class QuestionController {
 
 	@MessageMapping("/getCurrentQuestion")
 	public void sendMessage(Principal principal, @SuppressWarnings("rawtypes") Map message) {
-		System.out.println("principal:" + principal.getName());
 		if (questionService.getCurrentQuestion() != null)
 			messagingTemplate.convertAndSendToUser(principal.getName(), "/topic/getCurrentQuestion",
 					questionService.getCurrentQuestion());

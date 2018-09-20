@@ -172,7 +172,7 @@
 
 .backgroud_image
 {
-	position: absolute;
+	position: fixed;
 	opacity: 0.15;
     bottom: 0;
     height: 300px;

@@ -12,6 +12,7 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 	public void registerStompEndpoints(StompEndpointRegistry registry) {
 		registry.addEndpoint("/quizWS").setHandshakeHandler(new CustomHandshakeHandler()).withSockJS();
 		registry.addEndpoint("/eventWS").setHandshakeHandler(new CustomHandshakeHandler()).withSockJS();
+		registry.addEndpoint("/eventMobileWS").setHandshakeHandler(new CustomHandshakeHandler()).withSockJS();
 	}
 
 	@Override

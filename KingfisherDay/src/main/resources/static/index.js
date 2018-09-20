@@ -31,6 +31,9 @@ angular
 					$scope.showPhoto = false;
 					$scope.showEvent = false;
 
+					$scope.comment_text = [];
+					$scope.comment_box_show = [];
+
 					var randomFixedInteger = function(length) {
 						return Math.floor(Math.pow(10, length - 1)
 								+ Math.random()
@@ -248,7 +251,7 @@ angular
 										});
 					}
 
-					$scope.stompClient = null;
+					// $scope.stompClient = null;
 
 					$scope.clickEvent = function() {
 						$scope.menuActive = 'event';
@@ -265,6 +268,14 @@ angular
 										function mySuccess(response) {
 											console.log(response);
 											$scope.events = response.data;
+											if (!$scope.eventSocket) {
+												stompClient = Stomp
+														.over(new SockJS(
+																'/eventMobileWS'));
+												stompClient.connect({},
+														onConnectedEvent,
+														onErrorEvent);
+											}
 										},
 										function myError(response) {
 											window
@@ -340,21 +351,19 @@ angular
 					}
 
 					function onConnectedQuiz() {
-						console.log('onConnected()');
+						console.log('onConnectedQuiz()');
 						$scope.quizSocket = true;
 						stompClient.subscribe('/user/topic/getCurrentQuestion',
 								onMessageReceivedQuiz);
 						stompClient.subscribe(
 								'/topic/broadcastCurrentQuestion',
 								onMessageReceivedQuiz);
-						var d = new Date();
-						var n = d.getTime();
 						stompClient.send("/app/getCurrentQuestion", {},
-								'{"currentMili":' + n + '}');
+								'{"currentMili":' + new Date().getTime() + '}');
 					}
 
 					function onErrorQuiz(error) {
-						console.log('onError()');
+						console.log('onErrorQuiz()');
 						console.log(error);
 						$scope.questionAvailable = false;
 						$scope.questionUnavailable = true;
@@ -379,5 +388,76 @@ angular
 						}
 						$scope.connectingServer = false;
 						$scope.$digest();
+					}
+
+					$scope.comment = function(vote, eventID) {
+						if ($scope.comment_text[eventID] != undefined
+								&& $scope.comment_text[eventID].trim() != '') {
+							$scope.promise = $http
+									.get(
+											URL
+													+ '/saveEventResponseWithComment/'
+													+ $scope.loginEmail
+													+ '/'
+													+ eventID
+													+ '/'
+													+ vote
+													+ '/'
+													+ $scope.comment_text[eventID])
+									.then(
+											function mySuccess(response) {
+											},
+											function myError(response) {
+												window
+														.alert('Oops! Some error has occured!');
+												console.log(response);
+												return;
+											});
+						} else {
+							$scope.promise = $http
+									.get(
+											URL + '/saveEventResponse/'
+													+ $scope.loginEmail + '/'
+													+ eventID + '/' + vote)
+									.then(
+											function mySuccess(response) {
+											},
+											function myError(response) {
+												window
+														.alert('Oops! Some error has occured!');
+												console.log(response);
+												return;
+											});
+						}
+					}
+
+					function onConnectedEvent() {
+						console.log('onConnectedEvent()');
+						$scope.eventSocket = true;
+						stompClient.subscribe('/user/topic/getCurrentEvent',
+								onMessageReceivedEvent);
+						stompClient.subscribe('/topic/broadcastCurrentEvent',
+								onMessageReceivedEvent);
+						stompClient.send("/app/getEventStatus", {},
+								'{"currentMili":' + new Date().getTime() + '}');
+					}
+
+					function onErrorEvent(error) {
+						console.log('onErrorEvent()');
+						console.log(error);
+						$scope.eventSocket = false;
+						stompClient = Stomp.over(new SockJS('/eventMobileWS'));
+						stompClient.connect({}, onConnectedEvent, onErrorEvent);
+					}
+
+					function onMessageReceivedEvent(payload) {						
+						if(payload.body=='')
+							comment_box_show=[];
+						else
+							{
+							console.log(JSON.parse(payload.body).eventID);
+							comment_box_show[JSON.parse(payload.body).eventID]='show';
+							}
+						console.log(comment_box_show);
 					}
 				});

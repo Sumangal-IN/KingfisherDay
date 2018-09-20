@@ -1,7 +1,11 @@
 package com.tcs.KingfisherDay.controller;
 
+import java.security.Principal;
 import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -40,6 +44,10 @@ public class EventController {
 	@ResponseBody
 	public void changeEventState(@PathVariable("eventID") int eventID, @PathVariable("state") String state) {
 		eventService.changeEventState(eventID, state);
+		if (eventService.getCurrentEvent() != null)
+			messagingTemplate.convertAndSend("/topic/broadcastCurrentEvent", eventService.getCurrentEvent());
+		else
+			messagingTemplate.convertAndSend("/topic/broadcastCurrentEvent", "");
 	}
 
 	@RequestMapping(value = "/saveEventResponse/{emailID}/{eventID}/{vote}", method = RequestMethod.GET, produces = "application/json")
@@ -64,5 +72,13 @@ public class EventController {
 	@ResponseBody
 	public List<EventResponse> getEventResponses() {
 		return eventResponseService.getLatestResponses();
+	}
+
+	@MessageMapping("/getEventStatus")
+	public void sendMessage(Principal principal, @SuppressWarnings("rawtypes") Map message) {
+		if (eventService.getCurrentEvent() != null)
+			messagingTemplate.convertAndSendToUser(principal.getName(), "/topic/getCurrentEvent", eventService.getCurrentEvent());
+		else
+			messagingTemplate.convertAndSendToUser(principal.getName(), "/topic/getCurrentEvent", "");
 	}
 }

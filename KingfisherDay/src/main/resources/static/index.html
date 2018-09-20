@@ -277,21 +277,28 @@
 				<div class="card" ng-repeat="event in events">
 					<div class="card-header p-1 m-1" id="headingOne"
 						style="border-bottom: none; font-size: small;">
-							<span class="event_name" ng-bind-html="'#' + $index + ' ' +event.eventName"></span>
+						<span class="event_name"
+							ng-bind-html="'<b>#' + ($index+1) + '</b> ' +event.eventName"></span>
 					</div>
-					<div id="collapse{{event.eventID}}" class="collapse"
+					<div id="collapse{{event.eventID}}" class="collapse show"
+						ng-class="comment_box_show[event.eventID]"
 						aria-labelledby="headingOne" data-parent="#accordion"
 						style="border-top: none;">
 						<div class="card-body" style="margin-top: -20;">
 							<div class="row">
 								<div class="col-8 p-0">
-									<input type="text" placeholder="comment" class="form-control" />
+									<input type="text" class="form-control"
+										placeholder="comment (optional)"
+										ng-model="comment_text[event.eventID]" />
 								</div>
-								<div class="col-2 ofset-2">
-									<i class="far fa-thumbs-up" style="font-size: xx-large;"></i>
+								<div class="col-2 ofset-2"
+									ng-click="comment('LIKE',event.eventID)">
+									<i class="far fa-thumbs-up"
+										style="font-size: xx-large; color: rgb(15, 66, 170)"></i>
 								</div>
-								<div class="col-2">
-									<i class="far fa-thumbs-down" style="font-size: xx-large;"></i>
+								<div class="col-2" ng-click="comment('DISLIKE',event.eventID)">
+									<i class="far fa-thumbs-down"
+										style="font-size: xx-large; color: rgb(244, 102, 16)"></i>
 								</div>
 							</div>
 						</div>
