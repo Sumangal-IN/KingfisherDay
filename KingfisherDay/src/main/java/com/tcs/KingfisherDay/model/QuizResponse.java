@@ -21,7 +21,7 @@ public class QuizResponse {
 	@Id
 	@Column(name = "EMPLOYEE_EMAIL", nullable = false)
 	private String employeeEmail;
-	@Column(name = "OPTION", nullable = false)
+	@Column(name = "OPTION_SELECTED", nullable = false)
 	private String option;
 	@Column(name = "TIME_STAMP", nullable = false)
 	private Timestamp timeStamp;

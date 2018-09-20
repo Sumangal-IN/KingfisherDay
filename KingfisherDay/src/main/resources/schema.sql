@@ -9,11 +9,6 @@ create table QUESTION(
 	CURRENT BOOLEAN	
 );
 
-create table FLAG(
-	KEY VARCHAR2(100),
-	VALUE BOOLEAN
-);
-
 create table EMPLOYEE(
 	name VARCHAR2(100),
 	email_id VARCHAR2(100),
