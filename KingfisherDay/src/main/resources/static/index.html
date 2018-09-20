@@ -280,17 +280,16 @@
 						<span class="event_name"
 							ng-bind-html="'<b>#' + ($index+1) + '</b> ' +event.eventName"></span>
 					</div>
-					<div id="collapse{{event.eventID}}" class="collapse show"
-						ng-class="comment_box_show[event.eventID]"
+					<div id="collapse{{event.eventID}}" class="collapse {{comment_box_show[event.eventID]}}"
 						aria-labelledby="headingOne" data-parent="#accordion"
 						style="border-top: none;">
 						<div class="card-body" style="margin-top: -20;">
 							<div class="row">
-								<div class="col-8 p-0">
+								<!-- <div class="col-8 p-0">
 									<input type="text" class="form-control"
 										placeholder="comment (optional)"
 										ng-model="comment_text[event.eventID]" />
-								</div>
+								</div> -->
 								<div class="col-2 ofset-2"
 									ng-click="comment('LIKE',event.eventID)">
 									<i class="far fa-thumbs-up"

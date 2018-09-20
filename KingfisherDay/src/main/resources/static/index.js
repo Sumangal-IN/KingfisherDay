@@ -452,12 +452,13 @@ angular
 
 					function onMessageReceivedEvent(payload) {						
 						if(payload.body=='')
-							comment_box_show=[];
+							$scope.comment_box_show=[];
 						else
 							{
 							console.log(JSON.parse(payload.body).eventID);
-							comment_box_show[JSON.parse(payload.body).eventID]='show';
+							$scope.comment_box_show[JSON.parse(payload.body).eventID]='show';
 							}
-						console.log(comment_box_show);
+						console.log($scope.comment_box_show);
+						$scope.$digest();
 					}
 				});
