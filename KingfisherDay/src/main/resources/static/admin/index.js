@@ -1,15 +1,12 @@
 angular
-		.module('kfApp', [ 'cgBusy' ])
+		.module('kfApp', [ 'cgBusy', 'ngSanitize' ])
 		.directive('fileUpload', function() {
 			return {
-				scope : true, // create a new scope
+				scope : true,
 				link : function(scope, el, attrs) {
 					el.bind('change', function(event) {
 						var files = event.target.files;
-						// iterate files since 'multiple' may be specified on
-						// the element
 						for (var i = 0; i < files.length; i++) {
-							// emit event upward
 							scope.$emit("fileSelected", {
 								file : files[i]
 							});
@@ -29,6 +26,13 @@ angular
 					$scope.uploadText = 'Select your file';
 					$scope.showGetOTP = true;
 					$scope.showVerifyOTP = false;
+
+					$scope.showQuiz = false;
+					$scope.showPhoto = false;
+					$scope.showEvent = false;
+
+					$scope.comment_text = [];
+					$scope.comment_box_show = [];
 
 					var randomFixedInteger = function(length) {
 						return Math.floor(Math.pow(10, length - 1)
@@ -98,7 +102,7 @@ angular
 								|| $scope.photoFile.name.endsWith('.jpeg')
 								|| $scope.photoFile.name.endsWith('.JPEG') || $scope.photoFile.name
 								.endsWith('.JPG'))
-								|| $scope.photoFile.size > 5500000) {
+								|| $scope.photoFile.size > 3500000) {
 							$scope.showErrorPhotoFileIncorrect = true;
 							return;
 						}
@@ -123,6 +127,7 @@ angular
 												return;
 											} else {
 												$scope.showErrorUserAlreadyExists = false;
+												$scope.showErrorIncorrectMobile = false;
 												$scope.promise = $http
 														.get(
 																URL
@@ -228,6 +233,11 @@ angular
 												$scope.showLoginPage = false;
 												$scope.showMenuPage = true;
 												$scope.showHeaderDP = true;
+												$scope.menuActive = 'event';
+												$scope.showEvent = true;
+												$scope.showPhoto = false;
+												$scope.showQuiz = false;
+												$scope.loadEvents();
 											} else {
 												$scope.showErrorIncorrectCredential = true;
 												return;
@@ -241,34 +251,81 @@ angular
 										});
 					}
 
-					$scope.stompClient = null;
+					// $scope.stompClient = null;
 
 					$scope.clickEvent = function() {
 						$scope.menuActive = 'event';
 						$scope.showQuiz = false;
+						$scope.showPhoto = false;
+						$scope.showEvent = true;
+						$scope.loadEvents();
+					}
+
+					$scope.loadEvents = function() {
+						$scope.promise = $http
+								.get(URL + '/getAllEvents')
+								.then(
+										function mySuccess(response) {
+											console.log(response);
+											$scope.events = response.data;
+											if (!$scope.eventSocket) {
+												stompClient = Stomp
+														.over(new SockJS(
+																'/eventMobileWS'));
+												stompClient.connect({},
+														onConnectedEvent,
+														onErrorEvent);
+											}
+										},
+										function myError(response) {
+											window
+													.alert('Oops! Some error has occured!');
+											console.log(response);
+											return;
+										});
 					}
 
 					$scope.clickPhoto = function() {
 						$scope.menuActive = 'photo';
 						$scope.showQuiz = false;
+						$scope.showPhoto = true;
+						$scope.showEvent = false;
 					}
 
 					$scope.clickQuiz = function() {
 						$scope.menuActive = 'quiz';
-						$scope.questionAvailable = false;
-						$scope.questionUnavailable = true;
-						$scope.questionUnavailbleText = "Please wait connecting to server";
-						$scope.connectingServer = true;
 						$scope.showQuiz = true;
-						var socket = new SockJS('/quizWS');
-						stompClient = Stomp.over(socket);
-						stompClient.connect({}, onConnected, onError);
-						$scope.$digest();
+						$scope.showPhoto = false;
+						$scope.showEvent = false;
+						if (!$scope.quizSocket) {
+							$scope.questionAvailable = false;
+							$scope.questionUnavailable = true;
+							$scope.questionUnavailbleText = "Please wait connecting to server";
+							$scope.connectingServer = true;
+							stompClient = Stomp.over(new SockJS('/quizWS'));
+							stompClient.connect({}, onConnectedQuiz,
+									onErrorQuiz);
+							$scope.$digest();
+						}
 					}
 
 					$scope.selectOption = function(option) {
-						console.log(option);
 						$scope.optionActive == option;
+						switch (option) {
+						case 'A':
+							option = $scope.currentQuestionData.optionA;
+							break;
+						case 'B':
+							option = $scope.currentQuestionData.optionB;
+							break;
+						case 'C':
+							option = $scope.currentQuestionData.optionC;
+							break;
+						case 'D':
+							option = $scope.currentQuestionData.optionD;
+							break;
+						}
+						console.log(option);
 						$scope.promise = $http
 								.get(
 										URL
@@ -293,33 +350,36 @@ angular
 										});
 					}
 
-					function onConnected() {
-						console.log('onConnected()');
+					function onConnectedQuiz() {
+						console.log('onConnectedQuiz()');
+						$scope.quizSocket = true;
 						stompClient.subscribe('/user/topic/getCurrentQuestion',
 								onMessageReceivedQuiz);
 						stompClient.subscribe(
 								'/topic/broadcastCurrentQuestion',
 								onMessageReceivedQuiz);
-						var d = new Date();
-						var n = d.getTime();
 						stompClient.send("/app/getCurrentQuestion", {},
-								'{"currentMili":' + n + '}');
+								'{"currentMili":' + new Date().getTime() + '}');
 					}
 
-					function onError(error) {
-						console.log('onError()');
+					function onErrorQuiz(error) {
+						console.log('onErrorQuiz()');
 						console.log(error);
 						$scope.questionAvailable = false;
 						$scope.questionUnavailable = true;
-						$scope.clickQuiz();
+						$scope.connectingServer = true;
+						$scope.$digest();
+						$scope.quizSocket = false;
+						// $scope.clickQuiz();
+						stompClient = Stomp.over(new SockJS('/quizWS'));
+						stompClient.connect({}, onConnectedQuiz, onErrorQuiz);
 					}
 
 					function onMessageReceivedQuiz(payload) {
-						console.log('oneMessageReceived()')
 						$scope.currentQuestionData = JSON.parse(payload.body);
 						console.log($scope.currentQuestionData);
 						if ($scope.currentQuestionData.questionUnavailbleText) {
-							$scope.questionUnavailbleText = 'This section is closed now. It will be availble during Quiz event of TCS Kingfisher Day (5th October 2018)';
+							$scope.questionUnavailbleText = 'This section is closed now and will be availble only during Quiz event of TCS Kingfisher Day (5th October 2018)';
 							$scope.questionAvailable = false;
 							$scope.questionUnavailable = true;
 						} else {
@@ -327,6 +387,78 @@ angular
 							$scope.questionUnavailable = false;
 						}
 						$scope.connectingServer = false;
+						$scope.$digest();
+					}
+
+					$scope.comment = function(vote, eventID) {
+						if ($scope.comment_text[eventID] != undefined
+								&& $scope.comment_text[eventID].trim() != '') {
+							$scope.promise = $http
+									.get(
+											URL
+													+ '/saveEventResponseWithComment/'
+													+ $scope.loginEmail
+													+ '/'
+													+ eventID
+													+ '/'
+													+ vote
+													+ '/'
+													+ $scope.comment_text[eventID])
+									.then(
+											function mySuccess(response) {
+											},
+											function myError(response) {
+												window
+														.alert('Oops! Some error has occured!');
+												console.log(response);
+												return;
+											});
+						} else {
+							$scope.promise = $http
+									.get(
+											URL + '/saveEventResponse/'
+													+ $scope.loginEmail + '/'
+													+ eventID + '/' + vote)
+									.then(
+											function mySuccess(response) {
+											},
+											function myError(response) {
+												window
+														.alert('Oops! Some error has occured!');
+												console.log(response);
+												return;
+											});
+						}
+					}
+
+					function onConnectedEvent() {
+						console.log('onConnectedEvent()');
+						$scope.eventSocket = true;
+						stompClient.subscribe('/user/topic/getCurrentEvent',
+								onMessageReceivedEvent);
+						stompClient.subscribe('/topic/broadcastCurrentEvent',
+								onMessageReceivedEvent);
+						stompClient.send("/app/getEventStatus", {},
+								'{"currentMili":' + new Date().getTime() + '}');
+					}
+
+					function onErrorEvent(error) {
+						console.log('onErrorEvent()');
+						console.log(error);
+						$scope.eventSocket = false;
+						stompClient = Stomp.over(new SockJS('/eventMobileWS'));
+						stompClient.connect({}, onConnectedEvent, onErrorEvent);
+					}
+
+					function onMessageReceivedEvent(payload) {						
+						if(payload.body=='')
+							$scope.comment_box_show=[];
+						else
+							{
+							console.log(JSON.parse(payload.body).eventID);
+							$scope.comment_box_show[JSON.parse(payload.body).eventID]='show';
+							}
+						console.log($scope.comment_box_show);
 						$scope.$digest();
 					}
 				});

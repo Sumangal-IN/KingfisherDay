@@ -1,28 +1,32 @@
 package com.tcs.KingfisherDay.controller;
 
-import java.io.IOException;
+import java.security.Principal;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessageSendingOperations;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
 import com.tcs.KingfisherDay.model.Event;
+import com.tcs.KingfisherDay.model.EventResponse;
+import com.tcs.KingfisherDay.service.EventResponseService;
 import com.tcs.KingfisherDay.service.EventService;
-import com.tcs.KingfisherDay.service.ImageHandlingService;
 
 @Controller
 public class EventController {
-
 	@Autowired
 	EventService eventService;
+
 	@Autowired
-	ImageHandlingService imageHandlingService;
+	EventResponseService eventResponseService;
+
+	@Autowired
+	private SimpMessageSendingOperations messagingTemplate;
 
 	@RequestMapping(value = "/getAllEvents", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
@@ -30,30 +34,51 @@ public class EventController {
 		return eventService.getAllEvents();
 	}
 
-	@RequestMapping(value = "/getEventById/{eventId}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/getCurrentEvent", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Event getEventById(@PathVariable("eventId") String eventId) {
-		return eventService.getEventById(eventId);
+	public Event getCurrentEvent() {
+		return eventService.getCurrentEvent();
 	}
 
-	@RequestMapping(value = "/registerEvent/{eventName}/{details}/{startDate}/{endDate}/{startTime}/{duration}/{photo}", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/changeEventState/{eventID}/{state}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Event registerEvent(
-			@PathVariable("eventName") String name, 
-			@PathVariable("details") String details,
-			@PathVariable("startDate") String startDate, 
-			@PathVariable("endDate") String endDate,
-			@PathVariable("startTime") String startTime,
-			@PathVariable("duration") String duration, 
-			@RequestParam("photo") MultipartFile photoFile) {
-		Event event=null;
-		try {
-			String photo = imageHandlingService.resizeImage(photoFile);
-			event=eventService.registerAnEvent(name, details, startDate, endDate, startTime, duration, photo);
-		} catch (IOException e) {
-			e.printStackTrace();
+	public void changeEventState(@PathVariable("eventID") int eventID, @PathVariable("state") String state) {
+		eventService.changeEventState(eventID, state);
+		if (eventService.getCurrentEvent() != null)
+			messagingTemplate.convertAndSend("/topic/broadcastCurrentEvent", eventService.getCurrentEvent());
+		else
+			messagingTemplate.convertAndSend("/topic/broadcastCurrentEvent", "");
+	}
+
+	@RequestMapping(value = "/saveEventResponse/{emailID}/{eventID}/{vote}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public void saveEventResponse(@PathVariable("emailID") String emailID, @PathVariable("eventID") int eventID, @PathVariable("vote") String vote) {
+		if (eventService.getCurrentEvent() != null && eventService.getCurrentEvent().getEventID() == eventID) {
+			eventResponseService.save(emailID, eventID, vote);
+			messagingTemplate.convertAndSend("/topic/broadcastLatestComments", eventResponseService.getLatestResponses());
 		}
-		return event;
 	}
 
+	@RequestMapping(value = "/saveEventResponseWithComment/{emailID}/{eventID}/{vote}/{comment}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public void saveEventResponseWithComment(@PathVariable("emailID") String emailID, @PathVariable("eventID") int eventID, @PathVariable("vote") String vote, @PathVariable("comment") String comment) {
+		if (eventService.getCurrentEvent() != null && eventService.getCurrentEvent().getEventID() == eventID) {
+			eventResponseService.saveWithComment(emailID, eventID, vote, comment);
+			messagingTemplate.convertAndSend("/topic/broadcastLatestComments", eventResponseService.getLatestResponses());
+		}
+	}
+
+	@RequestMapping(value = "/getEventResponses", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<EventResponse> getEventResponses() {
+		return eventResponseService.getLatestResponses();
+	}
+
+	@MessageMapping("/getEventStatus")
+	public void sendMessage(Principal principal, @SuppressWarnings("rawtypes") Map message) {
+		if (eventService.getCurrentEvent() != null)
+			messagingTemplate.convertAndSendToUser(principal.getName(), "/topic/getCurrentEvent", eventService.getCurrentEvent());
+		else
+			messagingTemplate.convertAndSendToUser(principal.getName(), "/topic/getCurrentEvent", "");
+	}
 }

@@ -1,48 +1,57 @@
 package com.tcs.KingfisherDay.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.tcs.KingfisherDay.model.enums.EventState;
+
 @Entity
 @Table(name = "EVENT")
 public class Event {
-
 	@Id
 	@Column(name = "event_id", nullable = false)
-	private String eventId;
+	private int eventID;
 	@Column(name = "event_name", nullable = false)
 	private String eventName;
 	@Column(name = "event_details", nullable = false)
 	private String details;
-	@Column(name = "start_date", nullable = false)
-	private Date startDate;
-	@Column(name = "end_date", nullable = true)
-	private Date endDate;
-	@Column(name = "start_time", nullable = false)
-	private String startTime;
-	@Column(name = "end_time", nullable = false)
-	private String endTime;
+	@Column(name = "start", nullable = false)
+	private Timestamp start;
+	@Column(name = "end", nullable = true)
+	private Timestamp end;
+	@Column(name = "state", nullable = false)
+	private EventState state;
+	@Column(name = "ppt_path", nullable = false)
+	private String pptPath;
 	@Column(name = "photo", nullable = false)
 	private String photo;
 
-	public String getEventId() {
-		return eventId;
+	public Event() {
+
 	}
 
-	public void setEventId(String eventId) {
-		this.eventId = eventId;
-	}
-
-	public String getEventName() {
-		return eventName;
-	}
-
-	public void setEventName(String eventName) {
+	public Event(int eventID, String eventName, String details, Timestamp start, Timestamp end, EventState state, String pptPath, String photo) {
+		super();
+		this.eventID = eventID;
 		this.eventName = eventName;
+		this.details = details;
+		this.start = start;
+		this.end = end;
+		this.state = state;
+		this.pptPath = pptPath;
+		this.photo = photo;
+	}
+
+	public int getEventID() {
+		return eventID;
+	}
+
+	public void setEventID(int eventID) {
+		this.eventID = eventID;
 	}
 
 	public String getDetails() {
@@ -53,36 +62,20 @@ public class Event {
 		this.details = details;
 	}
 
-	public Date getStartDate() {
-		return startDate;
+	public Timestamp getStart() {
+		return start;
 	}
 
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setStart(Timestamp start) {
+		this.start = start;
 	}
 
-	public Date getEndDate() {
-		return endDate;
+	public Timestamp getEnd() {
+		return end;
 	}
 
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
-
-	public String getStartTime() {
-		return startTime;
-	}
-
-	public void setStartTime(String startTime) {
-		this.startTime = startTime;
-	}
-
-	public String getEndTime() {
-		return endTime;
-	}
-
-	public void setEndTime(String endTime) {
-		this.endTime = endTime;
+	public void setEnd(Timestamp end) {
+		this.end = end;
 	}
 
 	public String getPhoto() {
@@ -93,28 +86,28 @@ public class Event {
 		this.photo = photo;
 	}
 
-	public Event() {
-
+	public EventState getState() {
+		return state;
 	}
 
-	public Event(String eventId, String eventName, String details, Date startDate, Date endDate, String startTime,
-			String endTime, String photo) {
-		super();
-		this.eventId = eventId;
+	public void setState(EventState state) {
+		this.state = state;
+	}
+
+	public String getEventName() {
+		return eventName;
+	}
+
+	public void setEventName(String eventName) {
 		this.eventName = eventName;
-		this.details = details;
-		this.startDate = startDate;
-		this.endDate = endDate;
-		this.startTime = startTime;
-		this.endTime = endTime;
-		this.photo = photo;
 	}
 
-	@Override
-	public String toString() {
-		return "Events [eventId=" + eventId + ", eventName=" + eventName + ", details=" + details + ", startDate="
-				+ startDate + ", endDate=" + endDate + ", startTime=" + startTime + ", endTime=" + endTime
-				+ ", photo=" + photo + "]";
+	public String getPptPath() {
+		return pptPath;
+	}
+
+	public void setPptPath(String pptPath) {
+		this.pptPath = pptPath;
 	}
 
 }

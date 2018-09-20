@@ -8,12 +8,12 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import com.tcs.KingfisherDay.model.key.ResponseKey;
+import com.tcs.KingfisherDay.model.key.QuizResponseKey;
 
 @Entity
-@Table(name = "RESPONSE")
-@IdClass(ResponseKey.class)
-public class Response {
+@Table(name = "QUIZ_RESPONSE")
+@IdClass(QuizResponseKey.class)
+public class QuizResponse {
 
 	@Id
 	@Column(name = "QUESTION_ID", nullable = false)
@@ -21,16 +21,16 @@ public class Response {
 	@Id
 	@Column(name = "EMPLOYEE_EMAIL", nullable = false)
 	private String employeeEmail;
-	@Column(name = "OPTION", nullable = false)
+	@Column(name = "OPTION_SELECTED", nullable = false)
 	private String option;
 	@Column(name = "TIME_STAMP", nullable = false)
 	private Timestamp timeStamp;
 
-	public Response() {
+	public QuizResponse() {
 
 	}
 
-	public Response(String questionID, String employeeEmail, String option, Timestamp timeStamp) {
+	public QuizResponse(String questionID, String employeeEmail, String option, Timestamp timeStamp) {
 		super();
 		this.questionID = questionID;
 		this.employeeEmail = employeeEmail;
@@ -72,7 +72,7 @@ public class Response {
 
 	@Override
 	public String toString() {
-		return "Response [questionID=" + questionID + ", employeeEmail=" + employeeEmail + ", option=" + option
+		return "QuizResponse [questionID=" + questionID + ", employeeEmail=" + employeeEmail + ", option=" + option
 				+ ", timeStamp=" + timeStamp + "]";
 	}
 

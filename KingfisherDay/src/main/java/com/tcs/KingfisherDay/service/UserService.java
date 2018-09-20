@@ -8,20 +8,19 @@ import org.springframework.stereotype.Service;
 import com.tcs.KingfisherDay.model.Employee;
 import com.tcs.KingfisherDay.model.enums.FoodPreference;
 import com.tcs.KingfisherDay.repository.EmployeeRepository;
+import com.tcs.KingfisherDay.util.PasswordCrypto;
 
 @Service
 public class UserService {
 
 	@Autowired
 	EmployeeRepository employeeRepository;
-	@Autowired
-	PasswordEncryptionService passwordEncryptionService;
 
-	public Employee register(String name, String emailID, String foodPreference, String password, String mobile,
-			String photo) {
-		String encryptedPassword = passwordEncryptionService.getEncryptedPassword(password);
-		return employeeRepository.save(
-				new Employee(name, emailID, FoodPreference.valueOf(foodPreference), encryptedPassword, mobile, photo));
+	@Autowired
+	PasswordCrypto passwordCrypto;
+
+	public Employee register(String name, String emailID, String foodPreference, String password, String mobile, String photo) {
+		return employeeRepository.save(new Employee(name, emailID, FoodPreference.valueOf(foodPreference), passwordCrypto.encrypt(password), mobile, photo));
 	}
 
 	public Employee findByEmailID(String emailID) {
@@ -38,14 +37,13 @@ public class UserService {
 	}
 
 	public Employee getEmployee(String emailID, String password) {
-		Employee emp = findByEmailID(emailID);
-		if (null != emp) {
-			String encryptedPassword = emp.getPassword();
-			if (!passwordEncryptionService.isPasswordValid(password, encryptedPassword)) {
-				emp= null;
-			}
+		List<Employee> employeeList = employeeRepository.findByEmailID(emailID);
+		if (employeeList.isEmpty())
+			return null;
+		else if (passwordCrypto.validate(password, employeeList.get(0).getPassword())) {
+			return employeeList.get(0);
 		}
-		return emp;
+		return null;
 	}
 
 }
