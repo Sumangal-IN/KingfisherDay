@@ -10,6 +10,6 @@ import com.tcs.KingfisherDay.model.EventResponse;
 @Repository
 public interface EventResponseRepository extends JpaRepository<EventResponse, String> {
 
-	List<EventResponse> findTop10ByEventIDOrderByTimeStampDesc(int eventID);
+	List<EventResponse> findTop7ByEventIDOrderByTimeStampDesc(int eventID);
 
 }

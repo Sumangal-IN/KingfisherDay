@@ -53,14 +53,22 @@
 						</div>
 					</div>
 					<div class="row pt-3 pl-2 pr-2" ng-show="showComment">
-						<div class="row mr-1 ml-1 event_title justify-content-center p-2">
+						<div
+							class="row mr-1 ml-1 mb-3 event_title justify-content-center p-2">
 							<span ng-bind-html="currentEvent.eventName"></span>
 						</div>
-						<div class="row mr-1 ml-1 comment_box p-2 mt-3">
-							<ul>
-								<li ng-repeat="comment in latestComments">{{comment.employeeEmail}}
-									{{comment.vote}}</li>
-							</ul>
+						<div class="row mr-1 ml-1 comment_box p-2 mt-1"
+							ng-repeat="comment in latestComments">
+							<strong>{{comment.employee.name}}</strong>
+							&nbsp;({{comment.employee.emailID}})
+							<div class="pl-2" style="color: rgb(15, 66, 170);"
+								ng-show="{{comment.eventResponse.vote=='LIKE'}}">
+								<i class="far fa-thumbs-up" style="font-size: xx-large;"></i>
+							</div>
+							<div class="pl-2" style="color: rgb(244, 102, 16);"
+								ng-show="{{comment.eventResponse.vote=='DISLIKE'}}">
+								<i class="far fa-thumbs-down" style="font-size: xx-large;"></i>
+							</div>
 						</div>
 						<div class="row mr-1 ml-1 justify-content-center"
 							style="width: 100%">

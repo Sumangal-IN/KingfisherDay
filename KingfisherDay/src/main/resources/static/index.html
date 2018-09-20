@@ -34,7 +34,7 @@
 			style="height: 56px">
 			<a class="navbar-brand header_text" href="#!"><strong>TCS
 					Kingfisher Day'18</strong></a> <img class="dp_header"
-				src="data:image/jpg;base64,{{photo}}" ng-show="{{showHeaderDP}}">
+				src="data:image/jpg;base64,{{photo}}" ng-show="showHeaderDP">
 		</nav>
 
 		<div class="row menu_holder navbar fixed-top p-0"
@@ -172,7 +172,7 @@
 					<i class="fas fa-camera-retro mr-2 fa-2x"></i>
 				</div>
 				<div class="form-group input-group-sm mb-3 mr-1">
-					<div class="fileUpload btn btn-primary btn-sm">
+					<div class="fileUpload btn btn-secondary btn-sm">
 						<span ng-bind="uploadText"></span> <input type="file"
 							class="upload" file-upload
 							onchange="angular.element(this).scope().fileNameChanged()" />
@@ -182,6 +182,7 @@
 					<i class="far fa-check-circle fa-2x"></i>
 				</div>
 			</div>
+			<!-- 
 			<div class="row justify-content-center">
 				<div class="form-group input-group-sm mb-3 mr-1">
 					<i class="fas fa-mobile-alt fa-2x"></i>
@@ -189,6 +190,12 @@
 				<div class="form-group input-group-sm mb-3 mr-2">
 					<input class="form-control" type="text" placeholder="mobile"
 						ng-model="registerMobile">
+				</div>
+			</div>
+			 -->
+			<div class="row justify-content-center">
+				<div class="form-group input-group-sm mb-3 mr-2">
+					<button ng-click="register()" class="btn btn-primary btn-sm">Register</button>
 				</div>
 			</div>
 			<div class="row justify-content-center" ng-show="showGetOTP">
@@ -280,24 +287,27 @@
 						<span class="event_name"
 							ng-bind-html="'<b>#' + ($index+1) + '</b> ' +event.eventName"></span>
 					</div>
-					<div id="collapse{{event.eventID}}" class="collapse {{comment_box_show[event.eventID]}}"
+					<div id="collapse{{event.eventID}}"
+						class="collapse {{comment_box_show[event.eventID]}}"
 						aria-labelledby="headingOne" data-parent="#accordion"
 						style="border-top: none;">
-						<div class="card-body" style="margin-top: -20;">
+						<div class="card-body p-1"
+							style="margin-top: 0px; margin-bottom: 5px;">
 							<div class="row">
 								<!-- <div class="col-8 p-0">
 									<input type="text" class="form-control"
 										placeholder="comment (optional)"
 										ng-model="comment_text[event.eventID]" />
 								</div> -->
-								<div class="col-2 ofset-2"
-									ng-click="comment('LIKE',event.eventID)">
-									<i class="far fa-thumbs-up"
-										style="font-size: xx-large; color: rgb(15, 66, 170)"></i>
+								<div class="col-3 offset-2 p-0"
+									ng-click="comment('LIKE',event.eventID)"
+									style="color: rgb(15, 66, 170);">
+									LIKE <i class="far fa-thumbs-up" style="font-size: xx-large;"></i>
 								</div>
-								<div class="col-2" ng-click="comment('DISLIKE',event.eventID)">
-									<i class="far fa-thumbs-down"
-										style="font-size: xx-large; color: rgb(244, 102, 16)"></i>
+								<div class="col-5" ng-click="comment('DISLIKE',event.eventID)"
+									style="color: rgb(244, 102, 16);">
+									DISLIKE <i class="far fa-thumbs-down"
+										style="font-size: xx-large;"></i>
 								</div>
 							</div>
 						</div>
