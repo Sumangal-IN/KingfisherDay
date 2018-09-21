@@ -1,10 +1,5 @@
 angular
 		.module('kfApp', [ 'cgBusy', 'ngSanitize' ])
-		// .config(
-		// function($sceDelegateProvider) {
-		// $sceDelegateProvider.resourceUrlWhitelist([ 'self',
-		// 'https://kfplc-my.sharepoint.com/**' ]);
-		// })
 		.controller(
 				'kfController',
 				function($scope, $http, $sce) {
@@ -22,7 +17,7 @@ angular
 					$scope.showEventList = true;
 					$scope.showComment = false;
 					$scope.currentEvent = 0;
-					$scope.comments = [];
+					//$scope.comments = [];
 
 					$scope.promise = $http.get(URL + '/getAllEvents').then(
 							function mySuccess(response) {
@@ -49,7 +44,8 @@ angular
 											$scope.drawerState = 'drawer_close';
 											$scope.showEventList = false;
 											$scope.showComment = true;
-											$scope.comments = [];
+											//$scope.comments = [];
+											$scope.latestComments=[];
 											$scope.$digest();
 										},
 										function mySuccess(response) {
