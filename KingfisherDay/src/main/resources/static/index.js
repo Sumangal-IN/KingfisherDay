@@ -209,8 +209,7 @@ angular
 						$scope.promise = $http
 								.get(
 										URL + '/isExistsEmployee/'
-												+ $scope.registerEmail + '/'
-												+ $scope.registerMobile)
+												+ $scope.registerEmail)
 								.then(
 										function mySuccess(response) {
 											var data = response.data;

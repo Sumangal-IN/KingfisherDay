@@ -19,8 +19,10 @@ public class UserService {
 	@Autowired
 	PasswordCrypto passwordCrypto;
 
-	public Employee register(String name, String emailID, String foodPreference, String password, String mobile, String photo) {
-		return employeeRepository.save(new Employee(name, emailID, FoodPreference.valueOf(foodPreference), passwordCrypto.encrypt(password), mobile, photo));
+	public Employee register(String name, String emailID, String foodPreference, String password, String mobile,
+			String photo) {
+		return employeeRepository.save(new Employee(name, emailID, FoodPreference.valueOf(foodPreference),
+				passwordCrypto.encrypt(password), mobile, photo));
 	}
 
 	public Employee findByEmailID(String emailID) {
@@ -31,8 +33,8 @@ public class UserService {
 			return employeeList.get(0);
 	}
 
-	public Boolean isExistsEmployee(String emailID, String mobile) {
-		List<Employee> employeeList = employeeRepository.findByEmailIDOrMobile(emailID, mobile);
+	public Boolean isExistsEmployee(String emailID) {
+		List<Employee> employeeList = employeeRepository.findByEmailID(emailID);
 		return !employeeList.isEmpty();
 	}
 

@@ -24,7 +24,9 @@ public class UserController {
 
 	@RequestMapping(value = "/registerEmployee/{name}/{emailID}/{foodPreference}/{password}/{mobile}", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public Employee registerEmployee(@PathVariable("name") String name, @PathVariable("emailID") String emailID, @PathVariable("foodPreference") String foodPreference, @PathVariable("password") String password, @PathVariable("mobile") String mobile, @RequestParam("photoFile") MultipartFile photoFile) {
+	public Employee registerEmployee(@PathVariable("name") String name, @PathVariable("emailID") String emailID,
+			@PathVariable("foodPreference") String foodPreference, @PathVariable("password") String password,
+			@PathVariable("mobile") String mobile, @RequestParam("photoFile") MultipartFile photoFile) {
 		String photo = null;
 		if (photoFile.isEmpty()) {
 			return null;
@@ -45,10 +47,10 @@ public class UserController {
 		return userService.getEmployee(emailID, password);
 	}
 
-	@RequestMapping(value = "/isExistsEmployee/{emailID}/{mobile}", method = RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/isExistsEmployee/{emailID}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public Boolean isExistsEmployee(@PathVariable("emailID") String emailID, @PathVariable("mobile") String mobile) {
-		return userService.isExistsEmployee(emailID, mobile);
+	public Boolean isExistsEmployee(@PathVariable("emailID") String emailID) {
+		return userService.isExistsEmployee(emailID);
 	}
 
 }
