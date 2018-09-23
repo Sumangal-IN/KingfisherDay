@@ -24,7 +24,7 @@ angular
 					$scope.showLoginPage = true;
 					$scope.foodPref = 'VEG';
 					$scope.uploadText = 'Select your file';
-					$scope.showGetOTP = true;
+					$scope.showGetOTP = false;
 					$scope.showVerifyOTP = false;
 
 					$scope.showQuiz = false;
@@ -144,6 +144,115 @@ angular
 																	$scope.showVerifyOTP = true;
 																	$scope.showGetOTP = false;
 																	return;
+																},
+																function myError(
+																		response) {
+																	window
+																			.alert('Oops! Some error has occured!');
+																	console
+																			.log(response);
+																	return;
+																});
+											}
+										},
+										function myError(response) {
+											window
+													.alert('Oops! Some error has occured!');
+											console.log(response);
+											return;
+										});
+					}
+
+					$scope.register = function() {
+						console.log('register');
+						if ($scope.registerEmail == undefined
+								|| ($scope.registerEmail != undefined && !$scope.registerEmail
+										.endsWith('@tcs.com'))
+								|| ($scope.registerEmail != undefined && !$scope.registerEmail == null)) {
+							$scope.showErrorInvalidEmail = true;
+							return;
+						}
+						$scope.showErrorInvalidEmail = false;
+
+						if ($scope.registerPassword == undefined
+								|| ($scope.registerPassword != undefined && !$scope.registerPassword == null)
+								|| ($scope.registerPassword != undefined && $scope.registerPassword == '')) {
+							$scope.showErrorEmptyPassword = true;
+							return;
+						}
+						$scope.showErrorEmptyPassword = false;
+						console.log($scope.registerName);
+						if ($scope.registerName == undefined
+								|| ($scope.registerName != undefined && !$scope.registerName == null)
+								|| ($scope.registerName != undefined && $scope.registerName == '')) {
+							$scope.showErrorEmptyName = true;
+							return;
+						}
+						$scope.showErrorEmptyName = false;
+
+						if ($scope.photoFile == undefined) {
+							$scope.showErrorNoPhotoSelected = true;
+							return;
+						}
+						$scope.showErrorNoPhotoSelected = false;
+
+						if (!($scope.photoFile.name.endsWith('.jpg')
+								|| $scope.photoFile.name.endsWith('.jpeg')
+								|| $scope.photoFile.name.endsWith('.JPEG') || $scope.photoFile.name
+								.endsWith('.JPG'))
+								|| $scope.photoFile.size > 3500000) {
+							$scope.showErrorPhotoFileIncorrect = true;
+							return;
+						}
+						$scope.showErrorPhotoFileIncorrect = false;
+
+						$scope.promise = $http
+								.get(
+										URL + '/isExistsEmployee/'
+												+ $scope.registerEmail + '/'
+												+ $scope.registerMobile)
+								.then(
+										function mySuccess(response) {
+											var data = response.data;
+											console.log(data);
+											if (data) {
+												$scope.showErrorUserAlreadyExists = true;
+												return;
+											} else {
+												$scope.showErrorUserAlreadyExists = false;
+												$scope.showErrorIncorrectMobile = false;
+												$scope.showErrorOTP = false;
+												var fd = new FormData();
+												fd.append('photoFile',
+														$scope.photoFile);
+												$scope.promise = $http
+														.post(
+																URL
+																		+ '/registerEmployee/'
+																		+ $scope.registerName
+																		+ '/'
+																		+ $scope.registerEmail
+																		+ '/'
+																		+ $scope.foodPref
+																		+ '/'
+																		+ $scope.registerPassword
+																		+ '/'
+																		+ $scope.registerMobile,
+																fd,
+																{
+																	transformRequest : angular.identity,
+																	headers : {
+																		'Content-Type' : undefined
+																	}
+																})
+														.then(
+																function mySuccess(
+																		response) {
+																	console
+																			.log(response);
+																	$scope.showRegisterPage = false;
+																	$scope.showLoginPage = true;
+																	$scope.showRegisterSuccess = true;
 																},
 																function myError(
 																		response) {
@@ -393,26 +502,19 @@ angular
 					$scope.comment = function(vote, eventID) {
 						if ($scope.comment_text[eventID] != undefined
 								&& $scope.comment_text[eventID].trim() != '') {
-							$scope.promise = $http
-									.get(
-											URL
-													+ '/saveEventResponseWithComment/'
-													+ $scope.loginEmail
-													+ '/'
-													+ eventID
-													+ '/'
-													+ vote
-													+ '/'
-													+ $scope.comment_text[eventID])
-									.then(
-											function mySuccess(response) {
-											},
-											function myError(response) {
-												window
-														.alert('Oops! Some error has occured!');
-												console.log(response);
-												return;
-											});
+							$scope.promise = $http.get(
+									URL + '/saveEventResponseWithComment/'
+											+ $scope.loginEmail + '/' + eventID
+											+ '/' + vote + '/'
+											+ $scope.comment_text[eventID])
+
+							.then(function mySuccess(response) {
+								$scope.comment_box_show = [];
+							}, function myError(response) {
+								window.alert('Oops! Some error has occured!');
+								console.log(response);
+								return;
+							});
 						} else {
 							$scope.promise = $http
 									.get(
@@ -421,6 +523,7 @@ angular
 													+ eventID + '/' + vote)
 									.then(
 											function mySuccess(response) {
+												$scope.comment_box_show = [];
 											},
 											function myError(response) {
 												window
@@ -450,14 +553,12 @@ angular
 						stompClient.connect({}, onConnectedEvent, onErrorEvent);
 					}
 
-					function onMessageReceivedEvent(payload) {						
-						if(payload.body=='')
-							$scope.comment_box_show=[];
-						else
-							{
-							console.log(JSON.parse(payload.body).eventID);
-							$scope.comment_box_show[JSON.parse(payload.body).eventID]='show';
-							}
+					function onMessageReceivedEvent(payload) {
+						$scope.comment_box_show = [];
+						if (JSON.parse(payload.body)[0] != undefined) {
+							console.log(JSON.parse(payload.body)[0].eventID);
+							$scope.comment_box_show[JSON.parse(payload.body)[0].eventID] = 'show';
+						}
 						console.log($scope.comment_box_show);
 						$scope.$digest();
 					}

@@ -11,7 +11,7 @@ public interface EventRepository extends JpaRepository<Event, String> {
 
 	List<Event> findAllByOrderByEventID();
 
-	Event findByState(EventState state);
+	List<Event> findByState(EventState state);
 
 	Event findByEventID(int eventID);
 

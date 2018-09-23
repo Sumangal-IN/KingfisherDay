@@ -19,11 +19,16 @@ public class EventService {
 		return eventRepository.findAllByOrderByEventID();
 	}
 
-	public Event getCurrentEvent() {
+	public List<Event> getCurrentEvent() {
 		return eventRepository.findByState(EventState.RUNNING);
 	}
 
 	public void changeEventState(int eventID, String state) {
+		List<Event> events = eventRepository.findByState(EventState.RUNNING);
+		for (Event event : events) {
+			event.setState(EventState.COMPLETED);
+			eventRepository.save(event);
+		}
 		Event activeEvent = eventRepository.findByEventID(eventID);
 		activeEvent.setState(EventState.valueOf(state));
 		eventRepository.save(activeEvent);
