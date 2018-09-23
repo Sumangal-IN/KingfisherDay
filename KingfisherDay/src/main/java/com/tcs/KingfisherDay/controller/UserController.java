@@ -24,19 +24,25 @@ public class UserController {
 
 	@RequestMapping(value = "/registerEmployee/{name}/{emailID}/{foodPreference}/{password}/{mobile}", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public Employee registerEmployee(@PathVariable("name") String name, @PathVariable("emailID") String emailID, @PathVariable("foodPreference") String foodPreference, @PathVariable("password") String password, @PathVariable("mobile") String mobile, @RequestParam("photoFile") MultipartFile photoFile) {
-		String photo = null;
-		if (photoFile.isEmpty()) {
-			return null;
+	public Employee registerEmployee(@PathVariable("name") String name, @PathVariable("emailID") String emailID, @PathVariable("foodPreference") String foodPreference, @PathVariable("password") String password, @PathVariable("mobile") String mobile, @RequestParam("photoFile") MultipartFile photoFile) throws Exception {
+		
+		Employee employee=userService.findByEmailID(emailID);
+		
+		if (null == employee) {
+			String photo = null;
+			if (photoFile.isEmpty()) {
+				throw new Exception("Oops!! Looks like photo is empty");
+			}
+			try {
+				byte[] bytes = photoFile.getBytes();
+				photo = imageProcessor.resizeImage(bytes);
+			} catch (Exception e) {
+				throw new Exception("Oops!! Looks like there is a technical issue. Try with different image.");
+			}
+			return userService.register(name, emailID, foodPreference, password, mobile, photo);}
+		else {
+			throw new Exception("Oops!! Looks like user with this email id already exists!! Try to sign-in");
 		}
-		try {
-			byte[] bytes = photoFile.getBytes();
-			photo = imageProcessor.resizeImage(bytes);
-		} catch (Exception e) {
-			e.printStackTrace();
-			return null;
-		}
-		return userService.register(name, emailID, foodPreference, password, mobile, photo);
 	}
 
 	@RequestMapping(value = "/getEmployee/{emailID}/{password}", method = RequestMethod.GET, produces = "application/json")
