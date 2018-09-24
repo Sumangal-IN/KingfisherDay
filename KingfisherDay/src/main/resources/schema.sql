@@ -21,9 +21,9 @@ create table EMPLOYEE(
 create table EVENT(
 	event_id number,
 	event_name VARCHAR2(100),
-	event_details VARCHAR2(200),
-	start timestamp,
-	end timestamp,
+	event_details VARCHAR2(2000),
+	start VARCHAR2(10),
+	end VARCHAR2(10),
 	state number,
 	ppt_path VARCHAR2(500),
 	photo VARCHAR2(10000)

@@ -45,7 +45,6 @@
 <script src="js/sockjs.min.js"></script>
 <script src="js/stomp.min.js"></script>
 <script src="js/mobile-detect.js"></script>
-<script src="js/loading-overlay.min.js"></script>
 <script src="js/loadingoverlay.min.js"></script>
 
 <!--[if lt IE 9]>
@@ -57,7 +56,6 @@
 
 <body>
 
-	<div id="target"></div>
 	<!-- Start Logo Section -->
 	<section id="logo-section" class="text-center">
 		<div class="container">
@@ -104,21 +102,21 @@
 					<div class="menu-item color" id="contest">
 						<a href="javascript:void(0)" data-toggle="modal">
 							<i class="fa fa-file-photo-o"></i>
-							<p>Photography & Banner Contest</p>
-						</a>
-					</div>
+									<p>Photography & Banner Contest</p>
+								</a>
+							</div>
 					<div class="menu-item yellow">
 						<a href="#contact-modal" data-toggle="modal">
 							<i class="fa fa-envelope-o"></i>
-							<p>Contact</p>
-						</a>
-					</div>
+									<p>Contact</p>
+								</a>
+							</div>
 					<div class="menu-item light-orange" id="logoff">
 						<a href="javascript:void(0)" data-toggle="modal"> 
 							<i class="fa fa-sign-out"></i>
 							<p>Signout</p>
 						</a>
-					</div>
+						</div>
 
 				</div>
 
@@ -144,8 +142,8 @@
 						<h3>Register and Signin to Play</h3>
 						<!-- Our Custom code starts -->
 						<!-- Nav tabs -->
-						<ul class="nav nav-tabs">
-							<li class="nav-item"><a class="nav-link active"
+						<ul class="nav nav-tabs signin-reg">
+							<li class="nav-item active"><a class="nav-link active"
 								data-toggle="tab" href="#home">Signin</a></li>
 							<li class="nav-item"><a class="nav-link" data-toggle="tab"
 								href="#menu1">Register</a></li>
@@ -230,7 +228,7 @@
 									</div>
 									<div class="form-group">
 										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3">
+											<div class="col-sm-6 col-sm-offset-3 reg-btn">
 												<input type="submit" name="register-submit"
 													id="register-submit" tabindex="4"
 													class="form-control btn btn-primary" value="Register Now">
@@ -416,191 +414,6 @@
 	<!-- Start About Us Section -->
 	<div class="section-modal modal fade" id="event-modal" tabindex="-1"
 		role="dialog" aria-hidden="true">
-		<div class="modal-content event-container">
-			<div class="close-modal" data-dismiss="modal">
-				<div class="lr">
-					<div class="rl"></div>
-				</div>
-			</div>
-
-			<div class="container">
-				<div class="row">
-					<div class="section-title text-center">
-						<h3>Today's Events</h3>
-						<p>We shall take you through the following events on TCS
-							Kingfisher Day</p>
-					</div>
-					<div class="col-md-12">
-						<div class='app'>
-							<div class='app_inner'>
-								<input checked='' id='tab-1' name='buttons' type='radio'>
-								<label for='tab-1'>
-									<div class='app_inner__tab'>
-										<h2>
-											<i class='icon ion-android-alarm-clock'></i> Vision 2020
-										</h2>
-										<div class='tab_left'>
-											<i class='big icon ion-android-color-palette'></i>
-											<div class='tab_left__image'>
-												<i class='icon ion-android-color-palette'></i>
-											</div>
-										</div>
-										<div class='tab_right'>
-											<h3>Simon Jones</h3>
-											<h4>12:00 - 12:15</h4>
-											<div class="form-group app-comment-area">
-												<textarea class="form-control" rows="3"></textarea>
-												<button>Submit</button>
-											</div>
-
-										</div>
-									</div>
-								</label> <input false='' id='tab-2' name='buttons' type='radio'>
-								<label for='tab-2'>
-									<div class='app_inner__tab'>
-										<h2>
-											<i class='icon ion-android-alarm-clock'></i> Vision 2020
-											Vision 2020 Vision 2020
-										</h2>
-										<div class='tab_left'>
-											<i class='big icon ion-music-note'></i>
-											<div class='tab_left__image'>
-												<i class='icon ion-music-note'></i>
-											</div>
-										</div>
-										<div class='tab_right'>
-											<h3>Arctic Monkeys Live</h3>
-											<h4>Monday - Wednesday</h4>
-											<div class="form-group app-comment-area">
-												<textarea class="form-control" rows="3"></textarea>
-												<button>Submit</button>
-											</div>
-										</div>
-									</div>
-								</label> <input false='' id='tab-3' name='buttons' type='radio'>
-								<label for='tab-3'>
-									<div class='app_inner__tab'>
-										<h2>
-											<i class='icon ion-android-alarm-clock'></i> 12am - 4pm
-										</h2>
-										<div class='tab_left'>
-											<i class='big icon ion-android-microphone'></i>
-											<div class='tab_left__image'>
-												<i class='icon ion-android-microphone'></i>
-											</div>
-										</div>
-										<div class='tab_right'>
-											<h3>Steven Fry podcast</h3>
-											<h4>Staurday - Sunday</h4>
-											<p>Steven Fry says words</p>
-											<button>More information</button>
-										</div>
-									</div>
-								</label> <input false='' id='tab-4' name='buttons' type='radio'>
-								<label for='tab-4'>
-									<div class='app_inner__tab'>
-										<h2>
-											<i class='icon ion-android-alarm-clock'></i> 4pm - 8pm
-										</h2>
-										<div class='tab_left'>
-											<i class='big icon ion-android-bar'></i>
-											<div class='tab_left__image'>
-												<i class='icon ion-android-bar'></i>
-											</div>
-										</div>
-										<div class='tab_right'>
-											<h3>Massive event</h3>
-											<h4>Monday - Friday</h4>
-											<p>Some kind of music festival</p>
-											<button>More information</button>
-										</div>
-									</div>
-								</label> <input id='tab-5' name='buttons' type='radio'> <label
-									for='tab-5'>
-									<div class='app_inner__tab'>
-										<h2>
-											<i class='icon ion-android-alarm-clock'></i> 8am - 10am
-										</h2>
-										<div class='tab_left'>
-											<i class='big icon ion-android-color-palette'></i>
-											<div class='tab_left__image'>
-												<i class='icon ion-android-color-palette'></i>
-											</div>
-										</div>
-										<div class='tab_right'>
-											<h3>Jamie talks design</h3>
-											<h4>Monday - Thursday</h4>
-											<p>I talk a bunch of rubbish</p>
-											<button>More information</button>
-										</div>
-									</div>
-								</label> <input false='' id='tab-6' name='buttons' type='radio'>
-								<label for='tab-6'>
-									<div class='app_inner__tab'>
-										<h2>
-											<i class='icon ion-android-alarm-clock'></i> 10am - 12am
-										</h2>
-										<div class='tab_left'>
-											<i class='big icon ion-music-note'></i>
-											<div class='tab_left__image'>
-												<i class='icon ion-music-note'></i>
-											</div>
-										</div>
-										<div class='tab_right'>
-											<h3>Arctic Monkeys Live</h3>
-											<h4>Monday - Wednesday</h4>
-											<p>Music for your lug holes</p>
-											<button>More information</button>
-										</div>
-									</div>
-								</label> <input false='' id='tab-7' name='buttons' type='radio'>
-								<label for='tab-7'>
-									<div class='app_inner__tab'>
-										<h2>
-											<i class='icon ion-android-alarm-clock'></i> 12am - 4pm
-										</h2>
-										<div class='tab_left'>
-											<i class='big icon ion-android-microphone'></i>
-											<div class='tab_left__image'>
-												<i class='icon ion-android-microphone'></i>
-											</div>
-										</div>
-										<div class='tab_right'>
-											<h3>Steven Fry podcast</h3>
-											<h4>Staurday - Sunday</h4>
-											<p>Steven Fry says words</p>
-											<button>More information</button>
-										</div>
-									</div>
-								</label> <input false='' id='tab-8' name='buttons' type='radio'>
-								<label for='tab-8'>
-									<div class='app_inner__tab'>
-										<h2>
-											<i class='icon ion-android-alarm-clock'></i> 4pm - 8pm
-										</h2>
-										<div class='tab_left'>
-											<i class='big icon ion-android-bar'></i>
-											<div class='tab_left__image'>
-												<i class='icon ion-android-bar'></i>
-											</div>
-										</div>
-										<div class='tab_right'>
-											<h3>Massive event</h3>
-											<h4>Monday - Friday</h4>
-											<p>Some kind of music festival</p>
-											<button>More information</button>
-										</div>
-									</div>
-								</label>
-
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
 	</div>
 	<!-- End About Us Section -->
 
@@ -697,18 +510,18 @@
 	</div>
 	<!-- End Contact Section -->
 
-	<script id="ui-template-quiz" type="x-tmpl-mustache">
+		<script id="ui-template-quiz" type="x-tmpl-mustache">
 			<div class="modal-header">
 				<h4><span class="label label-warning" id="questionID">{{questionID}}</span> {{questionText}} </h4>
 			</div>
 			<div class="modal-body">
 				<div class="quiz" id="quiz" data-toggle="buttons">
 					
-					<label class="element-animation1 btn btn-lg btn-info btn-block"><input type="radio" name="q_answer" value="{{optionA}}"> {{optionA}}</label>
-					<label class="element-animation1 btn btn-lg btn-info btn-block"><input type="radio" name="q_answer" value="{{optionB}}"> {{optionB}}</label>
-					<label class="element-animation1 btn btn-lg btn-info btn-block"><input type="radio" name="q_answer" value="{{optionC}}"> {{optionC}}</label>
-					<label class="element-animation1 btn btn-lg btn-info btn-block"><input type="radio" name="q_answer" value="{{optionD}}"> {{optionD}}</label>
-					
+					<label class="element-animation1 btn btn-lg btn-info btn-block"><input type="radio" name="q_answer" value="{{optionA}}"/> {{optionA}}</label>
+					<label class="element-animation1 btn btn-lg btn-info btn-block"><input type="radio" name="q_answer" value="{{optionB}}"/> {{optionB}}</label>
+					<label class="element-animation1 btn btn-lg btn-info btn-block"><input type="radio" name="q_answer" value="{{optionC}}"/> {{optionC}}</label>
+					<label class="element-animation1 btn btn-lg btn-info btn-block"><input type="radio" name="q_answer" value="{{optionD}}"/> {{optionD}}</label>
+
 				</div>
 			</div>
 			<div class="modal-footer">
@@ -716,7 +529,7 @@
 			</div>
 		</script>
 
-	<script id="ui-template-quiz-inactive" type="x-tmpl-mustache">
+		<script id="ui-template-quiz-inactive" type="x-tmpl-mustache">
             <div class="modal-body">
                 <img alt="quiz not available" src="images/Quiz404.jpg" />
                 <div class="alert alert-danger" role="alert">
@@ -727,17 +540,94 @@
                 <button type="button" class="btn btn-primary js-prev-question">Back</button>
             </div>
         </script>
-	<script id="ui-template-account-details" type="x-tmpl-mustache">
+		<script id="ui-template-account-details" type="x-tmpl-mustache">
 			<div style="color:white">
-            	Welcome {{name}}
+				<div> 
+					<strong> Welcome {{name}} </strong>
+					<p id="account_email">
+		            	{{emailID}}
+		            </p>
+				</div>
+				<div>
+					<img src="data:image/jpg;base64,{{photo}}" class="img-responsive" alt="user image" height="100" width="100">
+				</div>            	
             </div>
-			<div id="account_email" style="display: none">
-            	{{emailID}}
+
+		</script>
+		<script id="ui-template-account-photo" type="x-tmpl-mustache">
+			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="padding-bottom: 30px;">
+                <!-- Indicators -->
+                <ol class="carousel-indicators">
+                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                </ol>
+
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+					<div class="item-active">
+						<img src="data:image/jpg;base64,{{photo}}" class="img-responsive" alt="">
+					</div>
+                </div>
+
             </div>
 		</script>
 
+		<script id="ui-template-all-event" type="x-tmpl-mustache">
+		<div class="modal-content event-container">
+			<div class="close-modal" data-dismiss="modal">
+				<div class="lr">
+					<div class="rl"></div>
+				</div>
+			</div>
 
+			<div class="container">
+				<div class="row">
+					<div class="section-title text-center">
+						<h3>Today's Events</h3>
+						<p>We shall take you through the following events on TCS
+							Kingfisher Day</p>
+					</div>
+					<div class="col-md-20">
+						<div class='app'>
+							<div class='app_inner'>
+							{{#events}}
+								<input checked='' id='tab-{{eventID}}' name='buttons' type='radio'>
+								<label for='tab-{{eventID}}' class='js-event-tab-{{eventID}}'>
+									<div class='app_inner__tab'>
+										<div class="event-desc">
+											<h2>
+												<i class='icon ion-android-alarm-clock'></i>
+												<span>{{eventName}}</span>
+											</h2>											
+											<div class='tab_left'>
+												<i class='big icon ion-android-color-palette'></i>
+												<div class='tab_left__image'>
+													<i class='icon ion-android-color-palette'></i>
+												</div>
+											</div>
+											<div class='tab_right'>
+												<h4>{{start}} - {{end}}</h4>
+											</div>
+										</div>
+										<div class="event-details">
+											<p>{{details}}</p>
+										</div>
+										<div class="event-vote">
+										</div>
+									</div>
+								</label> 						  
+							{{/events}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
+		</div>
+	</script>
+	<script id="ui-template-vote-event" type="x-tmpl-mustache">
+		<a href="javascript:void(0)"><i class="fa fa-thumbs-up js-send-event-feedback" data-vote="LIKE" data-eventid="{{eventID}}"></i></a>
+		<a href="javascript:void(0)"><i class="fa fa-thumbs-down js-send-event-feedback" data-vote="DISLIKE" data-eventid="{{eventID}}"></i></a>
+	</script>
 
 </body>
 

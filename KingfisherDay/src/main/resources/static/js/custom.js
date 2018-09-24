@@ -8,7 +8,7 @@ jQuery(document).ready(function($) {
 	/************************** Global Variable Section End **************************/
 	//For Phone Gap mobile app, url is required.
 	if(mobileDetect.mobile()){
-		connectionURL='http://kfday.herokuapp.com';
+		//connectionURL='http://kfday.herokuapp.com';
 	}
 	console.log("connectionURL="+connectionURL);
 	
@@ -46,6 +46,42 @@ jQuery(document).ready(function($) {
 		}
 		contentHtml = Mustache.to_html(template, data);
 		$('#question-container').html(contentHtml);
+	}
+	
+	function onConnectedEvent() {
+		stompClient.subscribe('/user/topic/getCurrentEvent', onMessageReceivedEvent);
+		stompClient.subscribe('/topic/broadcastCurrentEvent', onMessageReceivedEvent);
+		stompClient.send("/app/getEventStatus", {}, '{"currentMili":' + new Date().getTime() + '}');
+	}
+	
+	function onErrorEvent(error) {
+		console.log('onErrorEvent()');
+		console.log(error);
+		stompClient = Stomp.over(new SockJS('/eventMobileWS'));
+		stompClient.connect({}, onConnectedEvent, onErrorEvent);
+	}
+	
+	function onMessageReceivedEvent(payload) {
+		
+		var data=JSON.parse(payload.body);
+		console.log("onMessageReceivedEvent.data="+data);
+		if(data.length > 0){
+			console.log("eventID="+data[0].eventID);
+			
+			var template = $('#ui-template-vote-event').html();    
+			var currentEvent= $('.event-container').find('.js-event-tab-'+data[0].eventID);
+			var element =currentEvent.find('.event-vote');
+			if(element.length > 0){
+				element.html(Mustache.to_html(template, data[0]));
+				element.click();
+			}
+		}else{
+			console.log("No event is running at this moment!!");
+			var previousEvent= $('.event-container').find('.event-vote');
+			if(previousEvent.length > 0){
+				previousEvent.html(null);
+			}
+		}
 	}
 	
 	function validateLoginAndOpenModal(modalToOpen){
@@ -184,8 +220,52 @@ jQuery(document).ready(function($) {
 	
 	$('#events').on('click', function(e){
 		e.preventDefault();
-		validateLoginAndOpenModal('#event-modal');
+		if(validateLoginAndOpenModal('#event-modal')){
+			$.ajax({
+				url: connectionURL+'/getAllEvents',
+				processData: false,
+				contentType: false,
+				type: 'get',
+				success: function (events_array) {
+					console.log(events_array);
+					var view     = {events: events_array};
+					var template1 = $('#ui-template-all-event').html();
+					$('#event-modal').html(Mustache.to_html(template1, view));
+					stompClient = Stomp.over(new SockJS(connectionURL+'/eventMobileWS'));
+					stompClient.connect({},onConnectedEvent,onErrorEvent);
+				},
+				error: function(error) {
+					console.log(error);
+				},
+				complete: function (jqXHR, status) {
+					setTimeout(function(){
+					    $.LoadingOverlay("hide");
+					}, delay);
+				}
+			})
+		}
 		
+	});
+	
+	$(document).on("click", '.js-send-event-feedback', function(e) { 
+		e.preventDefault();
+		var data=$(this).data();
+		var feedbackPostURL=connectionURL+'/saveEventResponseWithComment/'+localStorage.loginemail+'/'+data.eventid+'/'+data.vote+'/'+'No Comment';
+		console.log("feedbackPostURL="+feedbackPostURL);
+		$.ajax({
+			url: feedbackPostURL,
+			processData: false,
+			contentType: false,
+			type: 'get',
+			success: function (res) {
+				console.log("success="+res);
+			},
+			error: function(error) {
+				console.log("error="+error);
+			},
+			complete: function (jqXHR, status) {
+			}
+		})
 	});
 	
 	/************************** Event Section End **************************/
