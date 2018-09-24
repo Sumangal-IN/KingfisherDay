@@ -1,7 +1,5 @@
 package com.tcs.KingfisherDay.model;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -20,9 +18,9 @@ public class Event {
 	@Column(name = "event_details", nullable = false)
 	private String details;
 	@Column(name = "start", nullable = false)
-	private Timestamp start;
+	private String start;
 	@Column(name = "end", nullable = true)
-	private Timestamp end;
+	private String end;
 	@Column(name = "state", nullable = false)
 	private EventState state;
 	@Column(name = "ppt_path", nullable = false)
@@ -34,7 +32,7 @@ public class Event {
 
 	}
 
-	public Event(int eventID, String eventName, String details, Timestamp start, Timestamp end, EventState state, String pptPath, String photo) {
+	public Event(int eventID, String eventName, String details, String start, String end, EventState state, String pptPath, String photo) {
 		super();
 		this.eventID = eventID;
 		this.eventName = eventName;
@@ -62,19 +60,19 @@ public class Event {
 		this.details = details;
 	}
 
-	public Timestamp getStart() {
+	public String getStart() {
 		return start;
 	}
 
-	public void setStart(Timestamp start) {
+	public void setStart(String start) {
 		this.start = start;
 	}
 
-	public Timestamp getEnd() {
+	public String getEnd() {
 		return end;
 	}
 
-	public void setEnd(Timestamp end) {
+	public void setEnd(String end) {
 		this.end = end;
 	}
 

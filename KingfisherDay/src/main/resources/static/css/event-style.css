@@ -168,8 +168,9 @@ body .right {
   position: absolute;
   right: 20px;
   top: 16px;
-  color: #1a1c1d;
+  color: #000;
   font-size: 18px;
+  font-weight: bold;
 }
 .app_inner__tab h2 i {
   position: absolute;
@@ -376,4 +377,36 @@ a.follow {
 a.follow:hover {
   color: #41EFB6;
   border-color: #41EFB6;
+}
+.section-modal .section-title p {
+  color: #fff;
+}
+.event-desc {
+  min-height: 100px;
+}
+.event-desc span {
+  display: block;
+  width: 100%;
+}
+.event-details {
+  padding: 0 20px;
+}
+.event-details p {
+  color: #000;
+  font-size: 14px;
+  font-weight: normal;
+  line-height:16px;
+}
+.event-vote {
+  padding: 15px 20px;
+}
+.event-vote i{
+  font-size: 43px;
+  color: #fff;
+}
+.event-vote a:first-child {
+  float: left;
+}
+.event-vote a:last-child {
+  float: right;
 }
