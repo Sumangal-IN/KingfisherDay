@@ -326,6 +326,34 @@ jQuery(document).ready(function($) {
 		}
 		
 	});
+	
+	$(document).on("click", '.js-send-photo-feedback', function(e) { 
+		
+		e.preventDefault();
+        var $element = $(this).closest('.event-vote').find('.js-send-photo-feedback'),
+            $elementToanimate = $(this).find('i');
+        $element.removeClass('active');
+        doBounce($elementToanimate, 1, '10px', 400);
+        $(this).toggleClass('active');
+		
+		var data=$(this).data();
+		var feedbackPostURL=connectionURL+'/savePhotoContestResponse/'+localStorage.loginemail+'/'+data.imageid+'/'+data.vote+'/'+'No Comment';
+		console.log("feedbackPostURL="+feedbackPostURL);
+		$.ajax({
+			url: feedbackPostURL,
+			processData: false,
+			contentType: false,
+			type: 'get',
+			success: function (res) {
+				console.log("success="+res);
+			},
+			error: function(error) {
+				console.log("error="+error);
+			},
+			complete: function (jqXHR, status) {
+			}
+		})
+	});
 	/************************** Contest Section End **************************/
 	
 	
