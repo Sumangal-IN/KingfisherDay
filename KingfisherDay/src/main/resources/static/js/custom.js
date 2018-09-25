@@ -17,6 +17,9 @@ jQuery(document).ready(function($) {
 	}else{
 		showSignInHideLogOff();
 	}
+    window.onbeforeunload = function () {
+        return "Do you want to leave this page?";
+    };
 	
 	/************************** Functions Start **************************/
 	function onConnected() {
