@@ -86,6 +86,10 @@
 						</a>
 					</div>
 					
+					<div class="menu-item light-orange" id="logoff">
+
+					</div>
+					
 					<div class="menu-item green">
 						<a href="javascript:void(0)" data-toggle="modal" id="events">
 							<i class="fa fa-calendar"></i>
@@ -94,29 +98,23 @@
 					</div>
 
 					<div class="menu-item light-red" id="quiz">
-						<a href="javascript:void(0)" data-toggle="modal" class="js-open-quiz"> 
-							<i class="fa fa-question-circle"></i>
+						<a href="javascript:void(0)" data-toggle="modal"
+							class="js-open-quiz"> <i class="fa fa-question-circle"></i>
 							<p>Quiz</p>
 						</a>
 					</div>
 					<div class="menu-item color" id="contest">
-						<a href="javascript:void(0)" data-toggle="modal">
-							<i class="fa fa-file-photo-o"></i>
-									<p>Photography & Banner Contest</p>
-								</a>
-							</div>
-					<div class="menu-item yellow responsive-2">
-						<a href="#contact-modal" data-toggle="modal">
-							<i class="fa fa-envelope-o"></i>
-									<p>Contact</p>
-								</a>
-							</div>
-					<div class="menu-item light-orange" id="logoff">
-						<a href="javascript:void(0)" data-toggle="modal"> 
-							<i class="fa fa-sign-out"></i>
-							<p>Signout</p>
+						<a href="javascript:void(0)" data-toggle="modal"> <i
+							class="fa fa-file-photo-o"></i>
+							<p>Photography & Banner Contest</p>
 						</a>
-						</div>
+					</div>
+					<div class="menu-item yellow responsive-2">
+						<a href="#contact-modal" data-toggle="modal"> <i
+							class="fa fa-envelope-o"></i>
+							<p>Contact</p>
+						</a>
+					</div>
 
 				</div>
 
@@ -444,7 +442,7 @@
                             </div>-->
 						<div class="container-fluid">
 							<div class="modal-dialog">
-								<div id="question-container">
+								<div id="question-container" class="quiz-modal-content">
 									<!--quiz content will be populated here -->
 								</div>
 							</div>
@@ -512,7 +510,8 @@
 
 		<script id="ui-template-quiz" type="x-tmpl-mustache">
 			<div class="modal-header">
-				<h4><span class="label label-warning" id="questionID">{{questionID}}</span> {{questionText}} </h4>
+				<span class="label label-warning" id="questionID">{{questionID}}</span>
+				<h4 class="question-statement">{{questionText}} </h4>
 			</div>
 			<div class="modal-body">
 				<div class="quiz" id="quiz" data-toggle="buttons">
@@ -531,13 +530,10 @@
 
 		<script id="ui-template-quiz-inactive" type="x-tmpl-mustache">
             <div class="modal-body">
-                <img alt="quiz not available" src="images/Quiz404.jpg" />
+                <img alt="quiz not available" src="images/Quiz404.jpg" width="100%" height="100%"/>
                 <div class="alert alert-danger" role="alert">
                     <strong>{{questionUnavailbleText}}</strong>
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-primary js-prev-question">Back</button>
             </div>
         </script>
 		<script id="ui-template-account-details" type="x-tmpl-mustache">
@@ -548,27 +544,15 @@
 		            	{{emailID}}
 		            </p>
 				</div>
-				<div>
-					<img src="data:image/jpg;base64,{{photo}}" class="img-responsive" alt="user image" height="100" width="100">
-				</div>            	
             </div>
 
 		</script>
-		<script id="ui-template-account-photo" type="x-tmpl-mustache">
-			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="padding-bottom: 30px;">
-                <!-- Indicators -->
-                <ol class="carousel-indicators">
-                    <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                </ol>
-
-                <!-- Wrapper for slides -->
-                <div class="carousel-inner">
-					<div class="item-active">
-						<img src="data:image/jpg;base64,{{photo}}" class="img-responsive" alt="">
-					</div>
-                </div>
-
-            </div>
+		<script id="ui-template-sign-out-and-account-photo" type="x-tmpl-mustache">
+			<img class="prof-pic" src="data:image/jpg;base64,{{photo}}" alt="user image" height="100" width="100">
+			<a href="javascript:void(0)" data-toggle="modal"> 
+				<i class="fa fa-sign-out"></i>
+				<p>Signout</p>
+			</a>
 		</script>
 
 		<script id="ui-template-all-event" type="x-tmpl-mustache">

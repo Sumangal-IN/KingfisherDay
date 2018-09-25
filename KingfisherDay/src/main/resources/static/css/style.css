@@ -1015,3 +1015,30 @@ label.active .food-pref {
 .section-modal .container-fluid {
     padding: 0;
 }
+
+img.prof-pic {   
+    border: 2px solid #fff;
+    border-radius: 20%;
+    margin-bottom: 20px;
+}
+
+.quiz-modal-content .btn-info.active {
+    background-color: #0dce47;
+    border-color: #0dce47;
+}
+
+.quiz-modal-content .modal-header {
+    border: none;
+}
+
+.quiz-modal-content span.label-warning {
+    float: left;
+}
+
+.quiz-modal-content h4.question-statement {
+    float: right;
+    width: 90%;
+}
+
+
+

@@ -20,14 +20,15 @@ jQuery(document).ready(function($) {
 				  "emailID"   :  localStorage.loginemail, 
 				  "photo"      :  localStorage.photo 
 				}
+		
 		var template1 = $('#ui-template-account-details').html();
+		var template2 = $('#ui-template-sign-out-and-account-photo').html();    
 		$('#user_details').html(Mustache.to_html(template1, employee));
+		$('#logoff').html(Mustache.to_html(template2, employee));
+		
 	}else{
 		showSignInHideLogOff();
 	}
-    window.onbeforeunload = function () {
-        return "Do you want to leave this page?";
-    };
 	
 	/************************** Functions Start **************************/
 	function onConnected() {
@@ -125,8 +126,9 @@ jQuery(document).ready(function($) {
 				if(employee){
 					$('.close-modal').click();
 					var template1 = $('#ui-template-account-details').html();
-					var template2 = $('#ui-template-account-photo').html();    
+					var template2 = $('#ui-template-sign-out-and-account-photo').html();    
 					$('#user_details').html(Mustache.to_html(template1, employee));
+					$('#logoff').html(Mustache.to_html(template2, employee));
 					
 					localStorage.clear();
 					
@@ -392,8 +394,11 @@ jQuery(document).ready(function($) {
 					console.log(employee);
 					if(employee){
 						$('.close-modal').click();
+						
 						var template1 = $('#ui-template-account-details').html();
+						var template2 = $('#ui-template-sign-out-and-account-photo').html();    
 						$('#user_details').html(Mustache.to_html(template1, employee));
+						$('#logoff').html(Mustache.to_html(template2, employee));
 						
 						//clear local storage
 						localStorage.clear();
