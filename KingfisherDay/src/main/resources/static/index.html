@@ -45,6 +45,7 @@
 <script src="js/sockjs.min.js"></script>
 <script src="js/stomp.min.js"></script>
 <script src="js/mobile-detect.js"></script>
+<script src="js/loadingoverlay.min.js"></script>
 
 <!--[if lt IE 9]>
             <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -76,22 +77,15 @@
 		<div class="container">
 			<div class="row">
 
-				<div class="col-md-3">
+				<div class="col-md-6">
 
 					<div class="menu-item blue" id="signIn">
 						<a href="#feature-modal" data-toggle="modal" class="js-signin-start"> 
 							<i class="fa fa-sign-in"></i>
-							<p>Sign-In</p>
+							<p>Sign In/Sign Up</p>
 						</a>
 					</div>
 					
-					<div class="menu-item light-orange"  id="logoff">
-						<a href="javascript:void(0)" data-toggle="modal">
-							<i class="fa fa-sign-out"></i>
-							<p>Signout</p>
-						</a>
-					</div>
-
 					<div class="menu-item green">
 						<a href="javascript:void(0)" data-toggle="modal" id="events">
 							<i class="fa fa-calendar"></i>
@@ -100,64 +94,29 @@
 					</div>
 
 					<div class="menu-item light-red" id="quiz">
-						<a href="javascript:void(0)" data-toggle="modal"
-							class="js-open-quiz"> <i class="fa fa-question-circle"></i>
+						<a href="javascript:void(0)" data-toggle="modal" class="js-open-quiz"> 
+							<i class="fa fa-question-circle"></i>
 							<p>Quiz</p>
 						</a>
 					</div>
-
-				</div>
-
-				<div class="col-md-6">
-
-					<!-- Start Carousel Section -->
-					<div class="home-slider">
-						<div id="carousel-example-generic" class="carousel slide"
-							data-ride="carousel" style="padding-bottom: 30px;">
-							<!-- Indicators -->
-							<ol class="carousel-indicators">
-								<li data-target="#carousel-example-generic" data-slide-to="0"
-									class="active"></li>
-								<li data-target="#carousel-example-generic" data-slide-to="1"></li>
-								<li data-target="#carousel-example-generic" data-slide-to="2"></li>
-							</ol>
-
-							<!-- Wrapper for slides -->
-							<div class="carousel-inner">
-								<div class="item active">
-									<img src="images/about-03.jpg" class="img-responsive" alt="" height="400" width="300">
-								</div>
-								<div class="item">
-									<img src="images/about-02.jpg" class="img-responsive" alt="" height="400" width="300">
-								</div>
-								<div class="item">
-									<img src="images/about-01.jpg" class="img-responsive" alt="" height="400" width="300">
-								</div>
-
-							</div>
-
-						</div>
-					</div>
-					<!-- Start Carousel Section -->
-
-					<div class="row">
-						<div class="col-md-6">
-							<div class="menu-item color responsive" id="contest">
-								<a href="javascript:void(0)" data-toggle="modal"> <i
-									class="fa fa-file-photo-o"></i>
+					<div class="menu-item color" id="contest">
+						<a href="javascript:void(0)" data-toggle="modal">
+							<i class="fa fa-file-photo-o"></i>
 									<p>Photography & Banner Contest</p>
 								</a>
 							</div>
-						</div>
-						<div class="col-md-6">
-							<div class="menu-item light-orange responsive-2">
-								<a href="#contact-modal" data-toggle="modal"> <i
-									class="fa fa-envelope-o"></i>
+					<div class="menu-item yellow">
+						<a href="#contact-modal" data-toggle="modal">
+							<i class="fa fa-envelope-o"></i>
 									<p>Contact</p>
 								</a>
 							</div>
+					<div class="menu-item light-orange" id="logoff">
+						<a href="javascript:void(0)" data-toggle="modal"> 
+							<i class="fa fa-sign-out"></i>
+							<p>Signout</p>
+						</a>
 						</div>
-					</div>
 
 				</div>
 
@@ -455,359 +414,6 @@
 	<!-- Start About Us Section -->
 	<div class="section-modal modal fade" id="event-modal" tabindex="-1"
 		role="dialog" aria-hidden="true">
-		<div class="modal-content event-container">
-			<div class="close-modal" data-dismiss="modal">
-				<div class="lr">
-					<div class="rl"></div>
-				</div>
-			</div>
-
-			<div class="container">
-				<div class="row ">
-					<div class="section-title text-center">
-						<h3>Today's Events</h3>
-						<p>We shall take you through the following events on TCS
-							Kingfisher Day</p>
-					</div>
-					<div class="col-md-12">
-						<!-- <div class='app'> -->
-						<div>
-							<div class='app_inner'>
-								<input checked='' id='tab-1' name='buttons' type='radio'>
-								<label for='tab-1'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												Industrial Revolution 4.0
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>Anirudhha Bhattacharya</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;10 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label> <input false='' id='tab-2' name='buttons' type='radio'>
-								<label for='tab-2'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												Address the KITSian
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>Sunandan Das</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;10 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label> <input false='' id='tab-3' name='buttons' type='radio'>
-								<label for='tab-3'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												TCS-Kingfisher Journey
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>A documentary</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;5 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label> <input false='' id='tab-4' name='buttons' type='radio'>
-								<label for='tab-4'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												Stories of unknown Heroes
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>Ayon Mondal</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;15 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label> <input id='tab-5' name='buttons' type='radio'> <label
-									for='tab-5'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												Grand launch of Bhuto
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>Sumangal &amp; Team</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;15 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label> <input false='' id='tab-6' name='buttons' type='radio'>
-								<label for='tab-6'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												Quiz - Test your knowledge
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>Hosted by Prosenjit</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;25 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label> 
-								<input false='' id='tab-7' name='buttons' type='radio'>
-								<label for='tab-7'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												Vishwakarma Consultancy Services - Strategic partner of Devlok
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>SKIT by Digital team</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;12 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label> 
-								<input false='' id='tab-8' name='buttons' type='radio'>
-								<label for='tab-8'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												Easier ka Gabbar kaun hai?
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>SKIT by Easier team</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;12 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label>
-								<input false='' id='tab-9' name='buttons' type='radio'>
-								<label for='tab-9'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												Evolution of automation - A documentary
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>SKIT by Testing Team</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;4 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label><input false='' id='tab-10' name='buttons' type='radio'>
-								<label for='tab-10'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												Do you want to buy a robot?
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>Preprod</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;12 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label><input false='' id='tab-11' name='buttons' type='radio'>
-								<label for='tab-11'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												Ek din ke liye tester banoge?
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>SKIT by Testing Team</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;12 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label><input false='' id='tab-12' name='buttons' type='radio'>
-								<label for='tab-12'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												Song
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>Safal Chetri</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;5 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label><input false='' id='tab-13' name='buttons' type='radio'>
-								<label for='tab-13'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												Kabhi to humlogo ko enjoy karne do
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>Skit by IT IS</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;12 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label><input false='' id='tab-14' name='buttons' type='radio'>
-								<label for='tab-14'>
-									<div class='app_inner__tab'>
-										<div class="event-desc">
-											<h2>
-												No info available yet
-											</h2>											
-											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
-												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
-												</div>
-											</div>
-											<div class="event-details">
-												<P><strong>Skit by AMS</strong></P>
-												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;12 minutes</p>
-											</div>
-											<div class="event-vote">
-												<a href="#" class="js-vote"><i class="fa fa-heart"></i></a>
-												<a href="#" class="js-vote"><i class="fa fa-thumbs-up"></i></a>
-											</div>
-										</div>										
-									</div>
-								</label>
-
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-
-		</div>
 	</div>
 	<!-- End About Us Section -->
 
@@ -881,23 +487,18 @@
 								<li><strong>Visit Us : </strong><a href="http://kfday.herokuapp.com" target="blank">http://kfday.herokuapp.com</a></li>
 							</ul>
 							<ul>
-								<li><strong>E-mail Us: </strong><a href="mailTo:tuhin.chandra@kingfisher.com">tuhin.chandra@kingfisher.com</a></li>
-								<li><strong>Click to call: </strong><a href="tel:+91 98363 77794">+919836377794</a></li>
+								<li><strong>E-mail Us: </strong><a href="mailTo:sumangal.mandal2@kingfisher.com">sumangal.mandal2@kingfisher.com</a></li>
+								<li><strong>Click to call: </strong><a href="tel:+91 83358 01071">+91 83358 01071</a></li>
 								<li><strong>Visit Us : </strong><a href="http://kfday.herokuapp.com" target="blank">http://kfday.herokuapp.com</a></li>
 							</ul>
 							<ul>
-								<li><strong>E-mail Us: </strong><a href="mailTo:tuhin.chandra@kingfisher.com">tuhin.chandra@kingfisher.com</a></li>
-								<li><strong>Click to call: </strong><a href="tel:+91 98363 77794">+919836377794</a></li>
+								<li><strong>E-mail Us: </strong><a href="mailTo:subhajit.maji@kingfisher.com">subhajit.maji@kingfisher.com</a></li>
+								<li><strong>Click to call: </strong><a href="tel:+91 90517 88832">+91 90517 88832</a></li>
 								<li><strong>Visit Us : </strong><a href="http://kfday.herokuapp.com" target="blank">http://kfday.herokuapp.com</a></li>
 							</ul>
 							<ul>
-								<li><strong>E-mail Us: </strong><a href="mailTo:tuhin.chandra@kingfisher.com">tuhin.chandra@kingfisher.com</a></li>
-								<li><strong>Click to call: </strong><a href="tel:+91 98363 77794">+919836377794</a></li>
-								<li><strong>Visit Us : </strong><a href="http://kfday.herokuapp.com" target="blank">http://kfday.herokuapp.com</a></li>
-							</ul>
-							<ul>
-								<li><strong>E-mail Us: </strong><a href="mailTo:tuhin.chandra@kingfisher.com">tuhin.chandra@kingfisher.com</a></li>
-								<li><strong>Click to call: </strong><a href="tel:+91 98363 77794">+919836377794</a></li>
+								<li><strong>E-mail Us: </strong><a href="mailTo:shasanko.ghosh@kingfisher.com">shasanko.ghosh@kingfisher.com</a></li>
+								<li><strong>Click to call: </strong><a href="tel:+91 96743 33857">+91 96743 33857</a></li>
 								<li><strong>Visit Us : </strong><a href="http://kfday.herokuapp.com" target="blank">http://kfday.herokuapp.com</a></li>
 							</ul>
 						</div>
@@ -909,7 +510,7 @@
 	</div>
 	<!-- End Contact Section -->
 
-	<script id="ui-template-quiz" type="x-tmpl-mustache">
+		<script id="ui-template-quiz" type="x-tmpl-mustache">
 			<div class="modal-header">
 				<h4><span class="label label-warning" id="questionID">{{questionID}}</span> {{questionText}} </h4>
 			</div>
@@ -928,7 +529,7 @@
 			</div>
 		</script>
 
-	<script id="ui-template-quiz-inactive" type="x-tmpl-mustache">
+		<script id="ui-template-quiz-inactive" type="x-tmpl-mustache">
             <div class="modal-body">
                 <img alt="quiz not available" src="images/Quiz404.jpg" />
                 <div class="alert alert-danger" role="alert">
@@ -939,7 +540,7 @@
                 <button type="button" class="btn btn-primary js-prev-question">Back</button>
             </div>
         </script>
-	<script id="ui-template-account-details" type="x-tmpl-mustache">
+		<script id="ui-template-account-details" type="x-tmpl-mustache">
 			<div style="color:white">
 				<div> 
 					<strong> Welcome {{name}} </strong>
@@ -952,8 +553,8 @@
 				</div>            	
             </div>
 
-	</script>
-	<script id="ui-template-account-photo" type="x-tmpl-mustache">
+		</script>
+		<script id="ui-template-account-photo" type="x-tmpl-mustache">
 			<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="padding-bottom: 30px;">
                 <!-- Indicators -->
                 <ol class="carousel-indicators">
@@ -970,8 +571,63 @@
             </div>
 		</script>
 
+		<script id="ui-template-all-event" type="x-tmpl-mustache">
+		<div class="modal-content event-container">
+			<div class="close-modal" data-dismiss="modal">
+				<div class="lr">
+					<div class="rl"></div>
+				</div>
+			</div>
 
+			<div class="container">
+				<div class="row">
+					<div class="section-title text-center">
+						<h3>Today's Events</h3>
+						<p>We shall take you through the following events on TCS
+							Kingfisher Day</p>
+					</div>
+					<div class="col-md-20">
+						<div class='app'>
+							<div class='app_inner'>
+							{{#events}}
+								<input checked='' id='tab-{{eventID}}' name='buttons' type='radio'>
+								<label for='tab-{{eventID}}' class='js-event-tab-{{eventID}}'>
+									<div class='app_inner__tab'>
+										<div class="event-desc">
+											<h2>
+												<i class='icon ion-android-alarm-clock'></i>
+												<span>{{eventName}}</span>
+											</h2>											
+											<div class='tab_left'>
+												<i class='big icon ion-android-color-palette'></i>
+												<div class='tab_left__image'>
+													<i class='icon ion-android-color-palette'></i>
+												</div>
+											</div>
+											<div class='tab_right'>
+												<h4>{{start}} - {{end}}</h4>
+											</div>
+										</div>
+										<div class="event-details">
+											<p>{{details}}</p>
+										</div>
+										<div class="event-vote">
+										</div>
+									</div>
+								</label> 						  
+							{{/events}}
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 
+		</div>
+	</script>
+	<script id="ui-template-vote-event" type="x-tmpl-mustache">
+		<a href="javascript:void(0)"><i class="fa fa-thumbs-up js-send-event-feedback" data-vote="LIKE" data-eventid="{{eventID}}"></i></a>
+		<a href="javascript:void(0)"><i class="fa fa-thumbs-down js-send-event-feedback" data-vote="DISLIKE" data-eventid="{{eventID}}"></i></a>
+	</script>
 
 </body>
 
