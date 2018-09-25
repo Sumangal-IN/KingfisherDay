@@ -91,7 +91,7 @@
 					</div>
 					
 					<div class="menu-item green">
-						<a href="javascript:void(0)" data-toggle="modal" id="events">
+						<a href="javascript:void(0)" data-toggle="modal" id="events" class="js-open-events">
 							<i class="fa fa-calendar"></i>
 							<p>Events</p>
 						</a>
@@ -522,7 +522,7 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn btn-primary js-submit-answer">Submit</button>
+				<button type="button" class="btn btn-primary js-submit-answer">Lock your answer</button>
 			</div>
 		</script>
 
@@ -568,32 +568,26 @@
 							Kingfisher Day</p>
 					</div>
 					<div class="col-md-20">
-						<div class='app'>
+						<div>
 							<div class='app_inner'>
 							{{#events}}
-								<input checked='' id='tab-{{eventID}}' name='buttons' type='radio'>
+								<input id='tab-{{eventID}}' name='buttons' type='radio'>
 								<label for='tab-{{eventID}}' class='js-event-tab-{{eventID}}'>
 									<div class='app_inner__tab'>
 										<div class="event-desc">
-											<h2>
-												<i class='icon ion-android-alarm-clock'></i>
-												<span>{{eventName}}</span>
-											</h2>											
+											<h2>{{eventName}}</h2>											
 											<div class='tab_left'>
-												<!-- <i class='big icon ion-android-color-palette'></i> -->
 												<div class='tab_left__image'>
-													<i class='icon ion-android-color-palette'></i>
+													<i class='{{photo}}'></i>
 												</div>
 											</div>
-											<div class='tab_right'>
-												<h4>{{start}} - {{end}}</h4>
-											</div>
 											<div class="event-details">
-												<p>{{details}}</p>
+												<p><strong>{{details}}</strong></p>
 												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;{{duration}}</p>
 											</div>
-										</div>
-										<div class="event-vote">
+											<div class="event-vote">
+
+											</div>
 										</div>
 									</div>
 								</label> 						  
@@ -607,8 +601,8 @@
 		</div>
 	</script>
 	<script id="ui-template-vote-event" type="x-tmpl-mustache">
-		<a href="javascript:void(0)"><i class="fa fa-heart js-send-event-feedback" data-vote="LIKE" data-eventid="{{eventID}}"></i></a>
-		<a href="javascript:void(0)"><i class="fa fa-thumbs-up js-send-event-feedback" data-vote="DISLIKE" data-eventid="{{eventID}}"></i></a>
+		<a href="javascript:void(0)" class="js-vote"><i class="fa fa-heart js-send-event-feedback" data-vote="LIKE" data-eventid="{{eventID}}"></i></a>
+		<a href="javascript:void(0)" class="js-vote"><i class="fa fa-thumbs-up js-send-event-feedback" data-vote="DISLIKE" data-eventid="{{eventID}}"></i></a>
 	</script>
 </body>
 

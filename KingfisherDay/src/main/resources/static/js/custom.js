@@ -82,7 +82,7 @@ jQuery(document).ready(function($) {
 			
 			var template = $('#ui-template-vote-event').html();    
 			var currentEvent= $('.event-container').find('.js-event-tab-'+data[0].eventID);
-			var element =currentEvent.find('.event-vote');
+			var element = currentEvent.find('.event-vote');
 			if(element.length > 0){
 				element.html(Mustache.to_html(template, data[0]));
 				element.click();
@@ -230,7 +230,7 @@ jQuery(document).ready(function($) {
 
 	/************************** Event Section Start **************************/
 	
-	$('#events').on('click', function(e){
+	$('.js-open-events').on('click', function(e){
 		e.preventDefault();
 		if(validateLoginAndOpenModal('#event-modal')){
 			$.ajax({
@@ -260,7 +260,6 @@ jQuery(document).ready(function($) {
 	});
 	
 	$(document).on("click", '.js-send-event-feedback', function(e) { 
-		e.preventDefault();
 		var data=$(this).data();
 		var feedbackPostURL=connectionURL+'/saveEventResponseWithComment/'+localStorage.loginemail+'/'+data.eventid+'/'+data.vote+'/'+'No Comment';
 		console.log("feedbackPostURL="+feedbackPostURL);
@@ -427,5 +426,24 @@ jQuery(document).ready(function($) {
 		}
 	})
 	/************************** Login/Registration Section End **************************/
+	$('.js-vote').on('click', function(e){
+ 
+        e.preventDefault();
+        var $element = $(this).closest('.event-vote').find('.js-vote'),
+            $elementToanimate = $(this).find('i');
+        $element.removeClass('active');
+        doBounce($elementToanimate, 1, '1px', 300);
+        $(this).toggleClass('active');
+        
+    });
+ 
+    function doBounce(element, times, distance, speed) {
+    for(var i = 0; i < times; i++) {
+        /*element.animate({marginTop: '-='+distance}, speed)
+            .animate({marginTop: '+='+distance}, speed);*/
+          element.animate({fontSize: '+='+distance}, speed)
+            .animate({fontSize: '-='+distance}, speed);
+        }        
+    }
 });
 //'https://api.myjson.com/bins/ux73o', 'https://api.myjson.com/bins/ncltw'
