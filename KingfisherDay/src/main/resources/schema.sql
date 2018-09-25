@@ -26,7 +26,8 @@ create table EVENT(
 	end VARCHAR2(10),
 	state number,
 	ppt_path VARCHAR2(500),
-	photo VARCHAR2(10000)
+	photo VARCHAR2(10000),
+	duration VARCHAR2(100)
 );
 
 create table PHOTOGRAPHY_CONTEST_IMAGE(
