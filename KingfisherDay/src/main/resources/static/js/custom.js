@@ -414,10 +414,10 @@ jQuery(document).ready(function($) {
 						//clear local storage
 						localStorage.clear();
 						//save into local storage
-						localStorage.loginemail = data.email;
+						localStorage.loginemail = employee.emailID;
 						localStorage.loginpwd = data.password;
-						localStorage.loginname=data.name;
-						localStorage.photo=data.photo;
+						localStorage.loginname=employee.name;
+						localStorage.photo=employee.photo;
 						localStorage.isloggedin = true;
 						
 						hideSignInShowLogOff();
