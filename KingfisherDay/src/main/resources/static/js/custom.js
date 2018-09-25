@@ -14,6 +14,14 @@ jQuery(document).ready(function($) {
 	
 	if(localStorage.isloggedin === 'true'){
 		hideSignInShowLogOff();
+		
+		var employee = { 
+				  "name"  :  localStorage.loginname, 
+				  "emailID"   :  localStorage.loginemail, 
+				  "photo"      :  localStorage.photo 
+				}
+		var template1 = $('#ui-template-account-details').html();
+		$('#user_details').html(Mustache.to_html(template1, employee));
 	}else{
 		showSignInHideLogOff();
 	}
@@ -124,6 +132,8 @@ jQuery(document).ready(function($) {
 					
 					localStorage.loginemail = email;
 					localStorage.loginpwd = password;
+					localStorage.loginname=employee.name;
+					localStorage.photo=employee.photo;
 					if ($('#remember').is(':checked')) {
 						localStorage.rememberme = $('#remember').val();
 					}
@@ -321,8 +331,8 @@ jQuery(document).ready(function($) {
 		setTimeout(function(){
 			$.LoadingOverlay("hide");
 		}, delay);		
-		//localStorage.clear();
 		localStorage.isloggedin = false;
+		$('#user_details').html(null);
 		
 		showSignInHideLogOff();
 		
@@ -390,6 +400,8 @@ jQuery(document).ready(function($) {
 						//save into local storage
 						localStorage.loginemail = data.email;
 						localStorage.loginpwd = data.password;
+						localStorage.loginname=data.name;
+						localStorage.photo=data.photo;
 						
 						hideSignInShowLogOff();
 					}else{

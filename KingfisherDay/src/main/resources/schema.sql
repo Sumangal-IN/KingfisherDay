@@ -28,3 +28,20 @@ create table EVENT(
 	ppt_path VARCHAR2(500),
 	photo VARCHAR2(10000)
 );
+
+create table PHOTOGRAPHY_CONTEST_IMAGE(
+	image_id number,
+	owner VARCHAR2(100),
+	image_name VARCHAR2(500),
+	content VARCHAR2(10000)
+);
+
+
+CREATE TABLE PHOTOGRAPHY_CONTEST_RESPONSE (
+  employee_email VARCHAR2(255) NOT NULL,
+  image_id number NOT NULL,
+  comment VARCHAR2(255) DEFAULT NULL,
+  time_stamp datetime NOT NULL,
+  vote number NOT NULL,
+  PRIMARY KEY (employee_email,image_id)
+);

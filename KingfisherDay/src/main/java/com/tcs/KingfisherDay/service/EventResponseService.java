@@ -12,7 +12,7 @@ import com.tcs.KingfisherDay.model.Event;
 import com.tcs.KingfisherDay.model.EventResponse;
 import com.tcs.KingfisherDay.model.EventResponseEnvelope;
 import com.tcs.KingfisherDay.model.enums.EventState;
-import com.tcs.KingfisherDay.model.enums.EventVote;
+import com.tcs.KingfisherDay.model.enums.Vote;
 import com.tcs.KingfisherDay.repository.EmployeeRepository;
 import com.tcs.KingfisherDay.repository.EventRepository;
 import com.tcs.KingfisherDay.repository.EventResponseRepository;
@@ -31,11 +31,11 @@ public class EventResponseService {
 
 	public EventResponse save(String emailID, int eventID, String vote) {
 		return eventResponseRepository.save(
-				new EventResponse(eventID, emailID, EventVote.valueOf(vote), new Timestamp(new Date().getTime())));
+				new EventResponse(eventID, emailID, Vote.valueOf(vote), new Timestamp(new Date().getTime())));
 	}
 
 	public EventResponse saveWithComment(String emailID, int eventID, String vote, String comment) {
-		return eventResponseRepository.save(new EventResponse(eventID, emailID, EventVote.valueOf(vote), comment,
+		return eventResponseRepository.save(new EventResponse(eventID, emailID, Vote.valueOf(vote), comment,
 				new Timestamp(new Date().getTime())));
 	}
 

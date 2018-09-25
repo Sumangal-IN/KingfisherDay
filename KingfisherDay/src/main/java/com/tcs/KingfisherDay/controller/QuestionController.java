@@ -49,7 +49,7 @@ public class QuestionController {
 	@ResponseBody
 	public void clearCurrentQuestion() {
 		questionService.clearCurrentQuestion();
-		messagingTemplate.convertAndSend("/topic/broadcastCurrentQuestion", "{\"questionUnavailbleText\":true}");
+		messagingTemplate.convertAndSend("/topic/broadcastCurrentQuestion", "{\"questionUnavailbleText\":\"Quiz is not available now!!\"}");
 	}
 
 	@RequestMapping(value = "/saveResponse/{questionID}/{employeeEmail}/{option}", method = RequestMethod.GET, produces = "application/json")
@@ -85,7 +85,7 @@ public class QuestionController {
 					questionService.getCurrentQuestion());
 		else
 			messagingTemplate.convertAndSendToUser(principal.getName(), "/topic/getCurrentQuestion",
-					"{\"questionUnavailbleText\":true}");
+					"{\"questionUnavailbleText\":\"Quiz is not available now!!\"}");
 	}
 
 }

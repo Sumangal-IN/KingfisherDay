@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.IdClass;
 import javax.persistence.Table;
 
-import com.tcs.KingfisherDay.model.enums.EventVote;
+import com.tcs.KingfisherDay.model.enums.Vote;
 import com.tcs.KingfisherDay.model.key.EventResponseKey;
 
 @Entity
@@ -23,7 +23,7 @@ public class EventResponse {
 	@Column(name = "EMPLOYEE_EMAIL", nullable = false)
 	private String employeeEmail;
 	@Column(name = "VOTE", nullable = false)
-	private EventVote vote;
+	private Vote vote;
 	@Column(name = "COMMENT", nullable = true)
 	private String comment;
 	@Column(name = "TIME_STAMP", nullable = false)
@@ -33,7 +33,7 @@ public class EventResponse {
 
 	}
 
-	public EventResponse(int eventID, String employeeEmail, EventVote vote, String comment, Timestamp timeStamp) {
+	public EventResponse(int eventID, String employeeEmail, Vote vote, String comment, Timestamp timeStamp) {
 		super();
 		this.eventID = eventID;
 		this.employeeEmail = employeeEmail;
@@ -42,7 +42,7 @@ public class EventResponse {
 		this.timeStamp = timeStamp;
 	}
 
-	public EventResponse(int eventID, String emailID, EventVote vote, Timestamp timeStamp) {
+	public EventResponse(int eventID, String emailID, Vote vote, Timestamp timeStamp) {
 		this.eventID = eventID;
 		this.employeeEmail = emailID;
 		this.vote = vote;
@@ -65,11 +65,11 @@ public class EventResponse {
 		this.employeeEmail = employeeEmail;
 	}
 
-	public EventVote getVote() {
+	public Vote getVote() {
 		return vote;
 	}
 
-	public void setVote(EventVote vote) {
+	public void setVote(Vote vote) {
 		this.vote = vote;
 	}
 

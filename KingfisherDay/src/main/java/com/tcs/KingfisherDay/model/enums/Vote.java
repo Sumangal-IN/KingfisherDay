@@ -1,5 +1,5 @@
 package com.tcs.KingfisherDay.model.enums;
 
-public enum EventVote {
+public enum Vote {
 	LIKE, DISLIKE
 }
