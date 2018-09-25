@@ -168,6 +168,13 @@ jQuery(document).ready(function($) {
 		$("#signIn").show();
 		$("#logoff").hide();
 	}
+ 
+    function doBounce(element, times, distance, speed) {
+    	for(var i = 0; i < times; i++) {
+          element.animate({fontSize: '+='+distance}, speed)
+            .animate({fontSize: '-='+distance}, speed);
+        }        
+    }
 	/************************** Functions End **************************/
 	
 	/************************** Quiz Section Start **************************/
@@ -260,6 +267,14 @@ jQuery(document).ready(function($) {
 	});
 	
 	$(document).on("click", '.js-send-event-feedback', function(e) { 
+		
+		e.preventDefault();
+        var $element = $(this).closest('.event-vote').find('.js-send-event-feedback'),
+            $elementToanimate = $(this).find('i');
+        $element.removeClass('active');
+        doBounce($elementToanimate, 1, '10px', 400);
+        $(this).toggleClass('active');
+		
 		var data=$(this).data();
 		var feedbackPostURL=connectionURL+'/saveEventResponseWithComment/'+localStorage.loginemail+'/'+data.eventid+'/'+data.vote+'/'+'No Comment';
 		console.log("feedbackPostURL="+feedbackPostURL);
@@ -427,24 +442,5 @@ jQuery(document).ready(function($) {
 		}
 	})
 	/************************** Login/Registration Section End **************************/
-	$('.js-vote').on('click', function(e){
- 
-        e.preventDefault();
-        var $element = $(this).closest('.event-vote').find('.js-vote'),
-            $elementToanimate = $(this).find('i');
-        $element.removeClass('active');
-        doBounce($elementToanimate, 1, '1px', 300);
-        $(this).toggleClass('active');
-        
-    });
- 
-    function doBounce(element, times, distance, speed) {
-    for(var i = 0; i < times; i++) {
-        /*element.animate({marginTop: '-='+distance}, speed)
-            .animate({marginTop: '+='+distance}, speed);*/
-          element.animate({fontSize: '+='+distance}, speed)
-            .animate({fontSize: '-='+distance}, speed);
-        }        
-    }
 });
 //'https://api.myjson.com/bins/ux73o', 'https://api.myjson.com/bins/ncltw'
