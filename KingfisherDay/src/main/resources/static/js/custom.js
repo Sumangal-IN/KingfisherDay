@@ -195,9 +195,6 @@ jQuery(document).ready(function($) {
 		$(this).addClass('disabled');
 		
 		var radioValueOfAnsweredQuestion = $("input[name='q_answer']:checked").val();
-        if(radioValueOfAnsweredQuestion){
-            alert("Your have selected:" + radioValueOfAnsweredQuestion);
-        }
         var questionID=$('#questionID').text().trim();
         var emailId=$('#account_email').text().trim();
 
