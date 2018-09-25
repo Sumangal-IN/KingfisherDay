@@ -105,7 +105,7 @@
 									<p>Photography & Banner Contest</p>
 								</a>
 							</div>
-					<div class="menu-item yellow">
+					<div class="menu-item yellow responsive-2">
 						<a href="#contact-modal" data-toggle="modal">
 							<i class="fa fa-envelope-o"></i>
 									<p>Contact</p>
@@ -599,7 +599,7 @@
 												<span>{{eventName}}</span>
 											</h2>											
 											<div class='tab_left'>
-												<i class='big icon ion-android-color-palette'></i>
+												<!-- <i class='big icon ion-android-color-palette'></i> -->
 												<div class='tab_left__image'>
 													<i class='icon ion-android-color-palette'></i>
 												</div>
@@ -607,9 +607,10 @@
 											<div class='tab_right'>
 												<h4>{{start}} - {{end}}</h4>
 											</div>
-										</div>
-										<div class="event-details">
-											<p>{{details}}</p>
+											<div class="event-details">
+												<p>{{details}}</p>
+												<p><i class="icon ion-android-alarm-clock"></i>&nbsp;{{duration}}</p>
+											</div>
 										</div>
 										<div class="event-vote">
 										</div>
@@ -625,10 +626,9 @@
 		</div>
 	</script>
 	<script id="ui-template-vote-event" type="x-tmpl-mustache">
-		<a href="javascript:void(0)"><i class="fa fa-thumbs-up js-send-event-feedback" data-vote="LIKE" data-eventid="{{eventID}}"></i></a>
-		<a href="javascript:void(0)"><i class="fa fa-thumbs-down js-send-event-feedback" data-vote="DISLIKE" data-eventid="{{eventID}}"></i></a>
+		<a href="javascript:void(0)"><i class="fa fa-heart js-send-event-feedback" data-vote="LIKE" data-eventid="{{eventID}}"></i></a>
+		<a href="javascript:void(0)"><i class="fa fa-thumbs-up js-send-event-feedback" data-vote="DISLIKE" data-eventid="{{eventID}}"></i></a>
 	</script>
-
 </body>
 
 </html>

@@ -229,8 +229,8 @@ jQuery(document).ready(function($) {
 				success: function (events_array) {
 					console.log(events_array);
 					var view     = {events: events_array};
-					var template1 = $('#ui-template-all-event').html();
-					$('#event-modal').html(Mustache.to_html(template1, view));
+					var template = $('#ui-template-all-event').html();
+					$('#event-modal').html(Mustache.to_html(template, view));
 					stompClient = Stomp.over(new SockJS(connectionURL+'/eventMobileWS'));
 					stompClient.connect({},onConnectedEvent,onErrorEvent);
 				},

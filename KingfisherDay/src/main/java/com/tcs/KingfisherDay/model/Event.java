@@ -17,22 +17,25 @@ public class Event {
 	private String eventName;
 	@Column(name = "event_details", nullable = false)
 	private String details;
-	@Column(name = "start", nullable = false)
+	@Column(name = "start", nullable = true)
 	private String start;
 	@Column(name = "end", nullable = true)
 	private String end;
 	@Column(name = "state", nullable = false)
 	private EventState state;
-	@Column(name = "ppt_path", nullable = false)
+	@Column(name = "ppt_path", nullable = true)
 	private String pptPath;
-	@Column(name = "photo", nullable = false)
+	@Column(name = "photo", nullable = true)
 	private String photo;
+	@Column(name = "duration", nullable = true)
+	private String duration;
 
 	public Event() {
 
 	}
 
-	public Event(int eventID, String eventName, String details, String start, String end, EventState state, String pptPath, String photo) {
+	public Event(int eventID, String eventName, String details, String start, String end, EventState state,
+			String pptPath, String photo, String duration) {
 		super();
 		this.eventID = eventID;
 		this.eventName = eventName;
@@ -42,6 +45,7 @@ public class Event {
 		this.state = state;
 		this.pptPath = pptPath;
 		this.photo = photo;
+		this.duration=duration;
 	}
 
 	public int getEventID() {
@@ -106,6 +110,14 @@ public class Event {
 
 	public void setPptPath(String pptPath) {
 		this.pptPath = pptPath;
+	}
+
+	public String getDuration() {
+		return duration;
+	}
+
+	public void setDuration(String duration) {
+		this.duration = duration;
 	}
 
 }
