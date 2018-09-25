@@ -1022,6 +1022,10 @@ img.prof-pic {
     margin-bottom: 20px;
 }
 
+.quiz-modal-content .modal-body {
+    clear: both;
+}
+
 .quiz-modal-content .btn-info.active {
     background-color: #0dce47;
     border-color: #0dce47;
@@ -1032,12 +1036,16 @@ img.prof-pic {
 }
 
 .quiz-modal-content span.label-warning {
+	font-size: 100%;
     float: left;
 }
 
 .quiz-modal-content h4.question-statement {
+	margin:0;
     float: right;
     width: 90%;
+    color: #fff;
+    padding-left: 10px;
 }
 
 
