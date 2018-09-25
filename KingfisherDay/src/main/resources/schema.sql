@@ -32,17 +32,17 @@ create table EVENT(
 
 create table PHOTOGRAPHY_CONTEST_IMAGE(
 	image_id number,
-	owner VARCHAR2(100),
-	image_name VARCHAR2(500),
-	content VARCHAR2(10000)
+	owner VARCHAR(100),
+	image_name VARCHAR(500),
+	content VARCHAR(10000)
 );
 
 
 CREATE TABLE PHOTOGRAPHY_CONTEST_RESPONSE (
-  employee_email VARCHAR2(255) NOT NULL,
-  image_id number NOT NULL,
-  comment VARCHAR2(255) DEFAULT NULL,
+  employee_email VARCHAR(255) NOT NULL,
+  image_id int(10) NOT NULL,
+  comment VARCHAR(255) DEFAULT NULL,
   time_stamp datetime NOT NULL,
-  vote number NOT NULL,
+  vote int(1) NOT NULL,
   PRIMARY KEY (employee_email,image_id)
 );
