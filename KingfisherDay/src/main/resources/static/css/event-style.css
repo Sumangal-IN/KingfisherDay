@@ -46,7 +46,6 @@ body .right {
   border-radius: 10px;
   width: 100%;
   margin: 0 auto;
-  /* height: 414px; */
   position: relative;
   box-shadow: 4px 5px 0px rgba(0, 0, 0, 0.11);
   -webkit-animation: intro 0.34s 0.4s cubic-bezier(1, 1.4, 0.41, 1.01) forwards;
@@ -110,49 +109,49 @@ body .right {
   margin-bottom: 0;
 }
 .app_inner label:nth-of-type(4n+1) .app_inner__tab {
-  background: #28ABCA;
+  background: #0ECEAB;
   height: 200px;
 }
 .app_inner label:nth-of-type(4n+1) .app_inner__tab:hover {
   -webkit-transition: all .2s;
   transition: all .2s;
-  background: #28ABCA;
+  background: #0ECEAB;
 }
 .app_inner label:nth-of-type(4n+1) .app_inner__tab .tab_left__image {
   background: #EA495F;
 }
 .app_inner label:nth-of-type(4n+2) .app_inner__tab {
-  background: #729948;
+  background: #28ABCF;
 }
 .app_inner label:nth-of-type(4n+2) .app_inner__tab:hover {
   -webkit-transition: all .2s;
   transition: all .2s;
-  background: #729948;
+  background: #28ABCF;
 }
 .app_inner label:nth-of-type(4n+2) .app_inner__tab .tab_left__image {
-  background: #99B998;
+  background: #E60;
 }
 .app_inner label:nth-of-type(4n+3) .app_inner__tab {
-  background: #FB6648;
+  background: #f1e087;
 }
 .app_inner label:nth-of-type(4n+3) .app_inner__tab:hover {
   -webkit-transition: all .2s;
   transition: all .2s;
-  background: #FB6648;
+  background: #f1e087;
 }
 .app_inner label:nth-of-type(4n+3) .app_inner__tab .tab_left__image {
-  background: #E4B794;
+  background: #0E5597;
 }
 .app_inner label:nth-of-type(4n+4) .app_inner__tab {
-  background: #0ECEAB;
+  background: #fff;
 }
 .app_inner label:nth-of-type(4n+4) .app_inner__tab:hover {
   -webkit-transition: all .2s;
   transition: all .2s;
-  background: #0ECEAB;
+  background: #fff;
 }
 .app_inner label:nth-of-type(4n+4) .app_inner__tab .tab_left__image {
-  background: #F4837D;
+  background: #000;
 }
 .app_inner__tab {
   width: 100%;
@@ -165,12 +164,14 @@ body .right {
   transition: all 0.65s cubic-bezier(1, 0, 0.41, 1.01);
 }
 .app_inner__tab h2 {
-  position: absolute;
   right: 20px;
   top: 16px;
+  min-height: 60px;
+  padding: 0 10px;
   color: #000;
   font-size: 18px;
   font-weight: bold;
+  margin: 10px;
 }
 .app_inner__tab h2 i {
   position: absolute;
@@ -222,7 +223,7 @@ body .right {
   color: black;
 }
 .app_inner__tab .tab_left {
-  width: 30%;
+  width: 25%;
   float: left;
   position: relative;
 }
@@ -244,7 +245,6 @@ body .right {
   border-radius: 20px;
   width: 60px;
   height: 60px;
-  margin: 0 auto;
 }
 .app_inner__tab .tab_left__image i {
   color: white;
@@ -275,7 +275,7 @@ body .right {
     top: -200px;
   }
   100% {
-    top: 27px;
+    top: 5px;
   }
 }
 @keyframes move_in {
@@ -283,7 +283,7 @@ body .right {
     top: -200px;
   }
   100% {
-    top: 27px;
+    top: 5px;
   }
 }
 
@@ -326,24 +326,24 @@ body .right {
   0% {
     -webkit-transform: translateY(-50%) scale(0) rotateX(10deg) rotateY(10deg) rotateZ(40deg);
             transform: translateY(-50%) scale(0) rotateX(10deg) rotateY(10deg) rotateZ(40deg);
-            top:0px;
+            left: 400px;
   }
   100% {
     -webkit-transform: translateY(-50%) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
             transform: translateY(-50%) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-            top: 400px;
+            left: 0px;
   }
 }
 @keyframes intro {
   0% {
     -webkit-transform: translateY(-50%) scale(0) rotateX(10deg) rotateY(10deg) rotateZ(40deg);
-            transform: translateY(-50%) scale(0) rotateX(10deg) rotateY(10deg) rotateZ(40deg);
-            top: 0px;
+            transform: translateY(-50%) scale(0) rotateX(10deg) rotateY(10deg) rotateZ(40deg);.
+            left: 400px;
   }
   100% {
     -webkit-transform: translateY(-50%) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
             transform: translateY(-50%) scale(1) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
-            top: 400px;
+            left: 0px;
   }
 }
 
@@ -389,24 +389,32 @@ a.follow:hover {
   width: 100%;
 }
 .event-details {
-  padding: 0 20px;
+  padding: 0 10px;
+  float: right;
+  width: 72%;
+  text-align: right;
 }
 .event-details p {
   color: #000;
-  font-size: 14px;
+  font-size: 16px;
   font-weight: normal;
   line-height:16px;
 }
 .event-vote {
-  padding: 15px 20px;
+    margin: 15px 20px;
+    float: right;
 }
 .event-vote i{
-  font-size: 43px;
-  color: #fff;
+  font-size: 35px;
+  color: #e3cfed;
 }
 .event-vote a:first-child {
-  float: left;
+  margin-right: 25px;
 }
-.event-vote a:last-child {
-  float: right;
+
+.event-vote a.active i.fa-heart {
+  color: #EA495F;
+}
+.event-vote a.active i.fa-thumbs-up {
+  color: #0E5597;
 }
