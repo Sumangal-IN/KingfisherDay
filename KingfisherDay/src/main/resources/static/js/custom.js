@@ -403,6 +403,7 @@ jQuery(document).ready(function($) {
 						localStorage.loginpwd = data.password;
 						localStorage.loginname=data.name;
 						localStorage.photo=data.photo;
+						localStorage.isloggedin = true;
 						
 						hideSignInShowLogOff();
 					}else{
