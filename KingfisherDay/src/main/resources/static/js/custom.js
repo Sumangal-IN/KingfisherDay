@@ -192,14 +192,9 @@ jQuery(document).ready(function($) {
 
 	});
 
-	$(document).on("change", 'input[name="q_answer"]', function(e) { 
-		e.preventDefault();
-		$('.js-submit-answer').removeClass('disabled');
-	});
 
 	$(document).on("click", '.js-submit-answer', function(e) { 
 		e.preventDefault();
-		$(this).addClass('disabled');
 		
 		var radioValueOfAnsweredQuestion = $("input[name='q_answer']:checked").val();
         var questionID=$('#questionID').text().trim();
@@ -216,6 +211,7 @@ jQuery(document).ready(function($) {
 			type: 'get',
 			success: function (res) {
 				console.log(res);
+				$('.js-submit-answer').addClass('disabled');
 			},
 			error: function(error) {
 				console.log(error);
