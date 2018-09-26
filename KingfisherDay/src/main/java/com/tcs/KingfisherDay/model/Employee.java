@@ -20,7 +20,7 @@ public class Employee {
 	private FoodPreference foodPreference;
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;
-	@Column(name = "MOBILE", nullable = false)
+	@Column(name = "MOBILE", nullable = true)
 	private String mobile;
 	@Column(name = "PHOTO", nullable = false)
 	private String photo;

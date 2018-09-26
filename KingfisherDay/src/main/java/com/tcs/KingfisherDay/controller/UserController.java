@@ -22,9 +22,9 @@ public class UserController {
 	@Autowired
 	ImageProcessor imageProcessor;
 
-	@RequestMapping(value = "/registerEmployee/{name}/{emailID}/{foodPreference}/{password}/{mobile}", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/registerEmployee/{name}/{emailID}/{foodPreference}/{password}", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public Employee registerEmployee(@PathVariable("name") String name, @PathVariable("emailID") String emailID, @PathVariable("foodPreference") String foodPreference, @PathVariable("password") String password, @PathVariable("mobile") String mobile, @RequestParam("photoFile") MultipartFile photoFile) throws Exception {
+	public Employee registerEmployee(@PathVariable("name") String name, @PathVariable("emailID") String emailID, @PathVariable("foodPreference") String foodPreference, @PathVariable("password") String password, @RequestParam(value = "mobile", required = false) String mobile, @RequestParam("photoFile") MultipartFile photoFile) throws Exception {
 		
 		Employee employee=userService.findByEmailID(emailID);
 		

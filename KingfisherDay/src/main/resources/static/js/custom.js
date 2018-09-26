@@ -427,7 +427,6 @@ jQuery(document).ready(function($) {
 					name: $('#reg-name').val(),
 					email: $('#reg-email').val(),
 					password: $('#reg-password').val(),
-					mobile: $('#reg-mobile').val(),
 					foodpref: $('input[name="options"]:checked').val(),
 					image: $('input[name="account-file"]').get(0).files[0]
 			}
@@ -441,7 +440,7 @@ jQuery(document).ready(function($) {
 			fd.append('photoFile', data.image);
 
 			console.log(data);
-			var url=connectionURL+'/registerEmployee/'+data.name+'/'+data.email+'/'+data.foodpref+'/'+data.password+'/'+data.mobile+"/";
+			var url=connectionURL+'/registerEmployee/'+data.name+'/'+data.email+'/'+data.foodpref+'/'+data.password;
 			console.log(url);
 			
 			$.LoadingOverlay("show");
@@ -470,6 +469,7 @@ jQuery(document).ready(function($) {
 						localStorage.loginname=employee.name;
 						localStorage.photo=employee.photo;
 						localStorage.isloggedin = true;
+						localStorage.rememberme = true;
 						
 						hideSignInShowLogOff();
 					}else{
