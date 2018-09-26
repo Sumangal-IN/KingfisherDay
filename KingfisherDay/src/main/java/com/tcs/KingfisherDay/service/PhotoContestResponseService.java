@@ -2,6 +2,7 @@ package com.tcs.KingfisherDay.service;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,15 @@ public class PhotoContestResponseService {
 	public PhotoContestResponse saveWithComment(String emailID, int imageId, String vote, String comment) {
 		return photoContestResponseRepository.save(new PhotoContestResponse(imageId, emailID, Vote.valueOf(vote), comment,
 				new Timestamp(new Date().getTime())));
+	}
+	
+	public PhotoContestResponse getResponseForAnImage(int imageId) {
+		List<PhotoContestResponse> responses = photoContestResponseRepository.findByImageId(String.valueOf(imageId));
+		if (null != responses && responses.size() > 0) {
+			return responses.get(0);
+		} else {
+			return null;
+		}
 	}
 
 

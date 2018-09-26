@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.tcs.KingfisherDay.model.PhotoContestResponse;
 import com.tcs.KingfisherDay.model.PhotographyContestImage;
+import com.tcs.KingfisherDay.model.PhotographyContestImageResponse;
 import com.tcs.KingfisherDay.service.PhotoContestImageService;
 import com.tcs.KingfisherDay.service.PhotoContestResponseService;
 import com.tcs.KingfisherDay.util.ImageProcessor;
@@ -48,8 +50,14 @@ public class PhotographyContestController {
 
 	@RequestMapping(value = "/getAllImages", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
-	public List<PhotographyContestImage> getAllImages() {
+	public List<PhotographyContestImageResponse> getAllImages() {
 		return photoContestImageService.getAllImages();
+	}
+
+	@RequestMapping(value = "/getResponseForAnImage/{imageId}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public PhotoContestResponse getResponseForAnImage(@PathVariable("imageId") int imageId) {
+		return photoContestResponseService.getResponseForAnImage(imageId);
 	}
 
 	@RequestMapping(value = "/savePhotoContestResponse/{emailID}/{photoId}/{vote}/{comment}", method = RequestMethod.GET, produces = "application/json")
