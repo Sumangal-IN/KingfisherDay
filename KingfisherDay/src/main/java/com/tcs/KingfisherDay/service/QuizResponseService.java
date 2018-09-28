@@ -2,8 +2,10 @@ package com.tcs.KingfisherDay.service;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import com.tcs.KingfisherDay.model.OptionPercentage;
@@ -23,7 +25,9 @@ public class QuizResponseService {
 	}
 
 	public QuizResponse getWinner(String questionID, Question question) {
-		return quizResponseRepository.findTopByQuestionIDAndOptionOrderByTimeStamp(questionID, question.getOptionCorrect());
+		List<QuizResponse> winners = quizResponseRepository.findTopByQuestionIDAndOptionOrderByTimeStamp(questionID,
+				question.getOptionCorrect(), PageRequest.of(0, 1));
+		return null != winners && !winners.isEmpty() ? winners.get(0) : null;
 	}
 
 	public OptionPercentage getPercentages(Question question) {
