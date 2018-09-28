@@ -1,6 +1,7 @@
 package com.tcs.KingfisherDay.service;
 
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -39,8 +40,27 @@ public class QuizResponseService {
 		long totalC = quizResponseRepository.countByOptionAndQuestionID(question.getOptionC(), question.getQuestionID());
 		long totalD = quizResponseRepository.countByOptionAndQuestionID(question.getOptionD(), question.getQuestionID());
 		total = totalA + totalB + totalC + totalD;
-		return new OptionPercentage((double) totalA / (double) total, (double) totalB / total, (double) totalC / total,
-				(double) totalD / total);
+		System.out.println("For Question:"+question.toString());
+		System.out.println("Option A answered by="+totalA);
+		System.out.println("Option B answered by="+totalB);
+		System.out.println("Option C answered by="+totalC);
+		System.out.println("Option D answered by="+totalD);
+		System.out.println("Total="+total);
+		return new OptionPercentage(
+				getRoundedValue( totalA , total), 
+				getRoundedValue( totalB , total), 
+				getRoundedValue( totalC , total),
+				getRoundedValue( totalD , total)
+				);
+	}
+	
+	public static double getRoundedValue(long option, long totalAnser) {
+
+		double doubleValue = (double) option / (double) totalAnser;
+		DecimalFormat df = new DecimalFormat("###.##");
+		double roundedValue = Double.parseDouble(df.format(doubleValue));
+		return roundedValue;
+
 	}
 
 }
