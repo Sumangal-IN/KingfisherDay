@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.tcs.KingfisherDay.model.Event;
 import com.tcs.KingfisherDay.model.EventResponse;
 import com.tcs.KingfisherDay.model.EventResponseEnvelope;
+import com.tcs.KingfisherDay.model.VoteCount;
 import com.tcs.KingfisherDay.model.enums.EventState;
 import com.tcs.KingfisherDay.model.enums.Vote;
 import com.tcs.KingfisherDay.repository.EmployeeRepository;
@@ -37,6 +38,12 @@ public class EventResponseService {
 	public EventResponse saveWithComment(String emailID, int eventID, String vote, String comment) {
 		return eventResponseRepository.save(new EventResponse(eventID, emailID, Vote.valueOf(vote), comment,
 				new Timestamp(new Date().getTime())));
+	}
+
+	public VoteCount getVoteCountForAnEvent(int eventID) {
+		int likeCount= eventResponseRepository.getVoteCountForAnEvent(eventID, Vote.LIKE);
+		int dislikeCount= eventResponseRepository.getVoteCountForAnEvent(eventID, Vote.DISLIKE);
+		return new VoteCount(""+eventID, likeCount, dislikeCount);
 	}
 
 	public List<EventResponseEnvelope> getLatestResponses() {

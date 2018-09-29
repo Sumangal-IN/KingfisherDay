@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +20,9 @@ public class QuizResponseService {
 
 	@Autowired
 	QuizResponseRepository quizResponseRepository;
+	
+	@Value("${quiz.show.number.of.winners}")
+	private int numberOfWinnersToShow;
 
 	public QuizResponse saveResponse(String questionID, String employeeEmail, String option) {
 		return quizResponseRepository
@@ -29,6 +33,12 @@ public class QuizResponseService {
 		List<QuizResponse> winners = quizResponseRepository.findTopByQuestionIDAndOptionOrderByTimeStamp(questionID,
 				question.getOptionCorrect(), PageRequest.of(0, 1));
 		return null != winners && !winners.isEmpty() ? winners.get(0) : null;
+	}
+
+	public List<QuizResponse> getAllWinners(String questionID, Question question) {
+		List<QuizResponse> winners = quizResponseRepository.findTopByQuestionIDAndOptionOrderByTimeStamp(questionID,
+				question.getOptionCorrect(), PageRequest.of(0, numberOfWinnersToShow));
+		return  winners;
 	}
 
 	public OptionPercentage getPercentages(Question question) {

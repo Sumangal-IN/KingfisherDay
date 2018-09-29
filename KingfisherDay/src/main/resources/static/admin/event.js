@@ -46,7 +46,6 @@ angular
 											$scope.currentEvent = event;
 											$scope.trustAsResourceUrl = $sce
 													.trustAsResourceUrl($scope.currentEvent.pptPath);
-											$scope.drawerState = 'drawer_close';
 											$scope.showEventList = false;
 											$scope.showComment = true;
 											$scope.comments = [];
@@ -79,44 +78,25 @@ angular
 					}
 
 					$scope.endEvent = function(event) {
+
+						console.log('completeEvent: ' + event.eventID);
 						$scope.promise = $http
-								.get(
-										URL + '/changeEventState/'
-												+ event.eventID + '/COMPLETED')
-								.then(
-										function mySuccess(response) {
-											console.log('completeEvent: '
-													+ event.eventID);
-											$scope.promise = $http
-													.get(URL + '/getAllEvents')
-													.then(
-															function mySuccess(
-																	response) {
-																$scope.drawerState = 'drawer_open';
-																$scope.showEventList = true;
-																$scope.showComment = false;
-																$scope.events = response.data;
-																console
-																		.log($scope.events);
-																$scope
-																		.$digest()
-															},
-															function mySuccess(
-																	response) {
-																window
-																		.alert('Oops! Some error has occured!');
-																console
-																		.log(response);
-																return;
-															});
-										},
-										function mySuccess(response) {
-											window
-													.alert('Oops! Some error has occured!');
-											console.log(response);
-											return;
-										});
-						return;
+						.get(URL + '/getAllEvents')
+						.then(
+								function mySuccess(response) {
+									$scope.showEventList = true;
+									$scope.showComment = false;
+									$scope.events = response.data;
+									console.log($scope.events);
+									$scope.$digest()
+								},
+								function mySuccess(response) {
+									window
+									.alert('Oops! Some error has occured!');
+									console.log(response);
+									return;
+								});
+
 					}
 
 				});

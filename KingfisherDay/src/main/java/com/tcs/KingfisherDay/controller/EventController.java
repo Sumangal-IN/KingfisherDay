@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.tcs.KingfisherDay.model.Event;
 import com.tcs.KingfisherDay.model.EventResponseEnvelope;
+import com.tcs.KingfisherDay.model.VoteCount;
 import com.tcs.KingfisherDay.service.EventResponseService;
 import com.tcs.KingfisherDay.service.EventService;
 
@@ -46,6 +47,8 @@ public class EventController {
 	@ResponseBody
 	public void changeEventState(@PathVariable("eventID") int eventID, @PathVariable("state") String state) {
 		eventService.changeEventState(eventID, state);
+		messagingTemplate.convertAndSend("/topic/broadcastLatestComments",
+				eventResponseService.getLatestResponses());
 		if (eventService.getCurrentEvent() != null)
 			messagingTemplate.convertAndSend("/topic/broadcastCurrentEvent", eventService.getCurrentEvent());
 		else
@@ -90,5 +93,11 @@ public class EventController {
 					eventService.getCurrentEvent());
 		else
 			messagingTemplate.convertAndSendToUser(principal.getName(), "/topic/getCurrentEvent", "");
+	}
+
+	@RequestMapping(value = "/getVoteCountForAnEvent/{eventID}", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public VoteCount getVoteCountForAnEvent(@PathVariable("eventID") int eventID) {
+		return eventResponseService.getVoteCountForAnEvent(eventID);
 	}
 }

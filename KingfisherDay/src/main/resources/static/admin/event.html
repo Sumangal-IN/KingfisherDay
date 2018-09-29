@@ -5,12 +5,13 @@
 <script src="popper.min.js"></script>
 <link rel="stylesheet" href="bootstrap.min.css">
 <script src="bootstrap.min.js"></script>
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
-	integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU"
-	crossorigin="anonymous">
+
+<!-- Font Awesome CSS -->
+<link href="font-awesome.min.css" rel="stylesheet">
+
 <link rel="stylesheet" type="text/css" href="index.css">
 <link rel="stylesheet" type="text/css" href="cg-busy.css">
+
 <script src="angular.min.js"></script>
 <script src="angular-animate.js"></script>
 <script src="event.js"></script>
@@ -31,7 +32,7 @@
 					Kingfisher Day'18 :: Events</strong></a>
 		</nav>
 		<div class="event_holder">
-			<div class="presentation_box" ng-class="drawerState">
+			<div class="presentation_box">
 				<iframe ng-src="{{trustAsResourceUrl}}" class="presentation_frame"
 					frameborder="0"> </iframe>
 			</div>
@@ -44,11 +45,11 @@
 						<div class="col-2 m-3 p-3 event_box "
 							ng-class="event.state=='COMPLETED'?'event_gray':'event_box_{{randomColors[$index]}}'"
 							ng-repeat="event in events" ng-click="startEvent(event)">
+							<div class="">
+								<i class="far {{event.photo}}"></i>
+							</div>
 							<div class="event_card_title">
 								<span ng-bind-html="event.eventName"></span>
-							</div>
-							<div class="event_card_image">
-								<img ng-src="{{event.photo}}" style="height: 60;"></img>
 							</div>
 						</div>
 					</div>
@@ -63,19 +64,20 @@
 							&nbsp;({{comment.employee.emailID}})
 							<div class="pl-2" style="color: rgb(15, 66, 170);"
 								ng-show="{{comment.eventResponse.vote=='LIKE'}}">
-								<i class="far fa-thumbs-up" style="font-size: xx-large;"></i>
+								<i class="fa fa-heart" style="font-size: xx-large;"></i>
 							</div>
 							<div class="pl-2" style="color: rgb(244, 102, 16);"
 								ng-show="{{comment.eventResponse.vote=='DISLIKE'}}">
-								<i class="far fa-thumbs-down" style="font-size: xx-large;"></i>
+								<i class="fa fa-thumbs-up" style="font-size: xx-large;"></i>
 							</div>
 						</div>
 						<div class="row mr-1 ml-1 justify-content-center"
 							style="width: 100%">
 							<button ng-click="endEvent(currentEvent)"
 								class="btn btn-warning btn-lg mt-5"
-								style="position: absolute; height: fit-content; bottom: 10px; right: 10px;">Close
-								Event</button>
+								style="position: absolute; height: fit-content; bottom: 10px; right: 10px;">
+								Close
+							</button>
 						</div>
 					</div>
 				</div>

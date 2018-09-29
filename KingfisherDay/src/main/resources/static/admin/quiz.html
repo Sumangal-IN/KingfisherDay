@@ -62,13 +62,17 @@
 			<div class="col-10  mt-3 p-1 pl-2">
 				Correct answer is <strong>{{resultData.question.optionCorrect}}</strong>
 			</div>
-			<div class="col-10  mt-3 p-1 pl-2">
-				<img class=""
-					src="data:image/jpg;base64,{{resultData.winner.photo}}">
+			<br/>
+			<div class="row">
+			<div ng-repeat="winner in resultData.otherWinners">
+			  <div class="column">
+			    <img src="data:image/jpg;base64,{{winner.photo}}">
+			    <p>
+					{{winner.name}}({{winner.emailID}})
+			    </p>
+			  </div>
 			</div>
-			<div class="col-10  mt-3 p-1 pl-2">{{resultData.winner.name}}</div>
-			<div class="col-10  mt-3 p-1 pl-2">
-				{{resultData.winner.emailID}}</div>
+			</div>
 			<div class="col-10  mt-3 p-1 pl-2">
 				Option A given by <strong>{{resultData.optionPercentage.optionA*100}}%</strong>
 			</div>

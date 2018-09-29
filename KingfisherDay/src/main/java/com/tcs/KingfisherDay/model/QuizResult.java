@@ -1,10 +1,12 @@
 package com.tcs.KingfisherDay.model;
 
+import java.util.List;
+
 public class QuizResult {
 	private OptionPercentage optionPercentage;
 	private Employee winner;
 	private Question question;
-
+	private List<Employee> otherWinners;
 	public QuizResult() {
 	}
 
@@ -13,6 +15,15 @@ public class QuizResult {
 		this.optionPercentage = optionPercentage;
 		this.winner = winner;
 		this.question = question;
+	}
+
+	public QuizResult(OptionPercentage optionPercentage, Employee winner, Question question,
+			List<Employee> otherWinners) {
+		super();
+		this.optionPercentage = optionPercentage;
+		this.winner = winner;
+		this.question = question;
+		this.otherWinners = otherWinners;
 	}
 
 	public QuizResult(OptionPercentage optionPercentage, Question question) {
@@ -43,6 +54,14 @@ public class QuizResult {
 
 	public void setQuestion(Question question) {
 		this.question = question;
+	}
+
+	public List<Employee> getOtherWinners() {
+		return otherWinners;
+	}
+
+	public void setOtherWinners(List<Employee> otherWinners) {
+		this.otherWinners = otherWinners;
 	}
 
 }
