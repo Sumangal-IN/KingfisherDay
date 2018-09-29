@@ -10,10 +10,10 @@ angular
 					$scope.showQuestion = false;
 					$scope.showResultButton = false;
 					$scope.result = false;
-					$scope.question = 1;
+					$scope.question = 0;
 					$scope.startQuiz = function() {
 						$scope.question++;
-						if ($scope.question > 6) {
+						if ($scope.question > 1) {
 							$scope.promise = $http
 									.get(URL + '/clearCurrentQuestion/')
 									.then(
