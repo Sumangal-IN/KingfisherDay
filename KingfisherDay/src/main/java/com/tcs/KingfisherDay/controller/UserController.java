@@ -22,26 +22,31 @@ public class UserController {
 	@Autowired
 	ImageProcessor imageProcessor;
 
-	@RequestMapping(value = "/registerEmployee/{name}/{emailID}/{foodPreference}/{password}", method = RequestMethod.POST, produces = "application/json")
+	@RequestMapping(value = "/registerEmployee/{name}/{emailID}/{password}", method = RequestMethod.POST, produces = "application/json")
 	@ResponseBody
-	public Employee registerEmployee(@PathVariable("name") String name, @PathVariable("emailID") String emailID, @PathVariable("foodPreference") String foodPreference, @PathVariable("password") String password, @RequestParam(value = "mobile", required = false) String mobile, @RequestParam("photoFile") MultipartFile photoFile) throws Exception {
+	public Employee registerEmployee(@PathVariable("name") String name, 
+									 @PathVariable("emailID") String emailID, 
+									 @RequestParam(value = "foodPreference", required = false) String foodPreference,
+									 @PathVariable("password") String password, 
+									 @RequestParam(value = "mobile", required = false) String mobile,
+									 @RequestParam(value = "photoFile", required = false) MultipartFile photoFile) throws Exception {
 		
 		Employee employee=userService.findByEmailID(emailID);
 		
-		if (null == employee) {
-			String photo = null;
-			if (photoFile.isEmpty()) {
-				throw new Exception("Oops!! Looks like photo is empty");
+		if (null != employee) {
+			String photo = employee.getPhoto();
+			if (null!=photoFile && !photoFile.isEmpty()) {
+				try {
+					byte[] bytes = photoFile.getBytes();
+					photo = imageProcessor.resizeImage(bytes);
+				} catch (Exception e) {
+					throw new Exception("Oops!! Looks like there is a technical issue. Try with different image.");
+				}
 			}
-			try {
-				byte[] bytes = photoFile.getBytes();
-				photo = imageProcessor.resizeImage(bytes);
-			} catch (Exception e) {
-				throw new Exception("Oops!! Looks like there is a technical issue. Try with different image.");
-			}
-			return userService.register(name, emailID, foodPreference, password, mobile, photo);}
+			return userService.register(name, emailID, foodPreference, password, mobile, photo);
+		}
 		else {
-			throw new Exception("Oops!! Looks like user with this email id already exists!! Try to sign-in");
+			throw new Exception("Oops!! Looks like your data is not available with us. Please contact administrator!!");
 		}
 	}
 

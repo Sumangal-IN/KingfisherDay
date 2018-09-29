@@ -23,9 +23,10 @@ jQuery(document).ready(function($) {
 		
 		var template1 = $('#ui-template-account-details').html();
 		var template2 = $('#ui-template-sign-out-and-account-photo').html();    
+		var template3 = $('#ui-template-edit-profile-menu').html();
 		$('#user_details').html(Mustache.to_html(template1, employee));
 		$('#logoff').html(Mustache.to_html(template2, employee));
-		
+		$('#editProfile').html(Mustache.to_html(template3, employee));
 	}else{
 		showSignInHideLogOff();
 	}
@@ -126,9 +127,11 @@ jQuery(document).ready(function($) {
 				if(employee){
 					$('.close-modal').click();
 					var template1 = $('#ui-template-account-details').html();
-					var template2 = $('#ui-template-sign-out-and-account-photo').html();    
+					var template2 = $('#ui-template-sign-out-and-account-photo').html();
+					var template3 = $('#ui-template-edit-profile-menu').html();
 					$('#user_details').html(Mustache.to_html(template1, employee));
 					$('#logoff').html(Mustache.to_html(template2, employee));
+					$('#editProfile').html(Mustache.to_html(template3, employee));
 					
 					localStorage.clear();
 					
@@ -162,11 +165,13 @@ jQuery(document).ready(function($) {
 	function hideSignInShowLogOff() {
 		$("#signIn").hide();
 		$("#logoff").show();
+		$("#editProfile").show();
 	}
 	
 	function showSignInHideLogOff(){
 		$("#signIn").show();
 		$("#logoff").hide();
+		$("#editProfile").hide();
 	}
  
     function doBounce(element, times, distance, speed) {
@@ -413,7 +418,54 @@ jQuery(document).ready(function($) {
 			}
 		}
 	});
-	$('#register-form').on('submit', function(e){
+	
+$('#contest').on('click', function(e){
+		
+		e.preventDefault();
+
+		if(validateLoginAndOpenModal('#portfolio-modal')){
+			$.ajax({
+				url: connectionURL+'/getAllImages',
+				processData: false,
+				contentType: false,
+				type: 'get',
+				success: function (images_array) {
+					console.log(images_array);
+					var view     = {images: images_array};
+					var template = $('#ui-template-photo-contest-images').html();
+					$('.photo-contest-images-container').html(Mustache.to_html(template, view));
+				},
+				error: function(error) {
+					console.log(error);
+				},
+				complete: function (jqXHR, status) {
+					setTimeout(function(){
+					    $.LoadingOverlay("hide");
+					}, delay);
+				}
+			})
+		}
+		
+	});$('#editProfile').on('click', function(e){
+		
+		e.preventDefault();
+
+		if(validateLoginAndOpenModal('#edit-profile-modal')){
+			var employee = { 
+					  "name"  	 :  localStorage.loginname, 
+					  "emailID"  :  localStorage.loginemail, 
+					  "password" :  localStorage.loginpwd 
+					}
+			var template = $('#ui-template-edit-my-profile').html();
+			$('.edit-profile-container').html(Mustache.to_html(template, employee));
+			setTimeout(function(){
+				$.LoadingOverlay("hide");
+			}, delay);
+		}
+		
+	});
+	
+	$(document).on("submit", '#register-form', function(e) { 
 
 		e.preventDefault();
 
@@ -423,20 +475,23 @@ jQuery(document).ready(function($) {
 					name: $('#reg-name').val(),
 					email: $('#reg-email').val(),
 					password: $('#reg-password').val(),
+					confirm_password :$('reg-confirm-password').val(),
 					foodpref: $('input[name="options"]:checked').val(),
 					image: $('input[name="account-file"]').get(0).files[0]
 			}
-			var imageSizeinKB=data.image.size/1024;
-			if(imageSizeinKB > 3072){
-		       $('#error-panel').html("File is too big!!. Max size: 3 MB");
-		       return;
-		    };
-		    
+			if(data.image && data.image.size > 0){
+				var imageSizeinKB=data.image.size/1024;
+				if(imageSizeinKB > 3072){
+			       $('#error-panel-edit-profile').html("File is too big!!. Max size: 3 MB");
+			       return;
+			    };
+			}
+			
 			var fd = new FormData();
 			fd.append('photoFile', data.image);
 
 			console.log(data);
-			var url=connectionURL+'/registerEmployee/'+data.name+'/'+data.email+'/'+data.foodpref+'/'+data.password;
+			var url=connectionURL+'/registerEmployee/'+data.name+'/'+data.email+'/'+data.password;
 			console.log(url);
 			
 			$.LoadingOverlay("show");
@@ -453,9 +508,11 @@ jQuery(document).ready(function($) {
 						$('.close-modal').click();
 						
 						var template1 = $('#ui-template-account-details').html();
-						var template2 = $('#ui-template-sign-out-and-account-photo').html();    
+						var template2 = $('#ui-template-sign-out-and-account-photo').html();
+						var template3 = $('#ui-template-edit-profile-menu').html();
 						$('#user_details').html(Mustache.to_html(template1, employee));
 						$('#logoff').html(Mustache.to_html(template2, employee));
+						$('#editProfile').html(Mustache.to_html(template3, employee));
 						
 						//clear local storage
 						localStorage.clear();
@@ -469,14 +526,14 @@ jQuery(document).ready(function($) {
 						
 						hideSignInShowLogOff();
 					}else{
-						$('#error-panel').html("Ooops!! Registration failed. Re-check your input data!!");
+						$('#error-panel-edit-profile').html("Ooops!! Registration failed. Re-check your input data!!");
 					}
 				},
 				error: function(error) {
 					console.log(error);
-					$('#error-panel').html("Ooops!! Registration failed. Re-check your input data!!");
+					$('#error-panel-edit-profile').html("Ooops!! Registration failed. Re-check your input data!!");
 					if(error.responseJSON && error.responseJSON.message){
-						$('#error-panel').html(error.responseJSON.message);
+						$('#error-panel-edit-profile').html(error.responseJSON.message);
 					}
 				},
 				complete: function (jqXHR, status) {
@@ -487,7 +544,7 @@ jQuery(document).ready(function($) {
 			})
 
 		}
-	})
+	});
 	/************************** Login/Registration Section End **************************/
 });
 //'https://api.myjson.com/bins/ux73o', 'https://api.myjson.com/bins/ncltw'

@@ -16,7 +16,7 @@ public class Employee {
 	@Id
 	@Column(name = "EMAIL_ID", nullable = false)
 	private String emailID;
-	@Column(name = "FOOD_PREFERENCE", nullable = false)
+	@Column(name = "FOOD_PREFERENCE", nullable = true)
 	private FoodPreference foodPreference;
 	@Column(name = "PASSWORD", nullable = false)
 	private String password;

@@ -20,7 +20,8 @@ public class UserService {
 	PasswordCrypto passwordCrypto;
 
 	public Employee register(String name, String emailID, String foodPreference, String password, String mobile, String photo) {
-		return employeeRepository.save(new Employee(name, emailID, FoodPreference.valueOf(foodPreference), passwordCrypto.encrypt(password), mobile, photo));
+		FoodPreference userFoodPreference=null!=foodPreference && !foodPreference.isEmpty()?FoodPreference.valueOf(foodPreference):FoodPreference.VEG;
+		return employeeRepository.save(new Employee(name, emailID, userFoodPreference, passwordCrypto.encrypt(password), mobile, photo));
 	}
 
 	public Employee findByEmailID(String emailID) {

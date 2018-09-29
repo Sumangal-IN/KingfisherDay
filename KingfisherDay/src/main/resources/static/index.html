@@ -80,14 +80,14 @@
 				<div class="col-md-6">
 
 					<div class="menu-item blue" id="signIn">
-						<a href="#feature-modal" data-toggle="modal" class="js-signin-start"> 
+						<a href="#login-modal" data-toggle="modal" class="js-signin-start"> 
 							<i class="fa fa-sign-in"></i>
-							<p>Sign In/Sign Up</p>
+							<p>Sign In</p>
 						</a>
 					</div>
 					
-					<div class="menu-item light-orange" id="logoff">
-
+					<div class="menu-item blue" id="editProfile">
+						
 					</div>
 					
 					<div class="menu-item green">
@@ -125,6 +125,10 @@
 							<p>Open the app from browser</p>
 						</a>
 					</div>
+					
+					<div class="menu-item light-orange" id="logoff">
+
+					</div>
 
 				</div>
 
@@ -134,8 +138,8 @@
 	<!-- End Main Body Section -->
 
 
-	<!-- Start Feature Section -->
-	<div class="section-modal modal fade" id="feature-modal" tabindex="-1"
+	<!-- Start Login Section -->
+	<div class="section-modal modal fade" id="login-modal" tabindex="-1"
 		role="dialog" aria-hidden="true">
 		<div class="modal-content">
 			<div class="close-modal" data-dismiss="modal">
@@ -147,16 +151,6 @@
 			<div class="container">
 				<div class="row">
 					<div class="section-title text-center">
-						<h3>Register and Signin to Play</h3>
-						<!-- Our Custom code starts -->
-						<!-- Nav tabs -->
-						<ul class="nav nav-tabs signin-reg">
-							<li class="nav-item active"><a class="nav-link active"
-								data-toggle="tab" href="#home">Signin</a></li>
-							<li class="nav-item"><a class="nav-link" data-toggle="tab"
-								href="#menu1">Register</a></li>
-						</ul>
-
 						<!-- Tab panes -->
 						<div class="tab-content">
 							<div id="home" class="container tab-pane active">
@@ -165,8 +159,8 @@
 								<form id="login-form" action="#" method="post" role="form"
 									autocomplete="off">
 									<div class="form-group">
-										<input type="email" name="email" id="login-email" tabindex="1"
-											class="form-control" placeholder="Email" value="">
+										<input type="text" name="email" id="login-email" tabindex="1"
+											class="form-control" placeholder="Employee ID" value="">
 									</div>
 									<div class="form-group">
 										<input type="password" name="password" id="login-password"
@@ -188,58 +182,6 @@
 									</div>
 								</form>
 							</div>
-							<div id="menu1" class="container tab-pane fade">
-								<br>
-								<h3>Register</h3>
-								<form id="register-form" class='js-custom-form' action="#"
-									method="post" role="form" autocomplete="off">
-									<div class="form-group">
-										<input type="email" name="email" id="reg-email" tabindex="1"
-											class="form-control" placeholder="Enter your TCS email address" value=""
-											required>
-									</div>
-									<div class="form-group">
-										<input type="text" name="name" id="reg-name" tabindex="2"
-											class="form-control" placeholder="Name" value="" required>
-									</div>
-									<div class="form-group">
-										<input type="password" name="password" id="reg-password"
-											tabindex="3" class="form-control" placeholder="Password"
-											required>
-									</div>
-									<div class="form-group">
-										<input type="password" name="confirm_password"
-											id="reg-confirm-password" tabindex="4" class="form-control"
-											placeholder="Confirm Password" required>
-									</div>
-									<div class="form-group">
-										<div class="btn-group btn-group-toggle" data-toggle="buttons">
-											<label class="btn btn-danger active"> <input
-												type="radio" name="options" checked value="NON_VEG">
-												I prefer Non-Veg <i class="glyphicon glyphicon-ok food-pref"></i>
-											</label> <label class="btn btn-success"> <input type="radio"
-												name="options" value="VEG"> I prefer Veg <i
-												class="glyphicon glyphicon-ok food-pref"></i>
-											</label>
-										</div>
-									</div>
-
-									<div class="form-group">
-										<label>Upload your photo</label> <input type="file"
-											name="account-file" class="form-control" accept="image/*"
-											required />
-									</div>
-									<div class="form-group">
-										<div class="row">
-											<div class="col-sm-6 col-sm-offset-3 reg-btn">
-												<input type="submit" name="register-submit"
-													id="register-submit" tabindex="4"
-													class="form-control btn btn-primary" value="Register Now">
-											</div>
-										</div>
-									</div>
-								</form>
-							</div>
 							<div id="error-panel"></div>
 						</div>
 						<!-- Our Custom code ends -->
@@ -250,9 +192,27 @@
 
 		</div>
 	</div>
-	<!-- End Feature Section -->
+	<!-- End Login Section -->
 
+	
+	<!-- Start Edit Profile Section -->
+	<div class="section-modal modal fade" id="edit-profile-modal" tabindex="-1"
+		role="dialog" aria-hidden="true">
+		<div class="modal-content">
+			<div class="close-modal" data-dismiss="modal">
+				<div class="lr">
+					<div class="rl"></div>
+				</div>
+			</div>
 
+			<div class="container edit-profile-container">
+			
+			</div>
+
+		</div>
+	</div>
+	<!-- End Edit Profile Section -->
+	
 
 	<!-- Start Portfolio Section -->
 	<div class="section-modal modal fade" id="portfolio-modal"
@@ -413,11 +373,74 @@
             </div>
 
 		</script>
+        
+		<script id="ui-template-edit-my-profile" type="x-tmpl-mustache">
+			
+				<div class="row">
+					<div class="section-title text-center">
+
+						<!-- Tab panes -->
+						<div class="tab-content">
+							<div id="menu1" class="container tab-pane active">
+								<br>
+								<h3>My Profile</h3>
+								<form id="register-form" class='js-custom-form js-edit-profile-form' action="javascript:void(0)"
+									method="post" role="form" autocomplete="off">
+									<div class="form-group">
+										<input type="text" name="email" id="reg-email" tabindex="1"
+											class="form-control" placeholder="Employee ID" value="{{emailID}}"
+											required disabled>
+									</div>
+									<div class="form-group">
+										<input type="text" name="name" id="reg-name" tabindex="2"
+											class="form-control" placeholder="Name" value="{{name}}" required>
+									</div>
+									<div class="form-group">
+										<input type="password" name="password" id="reg-password"
+											tabindex="3" class="form-control" placeholder="Password" value="{{password}}"
+											required>
+									</div>
+									<div class="form-group">
+										<input type="password" name="confirm_password"
+											id="reg-confirm-password" tabindex="4" class="form-control"
+											placeholder="Confirm Password" value="{{password}}" required>
+									</div>
+
+									<div class="form-group">
+										<label>Change photo</label> <input type="file"
+											name="account-file" class="form-control" accept="image/*"
+											 />
+									</div>
+									<div class="form-group">
+										<div class="row">
+											<div class="col-sm-6 col-sm-offset-3 reg-btn">
+												<input type="submit" name="register-submit"
+													id="register-submit" tabindex="4"
+													class="form-control btn btn-primary" value="Update">
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+							<div id="error-panel-edit-profile"></div>
+						</div>
+						<!-- Our Custom code ends -->
+					</div>
+				</div>
+
+		</script>
 		
 		<script id="ui-template-sign-out-and-account-photo" type="x-tmpl-mustache">
-			<img class="prof-pic" src="data:image/jpg;base64,{{photo}}" alt="user image" height="70" width="70">
 			<a href="javascript:void(0)"> 
 				<p>Signout</p>
+			</a>
+		</script>
+		
+		<script id="ui-template-edit-profile-menu" type="x-tmpl-mustache">
+			<img class="prof-pic" src="data:image/jpg;base64,{{photo}}" alt="user image" height="70" width="70">
+			<a href="javascript:void(0)" data-toggle="modal"> 
+				<i class="fa fa-edit"></i>
+				<p>Edit Profile</p>
 			</a>
 		</script>
 
