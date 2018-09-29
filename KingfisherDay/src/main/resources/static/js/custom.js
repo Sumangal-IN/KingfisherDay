@@ -372,6 +372,14 @@ jQuery(document).ready(function($) {
         }
     });
 	
+	$('#login-form').validate({
+        rules : {
+            password : {
+                minlength : 6
+            }
+        }
+    });
+	
 	$('#login-form').on('submit', function(e){
 
 		e.preventDefault();
@@ -405,48 +413,7 @@ jQuery(document).ready(function($) {
 		
 	});
 	
-	
-	
-	$('#register-form').validate({
-		rules : {
-			password : {
-				minlength : 6
-			},
-			confirm_password : {
-				minlength : 6,
-				equalTo : "#reg-password"
-			}
-		}
-	});
-	
-$('#contest').on('click', function(e){
-		
-		e.preventDefault();
-
-		if(validateLoginAndOpenModal('#portfolio-modal')){
-			$.ajax({
-				url: connectionURL+'/getAllImages',
-				processData: false,
-				contentType: false,
-				type: 'get',
-				success: function (images_array) {
-					console.log(images_array);
-					var view     = {images: images_array};
-					var template = $('#ui-template-photo-contest-images').html();
-					$('.photo-contest-images-container').html(Mustache.to_html(template, view));
-				},
-				error: function(error) {
-					console.log(error);
-				},
-				complete: function (jqXHR, status) {
-					setTimeout(function(){
-					    $.LoadingOverlay("hide");
-					}, delay);
-				}
-			})
-		}
-		
-	});$('#editProfile').on('click', function(e){
+	$('#editProfile').on('click', function(e){
 		
 		e.preventDefault();
 
@@ -461,6 +428,18 @@ $('#contest').on('click', function(e){
 			setTimeout(function(){
 				$.LoadingOverlay("hide");
 			}, delay);
+			
+			$('#register-form').validate({
+				rules : {
+					password : {
+						minlength : 6
+					},
+					confirm_password : {
+						minlength : 6,
+						equalTo : "#reg-password"
+					}
+				}
+			});
 		}
 		
 	});
