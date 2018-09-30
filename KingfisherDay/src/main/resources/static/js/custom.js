@@ -31,6 +31,14 @@ jQuery(document).ready(function($) {
 		showSignInHideLogOff();
 	}
 	
+	$(document).on("click", '.close-modal', function(e) { 
+		console.log("modal closing");
+		if (stompClient !== null) {
+	        stompClient.disconnect();
+	    }
+	    console.log("Disconnected");
+	});
+	
 	/************************** Functions Start **************************/
 	function onConnected() {
 		stompClient.subscribe('/user/topic/getCurrentQuestion', onMessageReceivedQuiz);
