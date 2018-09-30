@@ -40,10 +40,14 @@ public class EventResponseService {
 				new Timestamp(new Date().getTime())));
 	}
 
-	public VoteCount getVoteCountForAnEvent(int eventID) {
-		int likeCount= eventResponseRepository.getVoteCountForAnEvent(eventID, Vote.LIKE);
-		int dislikeCount= eventResponseRepository.getVoteCountForAnEvent(eventID, Vote.DISLIKE);
-		return new VoteCount(""+eventID, likeCount, dislikeCount);
+	public VoteCount getVoteCountForAnEvent(int eventID, String eventName) {
+		Integer likeCount= eventResponseRepository.getVoteCountForAnEvent(eventID, Vote.LIKE);
+		Integer dislikeCount= eventResponseRepository.getVoteCountForAnEvent(eventID, Vote.DISLIKE);
+		
+		likeCount=null!=likeCount?likeCount:0;
+		dislikeCount=null!=dislikeCount?dislikeCount:0;
+		
+		return new VoteCount(eventName, likeCount, dislikeCount);
 	}
 
 	public List<EventResponseEnvelope> getLatestResponses() {

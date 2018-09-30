@@ -1,6 +1,7 @@
 package com.tcs.KingfisherDay.controller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -98,6 +99,22 @@ public class EventController {
 	@RequestMapping(value = "/getVoteCountForAnEvent/{eventID}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public VoteCount getVoteCountForAnEvent(@PathVariable("eventID") int eventID) {
-		return eventResponseService.getVoteCountForAnEvent(eventID);
+		return eventResponseService.getVoteCountForAnEvent(eventID, ""+eventID);
+	}
+
+	@RequestMapping(value = "/getVoteCountForAllEvents", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public List<VoteCount> getVoteCountForAllEvents() {
+		List<VoteCount> voteCountForAllEvents=null;
+		List<Event> allEvents=eventService.getAllEvents();
+		if(null!=allEvents && !allEvents.isEmpty()) {
+			voteCountForAllEvents=new ArrayList<>(allEvents.size());
+			for(Event eachEvent:allEvents) {
+				VoteCount voteCountOfAnEvent=eventResponseService.getVoteCountForAnEvent(eachEvent.getEventID(), eachEvent.getEventName());
+				voteCountForAllEvents.add(voteCountOfAnEvent);
+			}
+		}
+		
+		return voteCountForAllEvents;
 	}
 }

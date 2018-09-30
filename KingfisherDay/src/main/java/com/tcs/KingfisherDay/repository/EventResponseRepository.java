@@ -16,7 +16,7 @@ public interface EventResponseRepository extends JpaRepository<EventResponse, St
 	List<EventResponse> findTop7ByEventIDOrderByTimeStampDesc(int eventID);
 	
 	@Query("select count(vote) from EventResponse e where e.eventID=:eventID and e.vote=:vote group by eventID, vote")
-	int getVoteCountForAnEvent(@Param("eventID") int eventID, @Param("vote") Vote vote);
+	Integer getVoteCountForAnEvent(@Param("eventID") int eventID, @Param("vote") Vote vote);
 
 
 }
