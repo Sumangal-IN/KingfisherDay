@@ -5,6 +5,7 @@ jQuery(document).ready(function($) {
 	var stompClient = null;
 	var socket = null;
 	var delay=3000;
+	var userImage=null;
 	/************************** Global Variable Section End **************************/
 	//For Phone Gap mobile app, url is required.
 	if(mobileDetect.mobile()){
@@ -452,6 +453,44 @@ jQuery(document).ready(function($) {
 		
 	});
 	
+	//$('input[name="account-file"]').change(function(e) {
+	$(document).on("change", 'input[name=account-file]', function(e) { 
+	    var file = e.target.files[0];
+	    $.canvasResize(file, {
+	        width: 300,
+	        height: 0,
+	        crop: false,
+	        quality: 80,
+	        callback: function(data, width, height) {
+	        	userImage=data;
+	        }
+	    });
+	});
+	
+	function b64toBlob(b64Data, contentType, sliceSize) {
+        contentType = contentType || '';
+        sliceSize = sliceSize || 512;
+
+        var byteCharacters = atob(b64Data);
+        var byteArrays = [];
+
+        for (var offset = 0; offset < byteCharacters.length; offset += sliceSize) {
+            var slice = byteCharacters.slice(offset, offset + sliceSize);
+
+            var byteNumbers = new Array(slice.length);
+            for (var i = 0; i < slice.length; i++) {
+                byteNumbers[i] = slice.charCodeAt(i);
+            }
+
+            var byteArray = new Uint8Array(byteNumbers);
+
+            byteArrays.push(byteArray);
+        }
+
+      var blob = new Blob(byteArrays, {type: contentType});
+      return blob;
+    }
+	
 	$(document).on("submit", '#register-form', function(e) { 
 
 		e.preventDefault();
@@ -466,16 +505,32 @@ jQuery(document).ready(function($) {
 					foodpref: $('input[name="options"]:checked').val(),
 					image: $('input[name="account-file"]').get(0).files[0]
 			}
-			if(data.image && data.image.size > 0){
-				var imageSizeinKB=data.image.size/1024;
-				if(imageSizeinKB > 3072){
-			       $('#error-panel-edit-profile').html("File is too big!!. Max size: 3 MB");
+			
+			var imageToUpload;
+			
+			if(null==userImage){
+				imageToUpload=data.image;
+			}else{
+				var block = userImage.split(";");
+				// Get the content type
+				var contentType = block[0].split(":")[1];// In this case "image/gif"
+				// get the real base64 content of the file
+				var realData = block[1].split(",")[1];// In this case "iVBORw0KGg...."
+				
+				// Convert to blob
+				imageToUpload = b64toBlob(realData, contentType);
+				
+			}
+			if(imageToUpload && imageToUpload.size > 0){
+				var imageSizeinKB=imageToUpload.size/1024;
+				if(imageSizeinKB > 512){
+			       $('#error-panel-edit-profile').html("File is too big!!. Please try with different photo");
 			       return;
 			    };
 			}
 			
 			var fd = new FormData();
-			fd.append('photoFile', data.image);
+			fd.append('photoFile', imageToUpload);
 
 			console.log(data);
 			var url=connectionURL+'/registerEmployee/'+data.name+'/'+data.email+'/'+data.password;

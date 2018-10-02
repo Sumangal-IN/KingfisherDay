@@ -52,7 +52,7 @@ public class EventResponseService {
 
 	public List<EventResponseEnvelope> getLatestResponses() {
 		List<Event> currentEvent = eventRepository.findByState(EventState.RUNNING);
-		if (!currentEvent.isEmpty()) {
+		if (null!=currentEvent && !currentEvent.isEmpty()) {
 			List<EventResponse> eventResponses = eventResponseRepository
 					.findTop7ByEventIDOrderByTimeStampDesc(currentEvent.get(0).getEventID());
 			List<EventResponseEnvelope> eventResponseEnvelope = new ArrayList<EventResponseEnvelope>();
