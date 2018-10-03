@@ -303,7 +303,7 @@ and (max-width : 1199px) {
 .section-modal .close-modal .lr {
     z-index: 1051;
     width: 1px;
-    height: 75px;
+    height: 40px;
     margin-left: 35px;
     background-color: #fff;
     -webkit-transform: rotate(45deg);
@@ -314,7 +314,7 @@ and (max-width : 1199px) {
 .section-modal .close-modal .lr .rl {
     z-index: 1052;
     width: 1px;
-    height: 75px;
+    height: 40px;
     background-color: #fff;
     -webkit-transform: rotate(90deg);
     -ms-transform: rotate(90deg);
@@ -1047,6 +1047,68 @@ img.prof-pic {
     color: #fff;
     padding-left: 10px;
 }
+
+
+/* Credits Page styles - start */
+.our-team-main
+{
+    width:100%;
+    height:auto;
+    border-bottom:5px #323233 solid;
+    background:#fff;
+    text-align:center;
+    border-radius:10px;
+    overflow:hidden;
+    position:relative;
+    transition:0.5s;
+    margin-bottom:28px;
+}
+
+
+.our-team-main img
+{
+    border-radius:50%;
+    margin-bottom:20px;
+    width: 90px;
+}
+
+.our-team-main h3
+{
+    font-size:20px;
+    font-weight:700;
+}
+
+.our-team-main p
+{
+    margin-bottom:0;
+}
+
+.team-back
+{
+    width:100%;
+    height:auto;
+    position:absolute;
+    top:0;
+    left:0;
+    padding:5px 15px 0 15px;
+    text-align:left;
+    background:#fff;
+    
+}
+
+.team-front
+{
+    width:100%;
+    height:auto;
+    position:relative;
+    z-index:10;
+    background:#fff;
+    padding:15px;
+    bottom:0px;
+    transition: all 0.5s ease;
+}
+
+/* Credits Page styles - end */
 
 
 

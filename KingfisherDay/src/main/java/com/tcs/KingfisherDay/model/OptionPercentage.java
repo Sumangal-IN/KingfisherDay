@@ -50,4 +50,10 @@ public class OptionPercentage {
 		this.optionD = optionD;
 	}
 
+	@Override
+	public String toString() {
+		return "OptionPercentage [optionA=" + optionA + ", optionB=" + optionB + ", optionC=" + optionC + ", optionD="
+				+ optionD + "]";
+	}
+
 }

@@ -33,11 +33,10 @@ jQuery(document).ready(function($) {
 	}
 	
 	$(document).on("click", '.close-modal', function(e) { 
-		console.log("modal closing");
 		if (stompClient !== null) {
 	        stompClient.disconnect();
+	        console.log("Disconnected after modal close");
 	    }
-	    console.log("Disconnected");
 	});
 	
 	/************************** Functions Start **************************/

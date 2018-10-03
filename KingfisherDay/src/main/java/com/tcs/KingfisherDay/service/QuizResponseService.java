@@ -56,17 +56,20 @@ public class QuizResponseService {
 		System.out.println("Option C answered by="+totalC);
 		System.out.println("Option D answered by="+totalD);
 		System.out.println("Total="+total);
-		return new OptionPercentage(
+		OptionPercentage optionPercentage=new OptionPercentage(
 				getRoundedValue( totalA , total), 
 				getRoundedValue( totalB , total), 
 				getRoundedValue( totalC , total),
 				getRoundedValue( totalD , total)
 				);
+		System.out.println(optionPercentage);
+		return optionPercentage;
 	}
 	
 	public static double getRoundedValue(long option, long totalAnser) {
 
 		double doubleValue = (double) option / (double) totalAnser;
+		doubleValue*=100;
 		DecimalFormat df = new DecimalFormat("###.##");
 		double roundedValue = Double.parseDouble(df.format(doubleValue));
 		return roundedValue;
