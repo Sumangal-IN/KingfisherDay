@@ -381,13 +381,18 @@ jQuery(document).ready(function($) {
         }
     });
 	
-	$('#login-form').validate({
-        rules : {
-            password : {
-                minlength : 6
-            }
-        }
-    });
+	$('form[id="login-form"]').validate({
+		rules: {    
+			password : {
+				minlength : 6
+			}
+		},
+		messages: {    
+			password: {
+				minlength: 'Password must be at least 6 characters'
+			}
+		}
+	});
 	
 	$('#login-form').on('submit', function(e){
 

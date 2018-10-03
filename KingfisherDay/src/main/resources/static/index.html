@@ -120,9 +120,9 @@
 					</div>
 					
 					<div class="menu-item blue responsive-2">
-						<a href="http://tiny.cc/kfday" target="_blank">Show in browser(http://tiny.cc/kfday)</a><br/>
+						<a href="http://tiny.cc/kfday" target="_blank">Help Apple and WIndows users (http://tiny.cc/kfday)</a><br/>
 						<img src="images/QR_Code_KFDay.png" class="prof-pic" height="180" width="180"><br/>
-						<a href="http://tiny.cc/KFDayApk" target="_blank">Download APK(http://tiny.cc/KFDayApk)</a>
+						<a href="http://tiny.cc/kfdayapk" target="_blank">Download APK (http://tiny.cc/kfdayapk)</a>
 					</div>
 					
 					<div class="menu-item light-orange" id="logoff">
@@ -158,12 +158,12 @@
 								<form id="login-form" action="#" method="post" role="form"
 									autocomplete="off">
 									<div class="form-group">
-										<input type="text" name="email" id="login-email" tabindex="1"
-											class="form-control" placeholder="Employee ID" value="">
+										<input type="number" name="email" id="login-email" tabindex="1"
+											class="form-control" placeholder="Employee ID" value="" required>
 									</div>
 									<div class="form-group">
 										<input type="password" name="password" id="login-password"
-											tabindex="2" class="form-control" placeholder="Password">
+											tabindex="2" class="form-control" placeholder="Password" value="" required>
 									</div>
 									<div class="form-group text-center">
 										<input type="checkbox" tabindex="3" class="" name="remember"
@@ -386,13 +386,13 @@
 								<form id="register-form" class='js-custom-form' action="javascript:void(0)"
 									method="post" role="form" autocomplete="off">
 									<div class="form-group">
-										<input type="text" name="email" id="reg-email" tabindex="1"
+										<input type="number" name="email" id="reg-email" tabindex="1"
 											class="form-control" placeholder="Employee ID" value="{{emailID}}"
 											required disabled>
 									</div>
 									<div class="form-group">
 										<input type="text" name="name" id="reg-name" tabindex="2"
-											class="form-control" placeholder="Name" value="{{name}}" required>
+											class="form-control" placeholder="Name" value="{{name}}" required disabled>
 									</div>
 									<div class="form-group">
 										<input type="password" name="password" id="reg-password"
