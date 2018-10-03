@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.tcs.KingfisherDay.model.Employee;
 import com.tcs.KingfisherDay.model.Event;
 import com.tcs.KingfisherDay.model.EventResponse;
 import com.tcs.KingfisherDay.model.EventResponseEnvelope;
@@ -57,8 +58,12 @@ public class EventResponseService {
 					.findTop7ByEventIDOrderByTimeStampDesc(currentEvent.get(0).getEventID());
 			List<EventResponseEnvelope> eventResponseEnvelope = new ArrayList<EventResponseEnvelope>();
 			for (EventResponse eventResponse : eventResponses) {
-				eventResponseEnvelope.add(new EventResponseEnvelope(eventResponse,
-						employeeRepository.findByEmailID(eventResponse.getEmployeeEmail()).get(0)));
+				List<Employee> employeeList=employeeRepository.findByEmailID(eventResponse.getEmployeeEmail());
+				if(null!=employeeList && !employeeList.isEmpty()) {
+					eventResponseEnvelope.add(new EventResponseEnvelope(eventResponse, employeeList.get(0)));
+				}else {
+					System.err.println("No employee found against:: "+eventResponse.getEmployeeEmail());
+				}
 			}
 			return eventResponseEnvelope;
 		}

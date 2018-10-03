@@ -76,14 +76,14 @@ function loadEventsRatings() {
 				},
 				data : [ {
 					type : "column",
-					name : "Likes from Associates",
-					legendText : "Likes",
+					name : "Loves from Associates",
+					legendText : "Loves",
 					showInLegend : true,
 					dataPoints : likeArray1
 				}, {
 					type : "column",
-					name : "Dislikes from Associates",
-					legendText : "Dislikes",
+					name : "Likes from Associates",
+					legendText : "Likes",
 					axisYType : "secondary",
 					showInLegend : true,
 					dataPoints : dislikeArray1
@@ -111,14 +111,14 @@ function loadEventsRatings() {
 				},
 				data : [ {
 					type : "column",
-					name : "Likes from Associates",
-					legendText : "Likes",
+					name : "Loves from Associates",
+					legendText : "Loves",
 					showInLegend : true,
 					dataPoints : likeArray2
 				}, {
 					type : "column",
-					name : "Dislikes from Associates",
-					legendText : "Dislikes",
+					name : "Likes from Associates",
+					legendText : "Likes",
 					axisYType : "secondary",
 					showInLegend : true,
 					dataPoints : dislikeArray2
@@ -146,14 +146,14 @@ function loadEventsRatings() {
 				},
 				data : [ {
 					type : "column",
-					name : "Likes from Associates",
-					legendText : "Likes",
+					name : "Loves from Associates",
+					legendText : "Loves",
 					showInLegend : true,
 					dataPoints : likeArray3
 				}, {
 					type : "column",
-					name : "Dislikes from Associates",
-					legendText : "Dislikes",
+					name : "Likes from Associates",
+					legendText : "Likes",
 					axisYType : "secondary",
 					showInLegend : true,
 					dataPoints : dislikeArray3

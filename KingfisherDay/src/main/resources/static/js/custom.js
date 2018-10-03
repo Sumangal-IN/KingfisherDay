@@ -51,6 +51,10 @@ jQuery(document).ready(function($) {
 	
 	function onError(e) {
 		console.log("error:" + e);
+		if (stompClient !== null) {
+	        stompClient.disconnect();
+	        console.log("Disconnected");
+	    }
 	}
 	
 	
@@ -78,8 +82,10 @@ jQuery(document).ready(function($) {
 	function onErrorEvent(error) {
 		console.log('onErrorEvent()');
 		console.log(error);
-		stompClient = Stomp.over(new SockJS('/eventMobileWS'));
-		stompClient.connect({}, onConnectedEvent, onErrorEvent);
+		if (stompClient !== null) {
+	        stompClient.disconnect();
+	        console.log("Disconnected");
+	    }
 	}
 	
 	function onMessageReceivedEvent(payload) {
@@ -87,15 +93,17 @@ jQuery(document).ready(function($) {
 		var data=JSON.parse(payload.body);
 		console.log("onMessageReceivedEvent.data="+data);
 		if(data.length > 0){
-			console.log("eventID="+data[0].eventID);
+			for(var i = 0; i < data.length; i++) {
+				console.log("eventID="+data[i].eventID);
+				var template = $('#ui-template-vote-event').html();    
+				var currentEvent= $('.event-container').find('.js-event-tab-'+data[i].eventID);
+				var element = currentEvent.find('.event-vote');
+				if(element.length > 0){
+					element.html(Mustache.to_html(template, data[i]));
+					element.click();
+				}
+	        }
 			
-			var template = $('#ui-template-vote-event').html();    
-			var currentEvent= $('.event-container').find('.js-event-tab-'+data[0].eventID);
-			var element = currentEvent.find('.event-vote');
-			if(element.length > 0){
-				element.html(Mustache.to_html(template, data[0]));
-				element.click();
-			}
 		}else{
 			console.log("No event is running at this moment!!");
 			var previousEvent= $('.event-container').find('.event-vote');

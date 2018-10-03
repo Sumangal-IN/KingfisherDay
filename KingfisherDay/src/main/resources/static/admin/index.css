@@ -291,6 +291,12 @@
 	background-color: gray;
 	color: black;
 }
+.event_running {
+	border-radius: 10px;
+	box-shadow: 2px 2px 10px 0px rgba(0, 0, 0, 0.8);
+	background-color: #80ff80;
+	color: black;
+}
 
 .event_title {
 	font-weight: bold;

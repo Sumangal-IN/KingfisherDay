@@ -56,6 +56,13 @@ public class EventController {
 			messagingTemplate.convertAndSend("/topic/broadcastCurrentEvent", "");
 	}
 
+	@RequestMapping(value = "/closeAllEvents", method = RequestMethod.GET, produces = "application/json")
+	@ResponseBody
+	public void closeAllEvents() {
+		eventService.closeAllEvents();
+		messagingTemplate.convertAndSend("/topic/broadcastCurrentEvent", "");
+	}
+
 	@RequestMapping(value = "/saveEventResponse/{emailID}/{eventID}/{vote}", method = RequestMethod.GET, produces = "application/json")
 	@ResponseBody
 	public void saveEventResponse(@PathVariable("emailID") String emailID, @PathVariable("eventID") int eventID,

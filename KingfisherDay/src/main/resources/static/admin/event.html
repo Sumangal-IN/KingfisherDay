@@ -43,7 +43,7 @@
 				<div class="event_list">
 					<div class="row ml-5 pt-5" ng-show="showEventList">
 						<div class="col-2 m-3 p-3 event_box "
-							ng-class="event.state=='COMPLETED'?'event_gray':'event_box_{{randomColors[$index]}}'"
+							ng-class="event.state=='COMPLETED'?'event_gray':event.state=='RUNNING'?'event_running':'event_box_{{randomColors[$index]}}'"
 							ng-repeat="event in events" ng-click="startEvent(event)">
 							<div class="">
 								<i class="far {{event.photo}}"></i>

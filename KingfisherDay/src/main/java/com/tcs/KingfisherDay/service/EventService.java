@@ -24,14 +24,19 @@ public class EventService {
 	}
 
 	public void changeEventState(int eventID, String state) {
-		List<Event> events = eventRepository.findByState(EventState.RUNNING);
-		for (Event event : events) {
-			event.setState(EventState.COMPLETED);
-			eventRepository.save(event);
-		}
 		Event activeEvent = eventRepository.findByEventID(eventID);
 		activeEvent.setState(EventState.valueOf(state));
 		eventRepository.save(activeEvent);
+	}
+
+	public void closeAllEvents() {
+		List<Event> events = eventRepository.findByState(EventState.RUNNING);
+		if(null!=events && !events.isEmpty()) {
+			for (Event event : events) {
+				event.setState(EventState.COMPLETED);
+				eventRepository.save(event);
+			}
+		}
 	}
 
 }
