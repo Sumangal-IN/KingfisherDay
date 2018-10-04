@@ -1112,3 +1112,9 @@ img.prof-pic {
 
 
 
+@media only screen and (max-width: 991px) and (min-width: 600px) {
+	.menu-item {
+	    display: inline-block;
+	    width: 90%;
+	}
+}

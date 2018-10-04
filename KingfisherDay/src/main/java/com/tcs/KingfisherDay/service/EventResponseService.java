@@ -51,21 +51,28 @@ public class EventResponseService {
 		return new VoteCount(eventName, likeCount, dislikeCount);
 	}
 
-	public List<EventResponseEnvelope> getLatestResponses() {
-		List<Event> currentEvent = eventRepository.findByState(EventState.RUNNING);
-		if (null!=currentEvent && !currentEvent.isEmpty()) {
-			List<EventResponse> eventResponses = eventResponseRepository
-					.findTop7ByEventIDOrderByTimeStampDesc(currentEvent.get(0).getEventID());
-			List<EventResponseEnvelope> eventResponseEnvelope = new ArrayList<EventResponseEnvelope>();
-			for (EventResponse eventResponse : eventResponses) {
-				List<Employee> employeeList=employeeRepository.findByEmailID(eventResponse.getEmployeeEmail());
-				if(null!=employeeList && !employeeList.isEmpty()) {
-					eventResponseEnvelope.add(new EventResponseEnvelope(eventResponse, employeeList.get(0)));
-				}else {
-					System.err.println("No employee found against:: "+eventResponse.getEmployeeEmail());
+	public List<EventResponseEnvelope> getLatestResponses(int eventID) {
+		List<Event> runningEvents = eventRepository.findByState(EventState.RUNNING);
+		
+		if (null!=runningEvents && !runningEvents.isEmpty()) {
+			
+			for (Event event : runningEvents) {
+				if (eventID == event.getEventID()) {
+					List<EventResponse> eventResponses = eventResponseRepository
+							.findTop7ByEventIDOrderByTimeStampDesc(eventID);
+					List<EventResponseEnvelope> eventResponseEnvelope = new ArrayList<EventResponseEnvelope>();
+					for (EventResponse eventResponse : eventResponses) {
+						List<Employee> employeeList=employeeRepository.findByEmailID(eventResponse.getEmployeeEmail());
+						if(null!=employeeList && !employeeList.isEmpty()) {
+							eventResponseEnvelope.add(new EventResponseEnvelope(eventResponse, employeeList.get(0)));
+						}else {
+							System.err.println("No employee found against:: "+eventResponse.getEmployeeEmail());
+						}
+					}
+					return eventResponseEnvelope;
 				}
 			}
-			return eventResponseEnvelope;
+			
 		}
 		return null;
 	}
