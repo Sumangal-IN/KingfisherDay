@@ -267,8 +267,8 @@ jQuery(document).ready(function($) {
 					var view     = {events: events_array};
 					var template = $('#ui-template-all-event').html();
 					$('#event-modal').html(Mustache.to_html(template, view));
-					stompClient = Stomp.over(new SockJS(connectionURL+'/eventMobileWS'));
-					stompClient.connect({},onConnectedEvent,onErrorEvent);
+					/*stompClient = Stomp.over(new SockJS(connectionURL+'/eventMobileWS'));
+					stompClient.connect({},onConnectedEvent,onErrorEvent);*/
 				},
 				error: function(error) {
 					console.log(error);
